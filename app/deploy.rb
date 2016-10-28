@@ -1,7 +1,7 @@
-set :application, 'akademija'
+set :application, 'copy_paste'
 set :repo_url, '#'
 
-set :deploy_to, '/home/kickstart/'
+set :deploy_to, '/home/copy_paste/'
 
 set :archive_cache, true
 set :branch, 'master'
