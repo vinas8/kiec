@@ -15,4 +15,18 @@ class HomeController extends Controller
     {
         return $this->render('AppBundle:Home:index.html.twig', []);
     }
+
+    /**
+     * @Route("/edit/{classId}", name="edit")
+     */
+    public function editAction($classId)
+    {
+        $studentsService = $this->get('app.studentInfo');
+
+        $students = $studentsService->getFullDataByClass($classId);
+
+        return $this->render('AppBundle:Home:edit.html.twig', ["students" => $students]);
+    }
+
+
 }
