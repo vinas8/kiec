@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Results
+ * Result
  *
- * @ORM\Table(name="results")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ResultsRepository")
+ * @ORM\Table(name="result")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ResultRepository")
  */
-class Results
+class Result
 {
     /**
      * @var int
@@ -38,7 +38,6 @@ class Results
     /**
      * @var int
      *
-     * @ORM\Column(name="activity", type="integer")
      * @ORM\ManyToOne(targetEntity="Activity")
      */
     private $activity;
@@ -46,7 +45,6 @@ class Results
     /**
      * @var int
      *
-     * @ORM\Column(name="studentInfo", type="integer")
      * @ORM\ManyToOne(targetEntity="StudentInfo")
      */
     private $studentInfo;
@@ -67,7 +65,7 @@ class Results
      *
      * @param float $value
      *
-     * @return Results
+     * @return Result
      */
     public function setValue($value)
     {
@@ -91,7 +89,7 @@ class Results
      *
      * @param \DateTime $timestamp
      *
-     * @return Results
+     * @return Result
      */
     public function setTimestamp($timestamp)
     {
@@ -115,7 +113,7 @@ class Results
      *
      * @param integer $activity
      *
-     * @return Results
+     * @return Result
      */
     public function setActivity($activity)
     {
@@ -139,7 +137,7 @@ class Results
      *
      * @param integer $studentInfo
      *
-     * @return Results
+     * @return Result
      */
     public function setStudentInfo($studentInfo)
     {

@@ -10,6 +10,7 @@
 namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Validator\Constraints\Date;
 
 
 class StudentInfoService
@@ -25,9 +26,11 @@ class StudentInfoService
         $this->em = $em;
     }
 
-    public function getFullDataByClass($classId) {
+    public function getStudentListByClass($classId) {
+        $repository = $this->em->getRepository('AppBundle:ClassInfo');
+        $class = $repository->findOneById($classId);
         $repository = $this->em->getRepository('AppBundle:StudentInfo');
-        $students = $repository->findByClassInfo($classId);
+        $students = $repository->findByClassInfo($class);
 
         return $students;
     }

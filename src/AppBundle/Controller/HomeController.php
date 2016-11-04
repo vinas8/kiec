@@ -21,9 +21,9 @@ class HomeController extends Controller
      */
     public function editAction($classId)
     {
-        $studentsService = $this->get('app.studentInfo');
+        $studentsService = $this->get('app.student_info');
 
-        $students = $studentsService->getFullDataByClass($classId);
+        $students = $studentsService->getStudentListByClass($classId);
 
         return $this->render('AppBundle:Home:edit.html.twig', ["students" => $students]);
     }
