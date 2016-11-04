@@ -31,7 +31,6 @@ class StudentInfo
     /**
      * @var int
      *
-     * @ORM\Column(name="classInfo", type="integer")
      * @ORM\ManyToOne(targetEntity="ClassInfo")
      */
     private $classInfo;

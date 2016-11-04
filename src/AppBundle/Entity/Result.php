@@ -38,7 +38,6 @@ class Result
     /**
      * @var int
      *
-     * @ORM\Column(name="activity", type="integer")
      * @ORM\ManyToOne(targetEntity="Activity")
      */
     private $activity;
@@ -46,7 +45,6 @@ class Result
     /**
      * @var int
      *
-     * @ORM\Column(name="studentInfo", type="integer")
      * @ORM\ManyToOne(targetEntity="StudentInfo")
      */
     private $studentInfo;
