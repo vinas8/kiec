@@ -12,28 +12,23 @@
 		<div class="box-header with-border">
 			<h3 class="box-title">Rezultatų įvedimas</h3>
 			<div class="box-tools pull-right" style="position: static">
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						Pasirinkite rungtį
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						{% for activity in activities %}
-							<li><a href="#" class="activity" data-activityId="{{ activity.id }}">{{ activity.name }}</a></li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div><!-- /.box-tools -->
-		</div><!-- /.box-header -->
+                <select class="activitySelect">
+                        <option selected disabled>Pasirinkite rungtį</option>
+                        {% for activity in activities %}
+                                <option data-activityId="{{ activity.id }}">{{ activity.name }}</option>
+                        {% endfor %}
+                </select>
+			</div>
+		</div>
 		<div class="box-body">
 			{% for activity in activities %}
-				<ul class="list-group student-list" data-activityId="{{ activity.id }}" style="display: none">
+				<ul class="list-group activityChange hidden" data-activityId="{{ activity.id }}">
 					{% for student in students %}
 						<li class="list-group-item">
 							<div class="container-fluid">
 								<div class="col-xs-9">
 									<div class="row">
-										<a href="profile/{{ student.id }}">{{ loop.index }}. {{ student.name }}</a>
+										<a href="/profile/{{ student.id }}">{{ loop.index }}. {{ student.name }}</a>
 									</div>
 									<div class="row">
 										Paskutinis rezultatas:
@@ -66,6 +61,8 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
-	<script src="{{ asset('js/main.js') }}"></script>
+	    <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
+        {% javascripts '@AppBundle/Resources/scripts/main.js' %}
+                <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
 {% endblock %}
