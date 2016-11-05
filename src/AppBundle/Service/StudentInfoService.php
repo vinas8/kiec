@@ -35,4 +35,11 @@ class StudentInfoService
         return $students;
     }
 
+    public function getStudentById($studentId) {
+        $repository = $this->em->getRepository('AppBundle:StudentInfo');
+        $student = $repository->findOneById($studentId);
+
+        return $student;
+    }
+
 }

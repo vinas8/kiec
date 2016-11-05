@@ -1,0 +1,96 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block title %}KKnyga{% endblock %}
+
+{% block page_title %}Mokinio profilis{% endblock %}
+{% block page_subtitle %}{% endblock %}
+
+{% block page_content %}
+
+	<div class="container-fluid text-center">
+		<div class="col-md-4">
+			<div class="box">
+				<div class="box-header with-border">
+					<h3 class="box-title">Pagrindinė informacija</h3>
+				</div>
+				<div class="box-body">
+						{% image '@AppBundle/Resources/images/default_user_image.png' %}
+						<img src="{{ asset_url }}" class="img-rounded" style="width: 66px; height: auto; position: inline-block"/>
+						{% endimage %}
+						<div class="row">
+							<h4>{{ student.name }}</h4>
+						</div>
+						<div class="row">
+							Gimimo data: {{ student.birthDate|date("Y-m-d") }}
+						</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="box">
+				<div class="box-header with-border">
+					<h3 class="box-title">Geriausi rezultatai</h3>
+				</div>
+				<div class="box-body no-padding">
+					<table class="table table-striped">
+						<tr>
+							<th class="text-center">Rungtis</th>
+							<th class="text-center">Rezultatas</th>
+						</tr>
+						{% for bestResult in bestResults %}
+							<tr>
+								<td>{{ bestResult.activity.name }}</td>
+								<td>{{ bestResult.value }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="box">
+				<div class="box-header with-border">
+					<h3 class="box-title">Palyginimai</h3>
+					<div class="box-tools pull-right" style="position: static">
+						<select class="activitySelect">
+							<option selected disabled>Pasirinkite rungtį</option>
+							{% for activity in activities %}
+								<option data-activityId="{{ activity.id }}">{{ activity.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="box-body no-padding">
+
+					{% for activity in activities %}
+						<table class="table table-striped activityChange hidden" data-activityId="{{ activity.id }}">
+							<tr>
+								<th class="text-center">Data</th>
+								<th class="text-center">Rezultatas</th>
+							</tr>
+							{% for result in results if result.activity.id == activity.id %}
+								<tr>
+									<td>{{ result.timestamp|date("Y-m-d h:i:s") }}</td>
+									<td>{{ result.value }}</td>
+								</tr>
+							{% endfor %}
+						</table>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block avanzu_admin_footer %}
+{% endblock %}
+
+{% block javascripts %}
+
+	<script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
+	{% javascripts '@AppBundle/Resources/scripts/main.js' %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+{% endblock %}
