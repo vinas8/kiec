@@ -21,13 +21,13 @@ class HomeController extends Controller
      */
     public function editAction($classId)
     {
-        $studentsService = $this->get('app.student_info');
+        $studentInfoService = $this->get('app.student_info');
         $activityService = $this->get('app.activity');
         $resultService = $this->get('app.result');
 
-        $activities = $activityService->getAllActivities();
-        $results = $resultService->getLastResults();
-        $students = $studentsService->getStudentListByClass($classId);
+        $activities = $activityService->getActivityList();
+        $results = $resultService->getLastResultsByClass($classId);
+        $students = $studentInfoService->getStudentListByClass($classId);
 
         return $this->render('AppBundle:Home:edit.html.twig', ["students" => $students, "activities" => $activities, "results" => $results]);
     }

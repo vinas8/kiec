@@ -22,7 +22,7 @@ class ActivityService
         $this->em = $em;
     }
 
-    public function getAllActivities() {
+    public function getActivityList() {
         $repository = $this->em->getRepository('AppBundle:Activity');
         $activities = $repository->findAll();
 

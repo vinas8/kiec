@@ -12,4 +12,4 @@ services:
           arguments: ["@doctrine.orm.entity_manager"]
     app.result:
           class: AppBundle\Service\ResultService
-          arguments: ["@doctrine.orm.entity_manager"]
+          arguments: ["@doctrine.orm.entity_manager", "@app.student_info", "@app.activity"]

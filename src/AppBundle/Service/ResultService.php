@@ -8,6 +8,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Activity;
+use AppBundle\Entity\StudentInfo;
 use Doctrine\ORM\EntityManager;
 
 class ResultService
@@ -17,19 +19,44 @@ class ResultService
      */
     private $em;
 
-    public function __construct(EntityManager $em)
+    private $studentInfoService;
+
+    private $activityService;
+
+    public function __construct(EntityManager $em, StudentInfoService $studentInfoService, ActivityService $activityService)
     {
         $this->em = $em;
+        $this->studentInfoService = $studentInfoService;
+        $this->activityService = $activityService;
     }
 
-    public function getLastResults() {
+    public function getLastResultsByClass($classId) {
+        $activities = $this->activityService->getActivityList();
+        $students = $this->studentInfoService->getStudentListByClass($classId);
+        $results = array();
+        foreach ($activities as $activity) {
+            foreach ($students as $student) {
+                $result = $this->getLastResult($activity, $student);
+                if ($result !== null) {
+                    array_push($results, $result);
+                }
+            }
+        }
+        return $results;
+    }
+
+    public function getLastResult($activity, $student) {
         $repository = $this->em->getRepository('AppBundle:Result');
         $query = $repository->createQueryBuilder('r')
-            ->select('r')
+            ->where("r.studentInfo = :student")
+            ->setParameter("student", $student)
+            ->andWhere("r.activity = :activity")
+            ->setParameter("activity", $activity)
             ->orderBy('r.timestamp', 'DESC')
+            ->setMaxResults(1)
             ->getQuery();
-        $results = $query->getResult();
+        $result = $query->getOneOrNullResult();
 
-        return $results;
+        return $result;
     }
 }
