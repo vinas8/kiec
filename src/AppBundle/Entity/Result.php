@@ -147,7 +147,7 @@ class Result
     }
 
     /**
-     * Get studentInfo
+     * Get studentInfo | StudentInfo[]
      *
      * @return int
      */

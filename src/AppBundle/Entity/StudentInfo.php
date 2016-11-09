@@ -134,7 +134,7 @@ class StudentInfo
     }
 
     /**
-     * @return Collection
+     * @return Collection | Result[]
      */
     public function getResults()
     {

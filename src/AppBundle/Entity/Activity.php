@@ -73,7 +73,7 @@ class Activity
     }
 
     /**
-     * @return Collection
+     * @return Collection | Result[]
      */
     public function getResults()
     {
