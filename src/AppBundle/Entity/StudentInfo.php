@@ -31,7 +31,7 @@ class StudentInfo
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="ClassInfo")
+     * @ORM\ManyToOne(targetEntity="ClassInfo", inversedBy="students")
      */
     private $classInfo;
 
@@ -41,6 +41,14 @@ class StudentInfo
      * @ORM\Column(name="birthDate", type="datetime", length=255)
      */
     private $birthDate;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Result", mappedBy="studentInfo")
+     *
+     */
+    private $results;
 
 
     /**
@@ -124,5 +132,24 @@ class StudentInfo
     {
         return $this->birthDate;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getResults()
+    {
+        return $this->results;
+    }
+
+    /**
+     * @param Collection $results
+     * @return StudentInfo
+     */
+    public function setResults($results)
+    {
+        $this->results = $results;
+        return $this;
+    }
+
 }
 

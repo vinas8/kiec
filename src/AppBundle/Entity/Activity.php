@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +28,14 @@ class Activity
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Result", mappedBy="activity")
+     *
+     */
+    private $results;
 
 
     /**
@@ -61,6 +70,24 @@ class Activity
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getResults()
+    {
+        return $this->results;
+    }
+
+    /**
+     * @param Collection $results
+     * @return Activity
+     */
+    public function setResults($results)
+    {
+        $this->results = $results;
+        return $this;
     }
 }
 

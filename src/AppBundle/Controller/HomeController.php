@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ClassInfo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -17,13 +18,11 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("/edit/{classId}", name="edit")
+     * @Route("/lesson/view/{class}", name="lesson_view")
      */
-    public function editAction($classId)
+    public function editAction(ClassInfo $class)
     {
-        $studentsService = $this->get('app.student_info');
-
-        $students = $studentsService->getStudentListByClass($classId);
+        $students = $class->getStudents();
 
         return $this->render('AppBundle:Home:edit.html.twig', ["students" => $students]);
     }

@@ -36,16 +36,16 @@ class Result
     private $timestamp;
 
     /**
-     * @var int
+     * @var object
      *
-     * @ORM\ManyToOne(targetEntity="Activity")
+     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="results")
      */
     private $activity;
 
     /**
-     * @var int
+     * @var object
      *
-     * @ORM\ManyToOne(targetEntity="StudentInfo")
+     * @ORM\ManyToOne(targetEntity="StudentInfo", inversedBy="results")
      */
     private $studentInfo;
 
@@ -111,7 +111,7 @@ class Result
     /**
      * Set activity
      *
-     * @param integer $activity
+     * @param Activity $activity
      *
      * @return Result
      */
@@ -135,7 +135,7 @@ class Result
     /**
      * Set studentInfo
      *
-     * @param integer $studentInfo
+     * @param StudentInfo $studentInfo
      *
      * @return Result
      */
