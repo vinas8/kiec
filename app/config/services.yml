@@ -11,3 +11,6 @@ services:
     app.result:
           class: AppBundle\Service\ResultService
           arguments: ["@doctrine.orm.entity_manager"]
+    app.lesson_service:
+        class: AppBundle\Service\LessonService
+        arguments: [ "@doctrine.orm.entity_manager" ]
