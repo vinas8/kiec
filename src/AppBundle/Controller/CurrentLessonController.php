@@ -19,7 +19,7 @@ class CurrentLessonController extends Controller
     public function resultsAction()
     {
         $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
-        return $this->render('current_lesson/results.html.twig', [
+        return $this->render('@App/current_lesson/results.html.twig', [
             'currentLesson' => $currentLesson
         ]);
     }
