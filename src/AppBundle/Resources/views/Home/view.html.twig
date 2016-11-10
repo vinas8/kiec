@@ -32,11 +32,12 @@
 									</div>
 									<div class="row">
 										Paskutinis rezultatas:
-										{% for result in results if result.activity.id == activity.id and result.studentInfo.id == student.id %}
-											{{ result.value }}
+										{% if results[student.id][activity.id] is defined %}
+											{{ results[student.id][activity.id] }}
 										{% else %}
 											nėra
-										{% endfor %}
+										{% endif %}
+
 									</div>
 								</div>
 								<div class="col-xs-3">

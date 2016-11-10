@@ -19,44 +19,31 @@ class ResultService
      */
     private $em;
 
-    private $studentInfoService;
-
-    private $activityService;
-
-    public function __construct(EntityManager $em, StudentInfoService $studentInfoService, ActivityService $activityService)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->studentInfoService = $studentInfoService;
-        $this->activityService = $activityService;
     }
 
-    public function getLastResultsByClass($classId) {
-        $activities = $this->activityService->getActivityList();
-        $students = $this->studentInfoService->getStudentListByClass($classId);
-        $results = array();
-        foreach ($activities as $activity) {
-            foreach ($students as $student) {
-                $result = $this->getLastResult($activity, $student);
-                if ($result !== null) {
-                    array_push($results, $result);
-                }
-            }
-        }
-        return $results;
-    }
-
-    public function getLastResult($activity, $student) {
-        $repository = $this->em->getRepository('AppBundle:Result');
-        $query = $repository->createQueryBuilder('r')
-            ->where("r.studentInfo = :student")
-            ->setParameter("student", $student)
-            ->andWhere("r.activity = :activity")
-            ->setParameter("activity", $activity)
-            ->orderBy('r.timestamp', 'DESC')
-            ->setMaxResults(1)
+    public function getLastResultsByClass($class) {
+        $query = $this->em->createQueryBuilder()
+            ->select('r, s')
+            ->from('AppBundle:Result', 'r')
+            ->innerJoin("r.studentInfo", "s")
+            ->where("s.classInfo = :class")
+            ->setParameter("class", $class)
+            ->groupBy("r.activity")
+            ->groupBy("r.studentInfo")
             ->getQuery();
-        $result = $query->getOneOrNullResult();
+        $results = $query->getResult();
 
-        return $result;
+        $lastResults = [];
+        foreach ($results as $result) {
+            $studentId = $result->getStudentInfo()->getId();
+            $activityId = $result->getActivity()->getId();
+            $lastResults[$studentId][$activityId] = $result->getValue();
+        }
+
+        return $lastResults;
     }
+
 }
