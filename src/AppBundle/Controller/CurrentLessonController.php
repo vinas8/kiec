@@ -14,11 +14,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class CurrentLessonController extends Controller
 {
     /**
-     * @Route("/rezultatu_ivedimas/dabartine_pamoka", name="current_lesson_input_result")
+     * @Route("/rezultatu-ivedimas/dabartine-pamoka", name="current_lesson_input_result")
      */
     public function resultsAction()
     {
-        $currentLesson = $this->get('app.lesson')->getCurrentLesson();
+        $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
         return $this->render('current_lesson/results.html.twig', [
             'currentLesson' => $currentLesson
         ]);

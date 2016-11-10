@@ -10,6 +10,7 @@ namespace AppBundle\Service;
 
 
 use AppBundle\Entity\Lesson;
+use AppBundle\Exception\LessonException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -34,10 +35,10 @@ class LessonService
             return $this->em->getRepository("AppBundle:Lesson")->findLessonByTime($now);
         }
         catch (NonUniqueResultException $e) {
-            var_dump("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį <br><br>" . $e);die;
+            throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
         }
         catch (NoResultException $e) {
-            var_dump("Šiuo metu nėra pamokos <br><br>" . $e); die;
+            throw new LessonException("Šiuo metu nėra pamokos");
         }
     }
 }
