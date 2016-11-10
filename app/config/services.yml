@@ -3,4 +3,7 @@
 parameters:
 #    parameter_name: value
 
-
+services:
+    app.lesson_service:
+        class: AppBundle\Service\LessonService
+        arguments: [ "@doctrine.orm.entity_manager" ]
