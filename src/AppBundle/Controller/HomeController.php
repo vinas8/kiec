@@ -20,11 +20,15 @@ class HomeController extends Controller
     /**
      * @Route("/lesson/view/{class}", name="lesson_view")
      */
-    public function editAction(ClassInfo $class)
+    public function viewAction(ClassInfo $class = null)
     {
+        $activityService = $this->get('app.activity');
+        $resultService = $this->get('app.result');
         $students = $class->getStudents();
+        $activities = $activityService->getActivityList();
+        $results = $resultService->getLastResultsByClass($class);
 
-        return $this->render('AppBundle:Home:edit.html.twig', ["students" => $students]);
+        return $this->render('AppBundle:Home:view.html.twig', ["students" => $students, "activities" => $activities, "results" => $results]);
     }
 
 
