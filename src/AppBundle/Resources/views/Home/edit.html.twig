@@ -1,0 +1,19 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block title %}KKnyga{% endblock %}
+
+{% block page_title %}8:30 - 9a{% endblock %}
+{% block page_subtitle %}{% endblock %}
+
+{% block page_content %}
+
+<ul class="list-group">
+    {% for student in students %}
+        <li class="list-group-item"><a href="profile/{{ student.id }}">{{ loop.index }}. {{ student.name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block avanzu_admin_footer %}
+{% endblock %}

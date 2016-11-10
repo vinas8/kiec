@@ -2,15 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ClassInfo
+ * Activity
  *
- * @ORM\Table(name="class_info")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassInfoRepository")
+ * @ORM\Table(name="activity")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ActivityRepository")
  */
-class ClassInfo
+class Activity
 {
     /**
      * @var int
@@ -31,10 +32,11 @@ class ClassInfo
     /**
      * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="StudentInfo", mappedBy="classInfo")
+     * @ORM\OneToMany(targetEntity="Result", mappedBy="activity")
      *
      */
-    private $students;
+    private $results;
+
 
     /**
      * Get id
@@ -51,7 +53,7 @@ class ClassInfo
      *
      * @param string $name
      *
-     * @return ClassInfo
+     * @return Activity
      */
     public function setName($name)
     {
@@ -71,22 +73,21 @@ class ClassInfo
     }
 
     /**
-     * @return Collection
+     * @return Collection | Result[]
      */
-    public function getStudents()
+    public function getResults()
     {
-        return $this->students;
+        return $this->results;
     }
 
     /**
-     * @param Collection $students
-     * @return ClassInfo
+     * @param Collection $results
+     * @return Activity
      */
-    public function setStudents($students)
+    public function setResults($results)
     {
-        $this->students = $students;
+        $this->results = $results;
         return $this;
     }
-
 }
 
