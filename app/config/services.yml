@@ -4,6 +4,7 @@ parameters:
 
 
 services:
+
   app_bundle.menu_listener:
     class: AppBundle\EventListener\MenuItemListener
     tags:

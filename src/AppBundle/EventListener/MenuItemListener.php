@@ -2,9 +2,8 @@
 namespace AppBundle\EventListener;
 
 
-use AppBundle\Collection\Collection;
+use AppBundle\Model\MenuItemModel;
 use Avanzu\AdminThemeBundle\Event\SidebarMenuEvent;
-use Avanzu\AdminThemeBundle\Model\MenuItemModel;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuItemListener
@@ -20,40 +19,17 @@ class MenuItemListener
 
     protected function getMenu(Request $request)
     {
-        $home = new MenuItemModel('menu-item-home', 'Pradžia', '/');
-        $home->setIcon('fa fa-home');
-
-        $lesson = new MenuItemModel('menu-item-lesson', 'Dabartinė pamoka', '/current');
-        $lesson->setIcon('fa fa-clock-o');
-
-        $schedule = new MenuItemModel('menu-item-schedule', 'Tvarkaraštis', '/schedule');
-        $schedule->setIcon('fa fa-calendar');
-
-        $classes = new MenuItemModel('menu-item-classes', 'Klasės', '/classes');
-        $classes->setIcon('fa fa-list');
-
-        $items = new Collection();
-        $items->put($home);
-        $items->put($lesson);
-        $items->put($schedule);
-        $items->put($classes);
-
-        // TODO: add logout to the menu
-        //
-        // if User is logged in {
-        //      $logout = new MenuItemModel('menu-item-logout', 'Atsijungti', '/logout');
-        //      $logout->setIcon('fa fa-sign-out');
-        //
-        //      $item->put($logout);
-        // }
+        $items = [
+            $home = new MenuItemModel('homepage', 'Pradžia', 'fa fa-home')
+        ];
 
         return $this->activateByRoute($request->get('_route'), $items);
     }
 
     /**
      * @param  mixed $route
-     * @param  Collection $items
-     * @return Collection
+     * @param  array $items
+     * @return array
      */
     protected function activateByRoute($route, $items)
     {
