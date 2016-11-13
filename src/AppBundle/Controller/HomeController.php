@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ClassInfo;
+use AppBundle\Entity\StudentInfo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -18,35 +19,34 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("/lesson/view/{class}", name="lesson_view")
+     * @Route("/lesson/view/{classInfo}", name="lesson_view")
      */
-    public function viewAction(ClassInfo $class = null)
+    public function viewAction(ClassInfo $classInfo = null)
     {
         $activityService = $this->get('app.activity');
         $resultService = $this->get('app.result');
-        $students = $class->getStudents();
+        $studentInfoService = $this->get('app.student_info');
+        $students = $studentInfoService->getStudentListByClass($classInfo);
         $activities = $activityService->getActivityList();
-        $results = $resultService->getLastResultsByClass($class);
+        $results = $resultService->getLastResultsByClass($classInfo);
 
         return $this->render('AppBundle:Home:view.html.twig', ["students" => $students, "activities" => $activities, "results" => $results]);
     }
 
     /**
-     * @Route("/profile/{studentId}", name="profile")
+     * @Route("/profile/{studentInfo}", name="profile")
      */
-    public function profileAction($studentId)
+    public function profileAction(StudentInfo $studentInfo = null)
     {
-        $studentInfoService = $this->get('app.student_info');
         $activityService = $this->get('app.activity');
         $resultService = $this->get('app.result');
 
-        $student = $studentInfoService->getStudentById($studentId);
         $activities = $activityService->getActivityList();
-        $bestResults = $resultService->getBestResultsByStudent($studentId);
-        $results = $resultService->getResultListByStudent($studentId);
+        $bestResults = $resultService->getBestResultsByStudent($studentInfo);
+        $allResults = $resultService->getResultListByStudent($studentInfo);
 
-        return $this->render('AppBundle:Home:profile.html.twig', ["student" => $student, "activities" => $activities,
-        "bestResults" => $bestResults, "results" => $results]);
+        return $this->render('AppBundle:Home:profile.html.twig', ["student" => $studentInfo, "activities" => $activities,
+        "bestResults" => $bestResults, "allResults" => $allResults]);
     }
 
 

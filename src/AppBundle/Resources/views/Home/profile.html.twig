@@ -6,9 +6,8 @@
 {% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
-
 	<div class="container-fluid text-center">
-		<div class="col-md-4">
+		<div class="col-lg-4">
 			<div class="box">
 				<div class="box-header with-border">
 					<h3 class="box-title">Pagrindinė informacija</h3>
@@ -26,12 +25,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-lg-4">
 			<div class="box">
 				<div class="box-header with-border">
 					<h3 class="box-title">Geriausi rezultatai</h3>
 				</div>
 				<div class="box-body no-padding">
+					{% if bestResults is not empty %}
 					<table class="table table-striped">
 						<tr>
 							<th class="text-center">Rungtis</th>
@@ -39,20 +39,23 @@
 						</tr>
 						{% for bestResult in bestResults %}
 							<tr>
-								<td>{{ bestResult.activity.name }}</td>
-								<td>{{ bestResult.value }}</td>
+								<td>{{ bestResult.result.activity.name }}</td>
+								<td>{{ bestResult.max_value }}</td>
 							</tr>
 						{% endfor %}
 					</table>
+					{% else %}
+						<div class="alert alert-danger no-margin" role="alert">Rezultatų nėra</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-lg-4">
 			<div class="box">
 				<div class="box-header with-border">
 					<h3 class="box-title">Palyginimai</h3>
 					<div class="box-tools pull-right" style="position: static">
-						<select class="activitySelect">
+						<select class="activity-select">
 							<option selected disabled>Pasirinkite rungtį</option>
 							{% for activity in activities %}
 								<option data-activityId="{{ activity.id }}">{{ activity.name }}</option>
@@ -61,20 +64,23 @@
 					</div>
 				</div>
 				<div class="box-body no-padding">
-
 					{% for activity in activities %}
-						<table class="table table-striped activityChange hidden" data-activityId="{{ activity.id }}">
+						{% if allResults[activity.id] is defined %}
+						<table class="table table-striped activity-change hidden" data-activityId="{{ activity.id }}">
 							<tr>
 								<th class="text-center">Data</th>
 								<th class="text-center">Rezultatas</th>
 							</tr>
-							{% for result in results if result.activity.id == activity.id %}
+							{% for result in allResults[activity.id] %}
 								<tr>
-									<td>{{ result.timestamp|date("Y-m-d h:i:s") }}</td>
+									<td>{{ result.timestamp|date("Y-m-d H:m:s") }}</td>
 									<td>{{ result.value }}</td>
 								</tr>
 							{% endfor %}
 						</table>
+						{% else %}
+							<div class="alert alert-danger activity-change no-margin hidden" role="alert" data-activityId="{{ activity.id }}">Rezultatų nėra</div>
+						{% endif %}
 					{% endfor %}
 				</div>
 			</div>
