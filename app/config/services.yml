@@ -5,7 +5,7 @@ parameters:
 
 services:
 
-  app_bundle.menu_listener:
+  app.menu_listener:
     class: AppBundle\EventListener\MenuItemListener
     tags:
       - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
