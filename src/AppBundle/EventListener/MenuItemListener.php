@@ -20,7 +20,8 @@ class MenuItemListener
     protected function getMenu(Request $request)
     {
         $items = [
-            $home = new MenuItemModel('homepage', 'Pradžia', 'fa fa-home')
+            $home = new MenuItemModel('homepage', 'Pradžia', 'fa fa-home'),
+            $lesson = new MenuItemModel('current_lesson_input_result', 'Dabartinė pamoka', 'fa fa-clock-o')
         ];
 
         return $this->activateByRoute($request->get('_route'), $items);
