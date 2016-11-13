@@ -61,12 +61,6 @@ class ResultService
             ->getQuery();
         $results = $query->getResult();
 
-        //$bestResults = [];
-        //foreach ($results as $result) {
-        //    $activityId = $result->getActivity()->getId();
-        //    $bestResults[$activityId] = $result;
-        //}
-
         return $results;
     }
 
