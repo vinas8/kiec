@@ -37,7 +37,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-        admin_skin: skin-red-light
+        admin_skin: skin-red
 
 # Doctrine Configuration
 doctrine:
@@ -68,3 +68,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    bundles: [ AppBundle ]
+    filters:
+        cssrewrite: ~
