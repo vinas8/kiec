@@ -21,7 +21,7 @@ class MenuItemListener
     {
         $items = [
             $home = new MenuItemModel('homepage', 'Pradžia', 'fa fa-home'),
-            $lesson = new MenuItemModel('current_lesson_input_result', 'Dabartinė pamoka', 'fa fa-clock-o')
+            $lesson = new MenuItemModel('current', 'Dabartinė pamoka', 'fa fa-clock-o')
         ];
 
         return $this->activateByRoute($request->get('_route'), $items);

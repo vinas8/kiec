@@ -21,7 +21,12 @@ services:
         arguments:
             - AppBundle\Entity\Lesson
 
+    app.lesson_listener:
+        class: AppBundle\EventListener\LessonControllerListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onInit }
+
     app.menu_listener:
         class: AppBundle\EventListener\MenuItemListener
         tags:
-          - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
+          - { name: kernel.event_listener, event: theme.sidebar_setup_menu, method: onSetupMenu }
