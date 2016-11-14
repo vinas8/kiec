@@ -61,4 +61,15 @@ class LessonService
     {
         return $this->repository->findPrevLesson($id);
     }
+
+    /**
+     * Finds lesson by given id
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getLesson($id)
+    {
+        return $this->repository->findLesson($id);
+    }
 }

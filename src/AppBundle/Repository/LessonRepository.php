@@ -57,4 +57,20 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    /**
+     * Finds lesson by given id
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function findLesson($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->setParameter('id', $id)
+            ->where('a.id = :id')
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getSingleResult();
+    }
 }
