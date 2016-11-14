@@ -25,7 +25,7 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Finds next lesson by given id
      *
-     * @param  string $id
+     * @param  mixed $id
      * @return mixed
      */
     public function findNextLesson($id)
@@ -41,9 +41,9 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Finds next lesson by given id
+     * Finds previous lesson by given id
      *
-     * @param  string $id
+     * @param  mixed $id
      * @return mixed
      */
     public function findPrevLesson($id)
