@@ -41,4 +41,14 @@ class LessonService
             throw new LessonException("Šiuo metu nėra pamokos");
         }
     }
+
+    public function getNext($id)
+    {
+        return $this->em->getRepository('AppBundle:Lesson')->findNextLesson($id);
+    }
+
+    public function getPrev($id)
+    {
+        return $this->em->getRepository('AppBundle:Lesson')->findPrevLesson($id);
+    }
 }

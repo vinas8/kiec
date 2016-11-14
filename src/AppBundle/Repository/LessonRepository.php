@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Lesson;
+
 /**
  * LessonRepository
  *
@@ -18,5 +20,41 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getSingleResult()
         ;
+    }
+
+    /**
+     * Finds next lesson by given id
+     *
+     * @param  string $id
+     * @return mixed
+     */
+    public function findNextLesson($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->setParameter('id', $id)
+            ->leftJoin(Lesson::class, 'b', 'WITH', 'b.id = :id')
+            ->where('a.startTime >= b.endTime')
+            ->orderBy('a.startTime')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    /**
+     * Finds next lesson by given id
+     *
+     * @param  string $id
+     * @return mixed
+     */
+    public function findPrevLesson($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->setParameter('id', $id)
+            ->leftJoin(Lesson::class, 'b', 'WITH', 'b.id = :id')
+            ->where('a.endTime <= b.startTime')
+            ->orderBy('a.startTime', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
     }
 }
