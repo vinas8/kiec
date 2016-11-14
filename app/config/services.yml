@@ -21,8 +21,8 @@ services:
         arguments:
             - AppBundle\Entity\Lesson
 
-    app.lesson_listener:
-        class: AppBundle\EventListener\LessonControllerListener
+    app.controller_listener:
+        class: AppBundle\EventListener\ControllerListener
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onInit }
 

@@ -5,7 +5,7 @@ namespace AppBundle\EventListener;
 use AppBundle\Controller\InitializableController;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
-class LessonControllerListener
+class ControllerListener
 {
     public function onInit(FilterControllerEvent $event)
     {
