@@ -1,28 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zn
- * Date: 16.11.7
- * Time: 12.21
- */
-
 namespace AppBundle\Service;
 
-
-use AppBundle\Entity\Lesson;
 use AppBundle\Exception\LessonException;
-use Doctrine\ORM\EntityManager;
+use AppBundle\Repository\LessonRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 
 class LessonService
 {
+    /**
+     * @var LessonRepository
+     */
+    private $repository;
 
-    private $em;
-
-    public function __construct(EntityManager $entityManager)
+    /**
+     * LessonService constructor.
+     *
+     * @param LessonRepository $repository
+     */
+    public function __construct(LessonRepository $repository)
     {
-        $this->em = $entityManager;
+        $this->repository = $repository;
     }
 
     public function getCurrentLesson()
@@ -32,7 +30,7 @@ class LessonService
         $now->setTimezone(new \DateTimeZone('Europe/Vilnius'));
 
         try {
-            return $this->em->getRepository("AppBundle:Lesson")->findLessonByTime($now);
+            return $this->repository->findLessonByTime($now);
         }
         catch (NonUniqueResultException $e) {
             throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
@@ -42,13 +40,25 @@ class LessonService
         }
     }
 
+    /**
+     * Finds next lesson by given id
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
     public function getNext($id)
     {
-        return $this->em->getRepository('AppBundle:Lesson')->findNextLesson($id);
+        return $this->repository->findNextLesson($id);
     }
 
+    /**
+     * Finds previous lesson by given id
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
     public function getPrev($id)
     {
-        return $this->em->getRepository('AppBundle:Lesson')->findPrevLesson($id);
+        return $this->repository->findPrevLesson($id);
     }
 }

@@ -13,7 +13,13 @@ services:
           arguments: ["@doctrine.orm.entity_manager"]
     app.lesson_service:
         class: AppBundle\Service\LessonService
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments: ['@app.lesson_repository']
+
+    app.lesson_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Lesson
 
     app.menu_listener:
         class: AppBundle\EventListener\MenuItemListener
