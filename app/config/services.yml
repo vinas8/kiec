@@ -4,3 +4,18 @@ parameters:
 #    parameter_name: value
 
 
+services:
+    app.activity:
+          class: AppBundle\Service\ActivityService
+          arguments: ["@doctrine.orm.entity_manager"]
+    app.result:
+          class: AppBundle\Service\ResultService
+          arguments: ["@doctrine.orm.entity_manager"]
+    app.lesson_service:
+        class: AppBundle\Service\LessonService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.menu_listener:
+        class: AppBundle\EventListener\MenuItemListener
+        tags:
+          - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }

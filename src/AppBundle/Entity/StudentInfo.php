@@ -36,9 +36,9 @@ class StudentInfo
     private $classInfo;
 
     /**
-     * @var datetime
+     * @var date
      *
-     * @ORM\Column(name="birthDate", type="datetime", length=255)
+     * @ORM\Column(name="birthDate", type="date", length=255)
      */
     private $birthDate;
 
