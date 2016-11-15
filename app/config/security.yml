@@ -37,7 +37,7 @@ security:
                 login_path: /login
 #                use_forward: false
                 failure_path: /login
-
+                default_target_path: /
 
                 check_path: /connect_check
                 provider: fos_userbundle
