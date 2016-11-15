@@ -2,16 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: robertas
- * Date: 16.11.3
- * Time: 20.02
+ * Date: 16.11.13
+ * Time: 15.22
  */
 
 namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 
-class ActivityService
+class StudentInfoService
 {
+
     /**
      * @var EntityManager
      */
@@ -22,13 +23,16 @@ class ActivityService
         $this->em = $em;
     }
 
-    public function getActivityList() {
-        $repository = $this->em->getRepository('AppBundle:Activity');
+    public function getStudentListByClass($classInfo) {
+        $repository = $this->em->getRepository('AppBundle:StudentInfo');
         $query = $repository->createQueryBuilder('r')
+            ->where("r.classInfo = :class")
+            ->setParameter("class", $classInfo)
             ->orderBy('r.name')
             ->getQuery();
-        $activities = $query->getResult();
+        $students = $query->getResult();
 
-        return $activities;
+        return $students;
     }
+
 }

@@ -6,13 +6,16 @@ parameters:
 
 services:
     app.activity:
-          class: AppBundle\Service\ActivityService
-          arguments: ["@doctrine.orm.entity_manager"]
+        class: AppBundle\Service\ActivityService
+        arguments: ["@doctrine.orm.entity_manager"]
     app.result:
-          class: AppBundle\Service\ResultService
-          arguments: ["@doctrine.orm.entity_manager"]
+        class: AppBundle\Service\ResultService
+        arguments: ["@doctrine.orm.entity_manager"]
     app.lesson_service:
         class: AppBundle\Service\LessonService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+    app.student_info:
+        class: AppBundle\Service\StudentInfoService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
     app.menu_listener:
