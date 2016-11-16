@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

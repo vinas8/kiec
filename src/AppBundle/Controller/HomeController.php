@@ -15,7 +15,11 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Home:index.html.twig', []);
+        $auth = false;
+        if( $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') ){
+            $auth = true;
+        }
+        return $this->render('AppBundle:Home:index.html.twig', ['auth' => $auth]);
     }
 
     /**
