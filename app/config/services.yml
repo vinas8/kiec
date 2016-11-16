@@ -14,6 +14,9 @@ services:
     app.lesson_service:
         class: AppBundle\Service\LessonService
         arguments: [ "@doctrine.orm.entity_manager" ]
+    app.student_info:
+        class: AppBundle\Service\StudentInfoService
+        arguments: [ "@doctrine.orm.entity_manager" ]
     my_user_provider:
         class: AppBundle\Security\Core\User\FOSUBUserProvider
         #facebook: facebook_id, this is the place where the properties are passed to the UserProvider - see config.yml
