@@ -3,19 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\User as FOSUser;
 
 /**
- * Teacher
- *
- * @ORM\Table(name="teacher")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TeacherRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
  */
-class Teacher extends User
+class User extends FOSUser
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -23,7 +19,7 @@ class Teacher extends User
     protected $id;
 
     /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-    protected $google_id;
+    private $google_id;
 
     /**
      * @return mixed
@@ -57,7 +53,7 @@ class Teacher extends User
         $this->google_access_token = $google_access_token;
     }
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
-    protected $google_access_token;
+    private $google_access_token;
 
 
 
@@ -84,7 +80,7 @@ class Teacher extends User
      *
      * @param string $name
      *
-     * @return Teacher
+     * @return User
      */
     public function setName($name)
     {
