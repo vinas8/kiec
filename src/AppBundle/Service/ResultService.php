@@ -9,6 +9,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Activity;
+use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
 use Doctrine\ORM\EntityManager;
 
@@ -24,15 +25,16 @@ class ResultService
         $this->em = $em;
     }
 
-    public function getLastResultsByClass($class) {
+    public function getLastResultsByClass($classInfo) {
         $query = $this->em->createQueryBuilder()
             ->select('r, s')
-            ->from('AppBundle:Result', 'r')
+            ->from(Result::class, 'r')
             ->innerJoin("r.studentInfo", "s")
             ->where("s.classInfo = :class")
-            ->setParameter("class", $class)
-            ->groupBy("r.activity")
-            ->groupBy("r.studentInfo")
+            ->setParameter("class", $classInfo)
+            ->orderBy("r.timestamp", "DESC")
+            ->addGroupBy("r.activity")
+            ->addGroupBy("r.studentInfo")
             ->getQuery();
         $results = $query->getResult();
 
@@ -46,4 +48,40 @@ class ResultService
         return $lastResults;
     }
 
+    public function getBestResultsByStudent($studentInfo) {
+        $query = $this->em->createQueryBuilder()
+            ->select('r AS result')
+            ->addSelect('MAX(r.value) AS max_value')
+            ->from(Result::class, 'r')
+            ->innerJoin("r.activity", "s")
+            ->where("r.studentInfo = :student")
+            ->setParameter("student", $studentInfo)
+            ->groupBy("r.activity")
+            ->orderBy("s.name")
+            ->getQuery();
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    public function getResultListByStudent($studentInfo) {
+        $repository = $this->em->getRepository('AppBundle:Result');
+        $query = $repository->createQueryBuilder('r')
+            ->where("r.studentInfo = :student")
+            ->setParameter("student", $studentInfo)
+            ->orderBy('r.timestamp', 'DESC')
+            ->getQuery();
+        $results = $query->getResult();
+
+        $allResults = [];
+        foreach ($results as $result) {
+            $activityId = $result->getActivity()->getId();
+            if (!isset($allResults[$activityId])) {
+                $allResults[$activityId] = [];
+            }
+            array_push($allResults[$activityId], $result);
+        }
+
+        return $allResults;
+    }
 }

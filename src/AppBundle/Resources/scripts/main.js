@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    $(".activitySelect").change(function () {
+    $(".activity-select").change(function () {
         var optionSelected = $(this).find("option:selected");
         var showId = $(optionSelected).attr("data-activityId");
-        $(".activityChange").addClass('hidden');
-        $(".activityChange[data-activityId='"+showId+"']").removeClass('hidden');
+        $(".activity-change").addClass('hidden');
+        $(".activity-change[data-activityId='"+showId+"']").removeClass('hidden');
     });
 });
