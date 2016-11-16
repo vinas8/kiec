@@ -13,6 +13,5 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: SuperSecretAcademyHashKeyDoNotTellAnyone
-
-    google_app_id: 534592872780-pkknq7r30h6uv75kd6i40a37lg084o1n.apps.googleusercontent.com
-    google_app_secret: xoW_7XEqr4gSHX-PIRPAn9WF
+    google_app_id: SuperSecretAcademyHashKeyDoNotTellAnyone
+    google_app_secret: SuperSecretAcademyHashKeyDoNotTellAnyone

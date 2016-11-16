@@ -3,7 +3,6 @@
 security:
     encoders:
       FOS\UserBundle\Model\UserInterface: bcrypt
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -14,39 +13,29 @@ security:
             id: fos_user.user_provider.username_email
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
         main:
-            #pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                 #if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
 
             logout:
                 path: /logout
             anonymous: ~
             oauth:
                 resource_owners:
-                    #facebook:           "/login/check-facebook"
-                    google: "/login/check-google"
+                #facebook:           "/login/check-facebook"
+                google: "/login/check-google"
                 login_path: /login
-#                use_forward: false
                 failure_path: /login
                 default_target_path: /
-
                 check_path: /connect_check
                 provider: fos_userbundle
-
                 oauth_user_provider:
-                    #this is my custom user provider, created from FOSUBUserProvider - will manage the
-                    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
                     service: my_user_provider
-
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
