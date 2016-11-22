@@ -84,4 +84,21 @@ class ResultService
 
         return $allResults;
     }
+
+    public function setResults($data) {
+        $activity = $this->em->getRepository('AppBundle:Activity')->findOneById($data['activity']);
+        foreach ($data as $key=>$value) {
+            if (($value !== null) && ($key !== 'activity')) {
+                $result = new Result();
+                $studentId = substr($key, strpos($key, "_") + 1, strlen($key));
+                $student = $this->em->getRepository('AppBundle:StudentInfo')->findOneById($studentId);
+                $result->setActivity($activity);
+                $result->setValue($value);
+                $result->setStudentInfo($student);
+                $result->setTimestamp(new \DateTime());
+                $this->em->persist($result);
+            }
+        }
+        $this->em->flush();
+    }
 }

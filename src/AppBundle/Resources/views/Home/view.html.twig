@@ -21,33 +21,36 @@
 			</div>
 		</div>
 		<div class="box-body">
-			{% for activity in activities %}
-				<ul class="list-group activity-change hidden" data-activityId="{{ activity.id }}">
-					{% for student in students %}
-						<li class="list-group-item">
-							<div class="container-fluid">
-								<div class="col-xs-9">
-									<div class="row">
-										<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}. {{ student.name }}</a>
-									</div>
-									<div class="row">
+			{{ form_start(form) }}
+			{{ form_widget(form.activity) }}
+			<ul class="list-group hidden student-list">
+				{% for student in students %}
+					<li class="list-group-item">
+						<div class="container-fluid">
+							<div class="col-xs-9">
+								<div class="row">
+									<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}. {{ student.name }}</a>
+								</div>
+								{% for activity in activities %}
+									<div class="row activity-change hidden" data-activityId="{{ activity.id }}">
 										Paskutinis rezultatas:
 										{% if results[student.id][activity.id] is defined %}
 											{{ results[student.id][activity.id] }}
 										{% else %}
 											nėra
 										{% endif %}
-
 									</div>
-								</div>
-								<div class="col-xs-3">
-									{#TODO: input#}
-								</div>
+								{% endfor %}
 							</div>
-						</li>
-					{% endfor %}
-				</ul>
-			{% endfor %}
+							<div class="col-xs-3">
+								{{ form_widget(form["student_" ~ student.id]) }}
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+				<li class="list-group-item"><input type="submit" value="Įrašyti" class="btn btn-default btn-block" /></li>
+			</ul>
+			{{ form_end(form) }}
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 
@@ -62,7 +65,7 @@
 {% endblock %}
 
 {% block javascripts %}
-	    <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
+	    {{ parent() }}
         {% javascripts '@AppBundle/Resources/scripts/main.js' %}
                 <script src="{{ asset_url }}"></script>
         {% endjavascripts %}

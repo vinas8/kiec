@@ -31,3 +31,8 @@ services:
             - { name: twig.extension }
         arguments:
             - '@security.token_storage'
+    app.form.type.result:
+        class: AppBundle\Form\ResultType
+        arguments: [ "@app.student_info" ]
+        tags:
+            - { name: form.type }
