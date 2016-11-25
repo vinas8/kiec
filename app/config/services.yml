@@ -25,9 +25,10 @@ services:
         class: AppBundle\EventListener\MenuItemListener
         tags:
           - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
-    twig.extensions:
-        class: AppBundle\Twig\TwigExtensions
+    app.show_user_listener:
+        class: AppBundle\EventListener\ShowUserListener
         tags:
-            - { name: twig.extension }
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
         arguments:
             - '@security.token_storage'
+

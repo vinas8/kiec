@@ -46,4 +46,9 @@ class MenuItemListener
 
         return $items;
     }
+
+    public function onShowUser()
+    {
+        
+    }
 }
