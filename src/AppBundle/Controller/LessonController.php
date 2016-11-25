@@ -20,7 +20,7 @@ class LessonController extends Controller
         }
         catch (LessonException $e) {
             $this->addFlash('notice', $e->getMessage());
-            return $this->render('@App/current_lesson/errors.html.twig');
+            return $this->render('@App/Lesson/errors.html.twig');
         }
     }
 
@@ -32,9 +32,8 @@ class LessonController extends Controller
         try {
             $lesson = $this->get('app.lesson_service')->getLesson($id);
         } catch (NoResultException $e) {
-            return $this->render('AppBundle:Lesson:error.html.twig', [
-                'message' => 'Pamoka nerasta!'
-            ]);
+            $this->addFlash('notice', "Pamoka nerasta");
+            return $this->render('@App/Lesson/errors.html.twig');
         }
 
         return $this->display($lesson, 'Pamoka');
