@@ -24,6 +24,7 @@ security:
 
             logout:
                 path: /logout
+                target: /login
             anonymous: ~
             oauth:
                 resource_owners:
