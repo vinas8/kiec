@@ -27,4 +27,10 @@
 
 {% block javascripts %}
     {{ parent() }}
+
+    <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
+    {% javascripts '@AppBundle/Resources/scripts/main.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
 {% endblock %}
