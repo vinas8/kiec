@@ -2,34 +2,26 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Lesson;
-use AppBundle\Service\LessonService;
+use AppBundle\Exception\LessonException;
 use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class LessonController extends Controller implements InitializableController
+class LessonController extends Controller
 {
-    /**
-     * @var LessonService
-     */
-    private $lessonService;
-
-    /**
-     * Initializes controller
-     */
-    public function init()
-    {
-        $this->lessonService = $this->get('app.lesson_service');
-    }
-
     /**
      * @Route("/current", name="current")
      */
     public function currentAction()
     {
-        $lesson = $this->lessonService->getCurrentLesson();
-
-        return $this->display($lesson, 'Dabartinė pamoka');
+        try {
+            $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
+            return $this->display($currentLesson, 'Dabartinė pamoka');
+        }
+        catch (LessonException $e) {
+            $this->addFlash('notice', $e->getMessage());
+            return $this->render('@App/Lesson/errors.html.twig');
+        }
     }
 
     /**
@@ -38,11 +30,10 @@ class LessonController extends Controller implements InitializableController
     public function lessonAction($id)
     {
         try {
-            $lesson = $this->lessonService->getLesson($id);
+            $lesson = $this->get('app.lesson_service')->getLesson($id);
         } catch (NoResultException $e) {
-            return $this->render('AppBundle:Lesson:error.html.twig', [
-                'message' => 'Pamoka nerasta!'
-            ]);
+            $this->addFlash('notice', "Pamoka nerasta");
+            return $this->render('@App/Lesson/errors.html.twig');
         }
 
         return $this->display($lesson, 'Pamoka');
@@ -58,13 +49,13 @@ class LessonController extends Controller implements InitializableController
         $id = $lesson->getId();
 
         try {
-            $nextLesson = $this->lessonService->getNext($id);
+            $nextLesson = $this->get('app.lesson_service')->getNext($id);
         } catch (NoResultException $e) {
             $nextLesson = false;
         }
 
         try {
-            $prevLesson = $this->lessonService->getPrev($id);
+            $prevLesson = $this->get('app.lesson_service')->getPrev($id);
         } catch (NoResultException $e) {
             $prevLesson = false;
         }

@@ -11,9 +11,15 @@ services:
     app.result:
           class: AppBundle\Service\ResultService
           arguments: ["@doctrine.orm.entity_manager"]
+    app.lesson_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Lesson
     app.lesson_service:
         class: AppBundle\Service\LessonService
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments:
+            - "@app.lesson_repository"
     app.student_info:
         class: AppBundle\Service\StudentInfoService
         arguments: [ "@doctrine.orm.entity_manager" ]
