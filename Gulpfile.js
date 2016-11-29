@@ -23,6 +23,7 @@ gulp.task('scripts', function() {
             //Third party assets
             dir.npm + 'jquery/dist/jquery.min.js',
             dir.npm + 'bootstrap-sass/assets/javascripts/bootstrap.min.js',
+            dir.npm + 'admin-lte/dist/js/app.min.js',
 
             // Main JS file
             dir.assets + 'scripts/main.js'
@@ -41,9 +42,20 @@ gulp.task('images', function() {
 
 gulp.task('fonts', function() {
     gulp.src([
-        dir.npm + 'bootstrap-sass/assets/fonts/**'
+        dir.npm + 'bootstrap-sass/assets/fonts/**',
+        dir.npm + 'font-awesome/fonts/**'
         ])
         .pipe(gulp.dest(dir.dist + 'fonts'));
 });
 
-gulp.task('default', ['sass', 'scripts', 'fonts', 'images']);
+gulp.task('adminlte', function() {
+    gulp.src([
+        dir.npm + 'admin-lte/dist/css/AdminLTE.min.css',
+        dir.npm + 'admin-lte/dist/css/skins/skin-red.min.css',
+        dir.npm + 'font-awesome/css/font-awesome.min.css'
+        ])
+        .pipe(concat('adminlte.css'))
+        .pipe(gulp.dest(dir.dist + 'css'));
+});
+
+gulp.task('default', ['sass', 'scripts', 'fonts', 'images', 'adminlte']);

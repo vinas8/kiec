@@ -1,12 +1,4 @@
-{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
 
-{% block title %}KKnyga{% endblock %}
-
-{% block page_title %}{% endblock %}
-{% block page_subtitle %}{% endblock %}
-{#TODO: title and navigation#}
-
-{% block page_content %}
 <div class="container-fluid">
 	<div class="box box-default">
 		<div class="box-header with-border">
@@ -55,15 +47,3 @@
 
 
 </div>
-
-{% endblock %}
-
-{% block avanzu_admin_footer %}
-{% endblock %}
-
-{% block javascripts %}
-	    <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
-        {% javascripts '@AppBundle/Resources/scripts/main.js' %}
-                <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-{% endblock %}

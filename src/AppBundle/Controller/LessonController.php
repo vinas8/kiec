@@ -46,7 +46,12 @@ class LessonController extends Controller
      */
     private function display($lesson, $title)
     {
-        $id = $lesson->getId();
+        $id         = $lesson->getId();
+        $classInfo  = $lesson->getClassInfo();
+
+        $students   = $this->get('app.student_info')->getStudentListByClass($classInfo);
+        $activities = $this->get('app.activity')->getActivityList();
+        $results    = $this->get('app.result')->getLastResultsByClass($classInfo);
 
         try {
             $nextLesson = $this->get('app.lesson_service')->getNext($id);
@@ -64,7 +69,10 @@ class LessonController extends Controller
             'title'      => $title,
             'lesson'     => $lesson,
             'nextLesson' => $nextLesson,
-            'prevLesson' => $prevLesson
+            'prevLesson' => $prevLesson,
+            'students'   => $students,
+            'activities' => $activities,
+            'results' => $results
         ]);
     }
 

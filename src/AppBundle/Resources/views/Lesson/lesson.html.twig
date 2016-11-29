@@ -1,4 +1,4 @@
-{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -19,10 +19,7 @@
             </div>
         </div>
         <div class="box-body">
-            Pamoka
+            {% include 'AppBundle:Lesson:view.inc.html.twig' %}
         </div>
     </div>
-{% endblock %}
-
-{% block avanzu_admin_footer %}
 {% endblock %}
