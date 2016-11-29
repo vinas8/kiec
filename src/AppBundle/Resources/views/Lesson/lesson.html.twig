@@ -1,4 +1,4 @@
-{% extends '@App/layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -22,7 +22,4 @@
             {% include 'AppBundle:Lesson:view.inc.html.twig' %}
         </div>
     </div>
-{% endblock %}
-
-{% block avanzu_admin_footer %}
 {% endblock %}
