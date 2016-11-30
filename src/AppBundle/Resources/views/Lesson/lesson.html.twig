@@ -9,12 +9,12 @@
     <div class="box">
         <div class="box-header with-border">
             <div class="btn-grp">
-                {% if prevLesson != false %}
-                    <a href="{{ path('lesson', { 'id': prevLesson.id }) }}" class="btn btn-default"><i class="fa fa-arrow-left"></i></a>
+                {% if prevLesson !== null %}
+                    <a href="{{ path('lesson', { 'Lesson': prevLesson.id }) }}" class="btn btn-default"><i class="fa fa-arrow-left"></i></a>
                 {% endif %}
                 <h3 class="box-title inline">{{ lesson.startTime|date('H:i') }} - {{ lesson.classInfo.name }}</h3>
-                {% if nextLesson != false %}
-                    <a href="{{ path('lesson', { 'id': nextLesson.id }) }}" class="btn btn-default"><i class="fa fa-arrow-right"></i></a>
+                {% if nextLesson !== null %}
+                    <a href="{{ path('lesson', { 'Lesson': nextLesson.id }) }}" class="btn btn-default"><i class="fa fa-arrow-right"></i></a>
                 {% endif %}
             </div>
         </div>
