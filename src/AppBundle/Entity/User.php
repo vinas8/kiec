@@ -55,27 +55,6 @@ class User extends FOSUser
     }
 
     /**
-     * @ORM\OneToOne(targetEntity="TeacherInfo")
-     */
-    private $teacher_info;
-
-    /**
-     * @return mixed
-     */
-    public function getTeacherInfo()
-    {
-        return $this->teacher_info;
-    }
-
-    /**
-     * @param mixed $teacher_info
-     */
-    public function setTeacherInfo($teacher_info)
-    {
-        $this->teacher_info = $teacher_info;
-    }
-
-    /**
      * @return mixed
      */
     public function getGoogleId()
