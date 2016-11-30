@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\ClassInfo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class ClassController extends Controller
 {
@@ -27,7 +26,7 @@ class ClassController extends Controller
     public function classAction($name)
     {
         $class = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')
-            ->findClassesByTeacherAndClassNameg($this->getTeacher(),$name);
+            ->findClassesByTeacherAndClassName($this->getTeacher(),$name);
         return $this->render('@App/Class/class.html.twig', array(
             'class' => $class
         ));
