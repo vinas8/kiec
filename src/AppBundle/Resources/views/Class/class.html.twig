@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block page_title %}{{ class.name }}{% endblock %}
+
+{% block page_content %}
+    {% for student in class.students %}
+        <li class="list-group-item class-info">
+            <a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ student.name }}</a>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+
+

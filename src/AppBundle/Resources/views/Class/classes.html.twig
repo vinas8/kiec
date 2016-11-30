@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+
+{% block page_content %}
+    <ul class="list-group">
+    {% for class in classes %}
+       <li class="list-group-item classinfo">
+           <a href="{{ path('class', {'name': class.name}) }}">{{ class.name }}</a>
+       </li>
+        <div id="class-info-output"></div>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script type="text/babel" src="{{ asset('js/class.react.js') }}"></script>
+    <script type="text/babel">
+        var classInfoUrl = '{{ path('class', {'name': classes[0].name}) }}';
+        ReactDOM.render(
+            <ClassSection url="{ classInfoUrl }"/>,
+            document.getElementById('class-info-output')
+        );
+    </script>
+{% endblock %}
+
