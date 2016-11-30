@@ -1,0 +1,19 @@
+{% macro flashBag() %}
+    {% for type in ['danger', 'info', 'warning', 'success'] %}
+        {% for message in app.session.flashbag.get(type) %}
+            <div class="alerts">
+                <div class="alert alert-{{ type }} alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    {% if type == 'danger' %}
+                        <h4><i class="icon fa fa-ban"></i>Klaida!</h4>
+                    {% elseif type == 'info' %}
+                        <h4><i class="icon fa fa-info"></i>Pranešimas!</h4>
+                     {% elseif 'warning' %}
+                        <h4><i class="icon fa fa-warning"></i>Įspėjimas!</h4>
+                    {% endif %}
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endmacro %}
