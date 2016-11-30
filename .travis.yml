@@ -25,4 +25,4 @@ install:
   - php bin/console doctrine:fixtures:load -n --env=test
 
 script:
-  - vendor/bin/phpcs -p --standart=PSR2 --extensions=php ./src
+  - vendor/bin/phpcs -p --standard=PSR2 --extensions=php ./src
