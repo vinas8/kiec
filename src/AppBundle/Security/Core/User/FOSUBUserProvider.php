@@ -49,7 +49,7 @@ class FOSUBUserProvider extends BaseClass
             //modify here with relevant data
             $user->setUsername($response->getEmail());
             $user->setEmail($response->getEmail());
-            $user->setProfilePicture($response->getProfilePicture());
+//            $user->setProfilePicture($response->getProfilePicture());
 
             $user->setPassword($username);
             $user->setEnabled(true);
