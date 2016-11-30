@@ -1,12 +1,28 @@
-sudo: false
 language: php
-php:
-  - 7.0
+
+sudo: false
+
 services:
   - mysql
-before_script:
-# Get the token from github and put it in travis repo under GITHUB_COMPOSER_AUTH ENV variable, then uncomment line below.
-#  - composer config -g github-oauth.github.com $GITHUB_COMPOSER_AUTH
-  - composer install --no-interaction --prefer-dist
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+matrix:
+  fash_finish: true
+  include:
+    - php: 7.0
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install --no-interaction --prefer-source
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:create --env=test
+  - php bin/console doctrine:fixtures:load -n --env=test
+
 script:
-  - vendor/bin/phpcs -p --standard=PSR2 --extensions=php ./src
+  - vendor/bin/phpcs -p --standart=PSR2 --extensions=php ./src
