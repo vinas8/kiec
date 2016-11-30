@@ -24,18 +24,38 @@ class ClassInfo
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
     /**
-     * @var Collection
      *
      * @ORM\OneToMany(targetEntity="StudentInfo", mappedBy="classInfo")
      *
      */
     private $students;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TeacherInfo")
+     */
+    private $teacher_info;
+
+    /**
+     * @return mixed
+     */
+    public function getTeacherInfo()
+    {
+        return $this->teacher_info;
+    }
+
+    /**
+     * @param mixed $teacher_info
+     */
+    public function setTeacherInfo($teacher_info)
+    {
+        $this->teacher_info = $teacher_info;
+    }
     /**
      * Get id
      *
@@ -70,16 +90,13 @@ class ClassInfo
         return $this->name;
     }
 
-    /**
-     * @return Collection
-     */
+
     public function getStudents()
     {
         return $this->students;
     }
 
     /**
-     * @param Collection $students
      * @return ClassInfo
      */
     public function setStudents($students)

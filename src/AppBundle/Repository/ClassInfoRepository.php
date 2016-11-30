@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\TeacherInfo;
 
 /**
  * ClassInfoRepository
@@ -10,4 +11,29 @@ namespace AppBundle\Repository;
  */
 class ClassInfoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findClassesByTeacher(TeacherInfo $teacher)
+    {
+        $qb = $this->createQueryBuilder('ci');
+        $this->addTeacherJoin($qb,$teacher);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findClassesByTeacherAndClassName(TeacherInfo $teacher, $name)
+    {
+        $qb = $this->createQueryBuilder('ci')
+            ->where('ci.name = :name');
+        $this->addTeacherJoin($qb,$teacher);
+        return $qb
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    private function addTeacherJoin($qb, TeacherInfo $teacher)
+    {
+        return $qb->innerJoin('ci.teacher_info', 'ti')
+            ->andWhere('ti = :teacher')
+            ->setParameter('teacher', $teacher);
+    }
+
 }
