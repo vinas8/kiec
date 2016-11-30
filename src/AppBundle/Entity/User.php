@@ -21,6 +21,39 @@ class User extends FOSUser
     /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
     private $google_id;
 
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    private $google_access_token;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     */
+    private $name;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profile_picture", type="string", length=255, nullable=true)
+     */
+    private $profilePicture;
+
+    /**
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * @param string $profilePicture
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+    }
+
     /**
      * @return mixed
      */
@@ -52,17 +85,7 @@ class User extends FOSUser
     {
         $this->google_access_token = $google_access_token;
     }
-    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
-    private $google_access_token;
 
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
-     */
-    private $name;
 
 
     /**
