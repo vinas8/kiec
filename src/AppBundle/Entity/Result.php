@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Result
@@ -25,6 +26,7 @@ class Result
      * @var float
      *
      * @ORM\Column(name="value", type="float")
+     * @Assert\NotNull()
      */
     private $value;
 
@@ -32,6 +34,7 @@ class Result
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetime")
+     * @Assert\NotNull()
      */
     private $timestamp;
 
@@ -39,6 +42,7 @@ class Result
      * @var object
      *
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="results")
+     * @Assert\NotNull()
      */
     private $activity;
 
@@ -46,6 +50,7 @@ class Result
      * @var object
      *
      * @ORM\ManyToOne(targetEntity="StudentInfo", inversedBy="results")
+     * @Assert\NotNull()
      */
     private $studentInfo;
 

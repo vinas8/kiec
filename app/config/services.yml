@@ -33,3 +33,8 @@ services:
             - { name: twig.extension }
         arguments:
             - '@security.token_storage'
+    app.result_type:
+        class: AppBundle\Form\ResultType
+        arguments: [ "@doctrine.orm.entity_manager" ]
+        tags:
+          - { name: form.type, alias: app_result_type }

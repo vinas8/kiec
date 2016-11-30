@@ -27,14 +27,12 @@ class ResultService
 
     public function getLastResultsByClass($classInfo) {
         $query = $this->em->createQueryBuilder()
-            ->select('r, s')
-            ->from(Result::class, 'r')
-            ->innerJoin("r.studentInfo", "s")
-            ->where("s.classInfo = :class")
+            ->select('ro')
+            ->from(Result::class, 'ro')
+            ->leftJoin(Result::class, 'rt', 'WITH', 'ro.activity = rt.activity AND ro.studentInfo = rt.studentInfo AND ro.timestamp < rt.timestamp')
+            ->innerJoin('ro.studentInfo', 's', 'WITH', 's.classInfo = :class')
             ->setParameter("class", $classInfo)
-            ->orderBy("r.timestamp", "DESC")
-            ->addGroupBy("r.activity")
-            ->addGroupBy("r.studentInfo")
+            ->where('rt.timestamp is NULL')
             ->getQuery();
         $results = $query->getResult();
 
