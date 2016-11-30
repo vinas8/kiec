@@ -28,7 +28,7 @@ class LessonController extends Controller
      */
     public function lessonAction(Lesson $Lesson = null)
     {
-        if ($Lesson === null) {
+        if (!$Lesson) {
             $this->addFlash('danger', 'Tokia pamoka neegzistuoja!');
             return $this->redirectToRoute('homepage');
         }
