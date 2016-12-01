@@ -87,7 +87,6 @@ class User extends FOSUser
     }
 
 
-
     /**
      * Get id
      *

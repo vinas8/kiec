@@ -21,21 +21,40 @@ class TwigExtensions extends \Twig_Extension
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function getUser()
+    public function getFunctions()
+    {
+        return array(
+            new \Twig_SimpleFunction('profile_picture', array($this, 'getProfilePicture')),
+            new \Twig_SimpleFunction('profile_email', array($this, 'getProfileEmail')),
+            new \Twig_SimpleFunction('profile_name', array($this, 'getProfileName')),
+            new \Twig_SimpleFunction('profile_id', array($this, 'getProfileId'))
+
+        );
+    }
+
+    private function getUser()
     {
         return $this->tokenStorage->getToken()->getUser();
     }
 
-    public function getFunctions()
+    public function getProfileEmail()
     {
-        return array(
-            new \Twig_SimpleFunction('user_profile', array($this, 'userProfile'))
-        );
+        return $this->getUser()->getEmail();
     }
 
-    public function userProfile()
+    public function getProfilePicture()
     {
-        return $this->getUser();
+        return $this->getUser()->getProfilePicture();
+    }
+
+    public function getProfileName()
+    {
+        return $this->getUser()->getName();
+    }
+
+    public function getProfileId()
+    {
+        return $this->getUser()->getId();
     }
 
     public function getName()

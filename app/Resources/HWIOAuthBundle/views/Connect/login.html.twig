@@ -4,7 +4,7 @@
     {% if error is defined and error %}
         <span>{{ error }}</span>
     {% endif %}
-
+    {#todo: normalios formos#}
     <div class="login-box">
         <div class="login-logo">
             <a href="/"><b>K</b>Knyga</a>
@@ -38,12 +38,14 @@
                 <p>- ARBA -</p>
                 {% for owner in hwi_oauth_resource_owners() %}
                     {#<a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>#}
-                    <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Prisijungti su Google+</a>
+                    <a href="{{ hwi_oauth_login_url(owner) }}"
+                       class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i>
+                        Prisijungti su Google+</a>
                 {% endfor %}
             </div><!-- /.social-auth-links -->
 
-            <a href="#">Pamiršau slaptažodį</a><br>
-            <a href="register.html" class="text-center">Registruotis</a>
+            <a href="{{ path('fos_user_resetting_request') }}">Pamiršau slaptažodį</a><br>
+            <a href="{{ path('fos_user_registration_register') }}" class="text-center">Registruotis</a>
 
         </div><!-- /.login-box-body -->
     </div>

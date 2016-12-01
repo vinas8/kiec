@@ -1,49 +1,47 @@
-
 <div class="container-fluid">
-	<div class="box box-default">
-		<div class="box-header with-border">
-			<h3 class="box-title">Rezultatų įvedimas</h3>
-			<div class="box-tools pull-right" style="position: static">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Rezultatų įvedimas</h3>
+            <div class="box-tools pull-right" style="position: static">
                 <select class="activity-select">
-                        <option selected disabled>Pasirinkite rungtį</option>
-                        {% for activity in activities %}
-                                <option data-activityId="{{ activity.id }}">{{ activity.name }}</option>
-                        {% endfor %}
+                    <option selected disabled>Pasirinkite rungtį</option>
+                    {% for activity in activities %}
+                        <option data-activityId="{{ activity.id }}">{{ activity.name }}</option>
+                    {% endfor %}
                 </select>
-			</div>
-		</div>
-		<div class="box-body">
-			{% for activity in activities %}
-				<ul class="list-group activity-change hidden" data-activityId="{{ activity.id }}">
-					{% for student in students %}
-						<li class="list-group-item">
-							<div class="container-fluid">
-								<div class="col-xs-9">
-									<div class="row">
-										<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}. {{ student.name }}</a>
-									</div>
-									<div class="row">
-										Paskutinis rezultatas:
-										{% if results[student.id][activity.id] is defined %}
-											{{ results[student.id][activity.id] }}
-										{% else %}
-											nėra
-										{% endif %}
+            </div>
+        </div>
+        <div class="box-body">
+            {% for activity in activities %}
+                <ul class="list-group activity-change hidden" data-activityId="{{ activity.id }}">
+                    {% for student in students %}
+                        <li class="list-group-item">
+                            <div class="container-fluid">
+                                <div class="col-xs-9">
+                                    <div class="row">
+                                        <a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}
+                                            . {{ student.name }}</a>
+                                    </div>
+                                    <div class="row">
+                                        Paskutinis rezultatas:
+                                        {% if results[student.id][activity.id] is defined %}
+                                            {{ results[student.id][activity.id] }}
+                                        {% else %}
+                                            nėra
+                                        {% endif %}
 
-									</div>
-								</div>
-								<div class="col-xs-3">
-									{#TODO: input#}
-								</div>
-							</div>
-						</li>
-					{% endfor %}
-				</ul>
-			{% endfor %}
-		</div><!-- /.box-body -->
-	</div><!-- /.box -->
-
-
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    {#TODO: input#}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
 
 
 </div>
