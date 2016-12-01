@@ -47,13 +47,7 @@ class LessonService
      */
     public function getNext(Lesson $lesson)
     {
-        try {
-            $next = $this->repository->findNextLessonById($lesson->getId());
-        } catch (NoResultException $e) {
-            $next = null;
-        }
-
-        return $next;
+        return $this->repository->findNextLessonById($lesson->getId());
     }
 
     /**
@@ -64,12 +58,6 @@ class LessonService
      */
     public function getPrev(Lesson $lesson)
     {
-        try {
-            $prev = $this->repository->findPrevLessonById($lesson->getId());
-        } catch (NoResultException $e) {
-            $prev = null;
-        }
-
-        return $prev;
+        return $this->repository->findPrevLessonById($lesson->getId());
     }
 }

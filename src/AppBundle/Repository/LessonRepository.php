@@ -37,7 +37,7 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('a.startTime')
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 
     /**
@@ -55,6 +55,6 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('a.startTime', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 }
