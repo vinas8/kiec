@@ -2,6 +2,9 @@ language: php
 
 sudo: false
 
+php:
+  - 7.0
+
 services:
   - mysql
 
@@ -9,20 +12,15 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-matrix:
-  fash_finish: true
-  include:
-    - php: 7.0
-
 before_install:
+  - phpenv config-rm xdebug.ini
   - composer self-update
+  - mysql -u root -e 'CREATE DATABASE symfony CHARSET utf8;'
 
-install:
-  - composer install --no-interaction --prefer-source
-  - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - php bin/console doctrine:database:create --env=test
-  - php bin/console doctrine:schema:create --env=test
-  - php bin/console doctrine:fixtures:load -n --env=test
+before_script:
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - composer install
+  - php bin/console doctrine:schema:create
 
 script:
   - vendor/bin/phpcs -p --standard=PSR2 --extensions=php ./src
