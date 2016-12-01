@@ -1,12 +1,26 @@
-sudo: false
 language: php
+
+sudo: false
+
 php:
   - 7.0
+
 services:
   - mysql
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+before_install:
+  - phpenv config-rm xdebug.ini
+  - composer self-update
+  - mysql -u root -e 'CREATE DATABASE symfony CHARSET utf8;'
+
 before_script:
-# Get the token from github and put it in travis repo under GITHUB_COMPOSER_AUTH ENV variable, then uncomment line below.
-#  - composer config -g github-oauth.github.com $GITHUB_COMPOSER_AUTH
-  - composer install --no-interaction --prefer-dist
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - composer install
+  - php bin/console doctrine:schema:create
+
 script:
   - vendor/bin/phpcs -p --standard=PSR2 --extensions=php ./src

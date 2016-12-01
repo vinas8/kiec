@@ -16,8 +16,7 @@ class LessonController extends Controller
         try {
             $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
             return $this->display($currentLesson, 'Dabartinė pamoka');
-        }
-        catch (LessonException $e) {
+        } catch (LessonException $e) {
             $this->addFlash('notice', $e->getMessage());
             return $this->render('@App/Lesson/errors.html.twig');
         }
@@ -43,23 +42,22 @@ class LessonController extends Controller
      */
     private function display(Lesson $lesson, $title)
     {
-        $classInfo  = $lesson->getClassInfo();
+        $classInfo = $lesson->getClassInfo();
 
-        $students   = $this->get('app.student_info')->getStudentListByClass($classInfo);
+        $students = $this->get('app.student_info')->getStudentListByClass($classInfo);
         $activities = $this->get('app.activity')->getActivityList();
-        $results    = $this->get('app.result')->getLastResultsByClass($classInfo);
+        $results = $this->get('app.result')->getLastResultsByClass($classInfo);
         $nextLesson = $this->get('app.lesson_service')->getNext($lesson);
         $prevLesson = $this->get('app.lesson_service')->getPrev($lesson);
 
         return $this->render('AppBundle:Lesson:lesson.html.twig', [
-            'title'      => $title,
-            'lesson'     => $lesson,
+            'title' => $title,
+            'lesson' => $lesson,
             'nextLesson' => $nextLesson,
             'prevLesson' => $prevLesson,
-            'students'   => $students,
+            'students' => $students,
             'activities' => $activities,
-            'results'    => $results
+            'results' => $results
         ]);
     }
-
 }
