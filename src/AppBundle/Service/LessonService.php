@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Lesson;
 use AppBundle\Exception\LessonException;
 use AppBundle\Repository\LessonRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -39,35 +40,24 @@ class LessonService
     }
 
     /**
-     * Finds next lesson by given id
+     * Finds next lesson
      *
-     * @param  mixed $id
-     * @return mixed
+     * @param  Lesson $lesson
+     * @return Lesson|null
      */
-    public function getNext($id)
+    public function getNext(Lesson $lesson)
     {
-        return $this->repository->findNextLesson($id);
+        return $this->repository->findNextLessonById($lesson->getId());
     }
 
     /**
-     * Finds previous lesson by given id
+     * Finds previous lesson
      *
-     * @param  mixed $id
-     * @return mixed
+     * @param  Lesson $lesson
+     * @return Lesson|null
      */
-    public function getPrev($id)
+    public function getPrev(Lesson $lesson)
     {
-        return $this->repository->findPrevLesson($id);
-    }
-
-    /**
-     * Finds lesson by given id
-     *
-     * @param  mixed $id
-     * @return mixed
-     */
-    public function getLesson($id)
-    {
-        return $this->repository->findLesson($id);
+        return $this->repository->findPrevLessonById($lesson->getId());
     }
 }
