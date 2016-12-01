@@ -1,5 +1,6 @@
 <?php
 namespace AppBundle\Twig;
+
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
@@ -25,15 +26,14 @@ class TwigExtensions extends \Twig_Extension
         return $this->tokenStorage->getToken()->getUser();
     }
 
-
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('user_profile', array($this, 'user_profile'))
+            new \Twig_SimpleFunction('user_profile', array($this, 'userProfile'))
         );
     }
 
-    public function user_profile()
+    public function userProfile()
     {
         return $this->getUser();
     }

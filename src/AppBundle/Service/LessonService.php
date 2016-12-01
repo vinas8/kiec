@@ -31,11 +31,9 @@ class LessonService
 
         try {
             return $this->repository->findLessonByTime($now);
-        }
-        catch (NonUniqueResultException $e) {
+        } catch (NonUniqueResultException $e) {
             throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
-        }
-        catch (NoResultException $e) {
+        } catch (NoResultException $e) {
             throw new LessonException("Šiuo metu nėra pamokos");
         }
     }

@@ -156,4 +156,3 @@ class Result
         return $this->studentInfo;
     }
 }
-

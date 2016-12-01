@@ -90,4 +90,3 @@ class Activity
         return $this;
     }
 }
-

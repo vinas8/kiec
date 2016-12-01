@@ -22,7 +22,8 @@ class ActivityService
         $this->em = $em;
     }
 
-    public function getActivityList() {
+    public function getActivityList()
+    {
         $repository = $this->em->getRepository('AppBundle:Activity');
         $query = $repository->createQueryBuilder('r')
             ->orderBy('r.name')

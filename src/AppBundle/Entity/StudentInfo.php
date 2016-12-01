@@ -150,6 +150,4 @@ class StudentInfo
         $this->results = $results;
         return $this;
     }
-
 }
-
