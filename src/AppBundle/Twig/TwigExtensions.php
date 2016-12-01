@@ -28,7 +28,6 @@ class TwigExtensions extends \Twig_Extension
             new \Twig_SimpleFunction('profile_email', array($this, 'getProfileEmail')),
             new \Twig_SimpleFunction('profile_name', array($this, 'getProfileName')),
             new \Twig_SimpleFunction('profile_id', array($this, 'getProfileId'))
-
         );
     }
 
