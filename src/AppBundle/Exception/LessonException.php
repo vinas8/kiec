@@ -8,7 +8,6 @@
 
 namespace AppBundle\Exception;
 
-
 class LessonException extends \Exception
 {
     // Redefine the exception so message isn't optional

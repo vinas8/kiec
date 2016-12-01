@@ -35,5 +35,4 @@ class StudentInfoService
 
         return $students;
     }
-
 }
