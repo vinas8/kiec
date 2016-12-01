@@ -25,29 +25,6 @@ class User extends FOSUser
     private $google_access_token;
 
     /**
-     *
-     * @ORM\OneToOne(targetEntity="TeacherInfo")
-     *
-     */
-    private $teacher_info;
-
-    /**
-     * @return mixed
-     */
-    public function getTeacherInfo()
-    {
-        return $this->teacher_info;
-    }
-
-    /**
-     * @param mixed $teacher_info
-     */
-    public function setTeacherInfo($teacher_info)
-    {
-        $this->teacher_info = $teacher_info;
-    }
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
@@ -107,7 +84,6 @@ class User extends FOSUser
     {
         $this->google_access_token = $google_access_token;
     }
-
 
 
     /**

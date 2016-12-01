@@ -37,25 +37,26 @@ class ClassInfo
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="TeacherInfo")
+     * @ORM\ManyToMany(targetEntity="User")
      */
-    private $teacher_info;
+    private $user;
 
     /**
      * @return mixed
      */
-    public function getTeacherInfo()
+    public function getUser()
     {
-        return $this->teacher_info;
+        return $this->user;
     }
 
     /**
-     * @param mixed $teacher_info
+     * @param mixed $user
      */
-    public function setTeacherInfo($teacher_info)
+    public function setUser($user)
     {
-        $this->teacher_info = $teacher_info;
+        $this->user = $user;
     }
+
     /**
      * Get id
      *

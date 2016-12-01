@@ -1,7 +1,8 @@
 <?php
 
 namespace AppBundle\Repository;
-use AppBundle\Entity\TeacherInfo;
+
+use AppBundle\Entity\User;
 
 /**
  * ClassInfoRepository
@@ -11,28 +12,28 @@ use AppBundle\Entity\TeacherInfo;
  */
 class ClassInfoRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findClassesByTeacher(TeacherInfo $teacher)
+    public function findClassesByTeacher(User $teacher)
     {
         $qb = $this->createQueryBuilder('ci');
-        $this->addTeacherJoin($qb,$teacher);
+        $this->addTeacherJoin($qb, $teacher);
         return $qb->getQuery()->getResult();
     }
 
-    public function findClassesByTeacherAndClassName(TeacherInfo $teacher, $name)
+    public function findClassesByTeacherAndClassId(User $teacher, $id)
     {
         $qb = $this->createQueryBuilder('ci')
-            ->where('ci.name = :name');
-        $this->addTeacherJoin($qb,$teacher);
+            ->where('ci.id = :id');
+        $this->addTeacherJoin($qb, $teacher);
         return $qb
-            ->setParameter('name', $name)
+            ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();
     }
 
-    private function addTeacherJoin($qb, TeacherInfo $teacher)
+    private function addTeacherJoin($qb, User $teacher)
     {
-        return $qb->innerJoin('ci.teacher_info', 'ti')
-            ->andWhere('ti = :teacher')
+        return $qb->innerJoin('ci.user', 't')
+            ->andWhere('t = :teacher')
             ->setParameter('teacher', $teacher);
     }
 
