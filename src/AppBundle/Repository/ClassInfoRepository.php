@@ -36,5 +36,4 @@ class ClassInfoRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('t = :teacher')
             ->setParameter('teacher', $teacher);
     }
-
 }
