@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function indexAction()
     {
         $auth = false;
-        if( $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') ){
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $auth = true;
         }
 
@@ -34,8 +34,12 @@ class HomeController extends Controller
         $bestResults = $resultService->getBestResultsByStudent($studentInfo);
         $allResults = $resultService->getResultListByStudent($studentInfo);
 
-        return $this->render('AppBundle:Home:profile.html.twig', ["student" => $studentInfo, "activities" => $activities,
-        "bestResults" => $bestResults, "allResults" => $allResults]);
+        return $this->render('AppBundle:Home:profile.html.twig', [
+            "student" => $studentInfo,
+            "activities" => $activities,
+            "bestResults" => $bestResults,
+            "allResults" => $allResults
+        ]);
     }
 
 

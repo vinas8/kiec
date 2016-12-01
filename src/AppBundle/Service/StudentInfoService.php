@@ -23,7 +23,8 @@ class StudentInfoService
         $this->em = $em;
     }
 
-    public function getStudentListByClass($classInfo) {
+    public function getStudentListByClass($classInfo)
+    {
         $repository = $this->em->getRepository('AppBundle:StudentInfo');
         $query = $repository->createQueryBuilder('r')
             ->where("r.classInfo = :class")

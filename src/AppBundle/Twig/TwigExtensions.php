@@ -1,5 +1,6 @@
 <?php
 namespace AppBundle\Twig;
+
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
