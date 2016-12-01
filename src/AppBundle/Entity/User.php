@@ -105,4 +105,3 @@ class User extends FOSUser
         // your own logic
     }
 }
-

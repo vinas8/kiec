@@ -102,5 +102,4 @@ class LessonController extends Controller
             'form'       => $form->createView()
         ]);
     }
-
 }

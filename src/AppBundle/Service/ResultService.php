@@ -25,7 +25,8 @@ class ResultService
         $this->em = $em;
     }
 
-    public function getLastResultsByClass($classInfo) {
+    public function getLastResultsByClass($classInfo)
+    {
         $query = $this->em->createQueryBuilder()
             ->select('ro')
             ->from(Result::class, 'ro')
@@ -46,7 +47,8 @@ class ResultService
         return $lastResults;
     }
 
-    public function getBestResultsByStudent($studentInfo) {
+    public function getBestResultsByStudent($studentInfo)
+    {
         $query = $this->em->createQueryBuilder()
             ->select('r AS result')
             ->addSelect('MAX(r.value) AS max_value')
@@ -62,7 +64,8 @@ class ResultService
         return $results;
     }
 
-    public function getResultListByStudent($studentInfo) {
+    public function getResultListByStudent($studentInfo)
+    {
         $repository = $this->em->getRepository('AppBundle:Result');
         $query = $repository->createQueryBuilder('r')
             ->where("r.studentInfo = :student")
@@ -81,22 +84,5 @@ class ResultService
         }
 
         return $allResults;
-    }
-
-    public function setResults($data) {
-        $activity = $this->em->getRepository('AppBundle:Activity')->findOneById($data['activity']);
-        foreach ($data as $key=>$value) {
-            if (($value !== null) && ($key !== 'activity')) {
-                $result = new Result();
-                $studentId = substr($key, strpos($key, "_") + 1, strlen($key));
-                $student = $this->em->getRepository('AppBundle:StudentInfo')->findOneById($studentId);
-                $result->setActivity($activity);
-                $result->setValue($value);
-                $result->setStudentInfo($student);
-                $result->setTimestamp(new \DateTime());
-                $this->em->persist($result);
-            }
-        }
-        $this->em->flush();
     }
 }
