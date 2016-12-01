@@ -105,6 +105,4 @@ class ClassInfo
         $this->students = $students;
         return $this;
     }
-
 }
-

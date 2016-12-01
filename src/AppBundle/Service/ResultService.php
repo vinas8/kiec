@@ -25,7 +25,8 @@ class ResultService
         $this->em = $em;
     }
 
-    public function getLastResultsByClass($classInfo) {
+    public function getLastResultsByClass($classInfo)
+    {
         $query = $this->em->createQueryBuilder()
             ->select('r, s')
             ->from(Result::class, 'r')
@@ -48,7 +49,8 @@ class ResultService
         return $lastResults;
     }
 
-    public function getBestResultsByStudent($studentInfo) {
+    public function getBestResultsByStudent($studentInfo)
+    {
         $query = $this->em->createQueryBuilder()
             ->select('r AS result')
             ->addSelect('MAX(r.value) AS max_value')
@@ -64,7 +66,8 @@ class ResultService
         return $results;
     }
 
-    public function getResultListByStudent($studentInfo) {
+    public function getResultListByStudent($studentInfo)
+    {
         $repository = $this->em->getRepository('AppBundle:Result');
         $query = $repository->createQueryBuilder('r')
             ->where("r.studentInfo = :student")
