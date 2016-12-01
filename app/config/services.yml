@@ -11,9 +11,15 @@ services:
     app.result:
           class: AppBundle\Service\ResultService
           arguments: ["@doctrine.orm.entity_manager"]
+    app.lesson_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Lesson
     app.lesson_service:
         class: AppBundle\Service\LessonService
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments:
+            - "@app.lesson_repository"
     app.student_info:
         class: AppBundle\Service\StudentInfoService
         arguments: [ "@doctrine.orm.entity_manager" ]
@@ -21,18 +27,14 @@ services:
         class: AppBundle\Security\Core\User\FOSUBUserProvider
         #facebook: facebook_id, this is the place where the properties are passed to the UserProvider - see config.yml
         arguments: ["@fos_user.user_manager",{ google: google_id}]
-    app.menu_listener:
-        class: AppBundle\EventListener\MenuItemListener
-        tags:
-          - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
     twig.extensions:
         class: AppBundle\Twig\TwigExtensions
         tags:
             - { name: twig.extension }
         arguments:
             - '@security.token_storage'
-    app.form.type.result:
+    app.result_type:
         class: AppBundle\Form\ResultType
-        arguments: [ "@app.student_info" ]
+        arguments: [ "@doctrine.orm.entity_manager" ]
         tags:
-            - { name: form.type }
+          - { name: form.type, alias: app_result_type }

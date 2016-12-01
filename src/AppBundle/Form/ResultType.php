@@ -2,14 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: robertas
- * Date: 16.11.21
- * Time: 21.42
+ * Date: 16.11.30
+ * Time: 20.39
  */
 
 namespace AppBundle\Form;
 
 
-use AppBundle\Service\StudentInfoService;
+use AppBundle\Entity\Result;
+use AppBundle\Form\DataTransformer\ActivityToNumberTransformer;
+use AppBundle\Form\DataTransformer\StudentInfoToNumberTransformer;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -18,30 +21,29 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ResultType extends AbstractType
 {
+    private $em;
 
-    /**
-     * @var StudentInfoService
-     */
-    private $studentInfoService;
-
-    public function __construct(StudentInfoService $studentInfoService)
+    public function __construct(EntityManager $em)
     {
-        $this->studentInfoService = $studentInfoService;
+        $this->em = $em;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("activity", HiddenType::class);
-        $students = $this->studentInfoService->getStudentListByClass($options["classInfo"]);
-        foreach ($students as $student) {
-            $builder->add("student_".$student->getId(), NumberType::class, array("required" => false));
-        }
+        $builder->add('value', NumberType::class, array('required' => false))
+            ->add('activity', HiddenType::class)
+            ->add('studentInfo', HiddenType::class);
+
+        $builder->get('activity')
+            ->addModelTransformer(new ActivityToNumberTransformer($this->em));
+        $builder->get('studentInfo')
+            ->addModelTransformer(new StudentInfoToNumberTransformer($this->em));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'classInfo' => null,
+            'data_class' => Result::class
         ));
     }
 }

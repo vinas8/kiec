@@ -1,2 +1,14 @@
 //bootstrap
 @import "./node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 0;
+  }
+  .content {
+    padding: 15px 0 0 0;
+  }
+  .list-group-item {
+    padding: 10px;
+  }
+}

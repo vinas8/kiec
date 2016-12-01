@@ -1,4 +1,4 @@
-{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block title %}KKnyga{% endblock %}
 
@@ -86,17 +86,5 @@
 			</div>
 		</div>
 	</div>
-
-{% endblock %}
-
-{% block avanzu_admin_footer %}
-{% endblock %}
-
-{% block javascripts %}
-
-	<script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
-	{% javascripts '@AppBundle/Resources/scripts/main.js' %}
-		<script src="{{ asset_url }}"></script>
-	{% endjavascripts %}
 
 {% endblock %}
