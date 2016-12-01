@@ -29,10 +29,7 @@ class StudentInfoToNumberTransformer implements DataTransformerInterface
      */
     public function transform($studentInfo)
     {
-        if (null === $studentInfo) {
-            return null;
-        }
-        return $studentInfo->getId();
+        return $studentInfo ? $studentInfo->getId() : null;
     }
 
     /**

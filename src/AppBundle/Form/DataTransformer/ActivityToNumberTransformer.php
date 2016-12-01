@@ -29,10 +29,7 @@ class ActivityToNumberTransformer implements DataTransformerInterface
      */
     public function transform($activity)
     {
-        if (null === $activity) {
-            return null;
-        }
-        return $activity->getId();
+        return $activity ? $activity->getId() : null;
     }
 
     /**
