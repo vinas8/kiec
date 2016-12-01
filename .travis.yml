@@ -26,4 +26,5 @@ script:
   - vendor/bin/phpcs -p --standard=PSR2 --extensions=php ./src
 
 notifications:
+  email: false
   slack: nfqakademija:OdtQKvlAgV1zO3B1ia3Vbiac
