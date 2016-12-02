@@ -27,7 +27,6 @@ class ResultSetType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => ResultSet::class,
-            'students' => null
         ));
     }
 }
