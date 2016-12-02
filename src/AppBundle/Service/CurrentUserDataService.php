@@ -8,7 +8,6 @@
 
 namespace AppBundle\Service;
 
-
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class CurrentUserDataService
