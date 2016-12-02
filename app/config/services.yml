@@ -20,6 +20,9 @@ services:
         class: AppBundle\Service\LessonService
         arguments:
             - "@app.lesson_repository"
+            - "@app.time_service"
+    app.time_service:
+        class: AppBundle\Service\TimeService
     app.student_info:
         class: AppBundle\Service\StudentInfoService
         arguments: [ "@doctrine.orm.entity_manager" ]
@@ -32,9 +35,14 @@ services:
         tags:
             - { name: twig.extension }
         arguments:
-            - '@security.token_storage'
+            - '@app.current_user_data_service'
+    app.current_user_data_service:
+          class: AppBundle\Service\CurrentUserDataService
+          arguments:
+              - '@security.token_storage'
     app.result_type:
-        class: AppBundle\Form\ResultType
-        arguments: [ "@doctrine.orm.entity_manager" ]
-        tags:
-          - { name: form.type, alias: app_result_type }
+            class: AppBundle\Form\ResultType
+            arguments: [ "@doctrine.orm.entity_manager" ]
+            tags:
+              - { name: form.type, alias: app_result_type }
+

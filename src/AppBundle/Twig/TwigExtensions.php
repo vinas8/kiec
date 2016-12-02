@@ -1,5 +1,7 @@
 <?php
 namespace AppBundle\Twig;
+
+use AppBundle\Service\CurrentUserDataService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
@@ -13,29 +15,46 @@ class TwigExtensions extends \Twig_Extension
     /**
      * @var TokenStorage
      */
-    protected $tokenStorage;
+    protected $currentUserDataService;
 
-    public function __construct(TokenStorage $tokenStorage)
+    public function __construct(CurrentUserDataService $currentUserDataService)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->currentUserDataService = $currentUserDataService;
     }
-
-    public function getUser()
-    {
-        return $this->tokenStorage->getToken()->getUser();
-    }
-
 
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('user_profile', array($this, 'user_profile'))
+            new \Twig_SimpleFunction('profile_picture', array($this, 'getProfilePicture')),
+            new \Twig_SimpleFunction('profile_email', array($this, 'getProfileEmail')),
+            new \Twig_SimpleFunction('profile_name', array($this, 'getProfileName')),
+            new \Twig_SimpleFunction('profile_id', array($this, 'getProfileId'))
         );
     }
 
-    public function user_profile()
+    private function getUser()
     {
-        return $this->getUser();
+        return $this->currentUserDataService->getUser();
+    }
+
+    public function getProfileEmail()
+    {
+        return $this->getUser()->getEmail();
+    }
+
+    public function getProfilePicture()
+    {
+        return $this->getUser()->getProfilePicture();
+    }
+
+    public function getProfileName()
+    {
+        return $this->getUser()->getName();
+    }
+
+    public function getProfileId()
+    {
+        return $this->getUser()->getId();
     }
 
     public function getName()

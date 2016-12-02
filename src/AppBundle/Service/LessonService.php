@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Lesson;
 use AppBundle\Exception\LessonException;
 use AppBundle\Repository\LessonRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -12,64 +13,49 @@ class LessonService
      * @var LessonRepository
      */
     private $repository;
+    private $time;
 
     /**
      * LessonService constructor.
      *
      * @param LessonRepository $repository
      */
-    public function __construct(LessonRepository $repository)
+    public function __construct(LessonRepository $repository, TimeService $time)
     {
         $this->repository = $repository;
+        $this->time = $time;
     }
 
     public function getCurrentLesson()
     {
-        $now = new \DateTime();
-        $now->format("Y-m-d H:m");
-        $now->setTimezone(new \DateTimeZone('Europe/Vilnius'));
-
         try {
-            return $this->repository->findLessonByTime($now);
-        }
-        catch (NonUniqueResultException $e) {
+            return $this->repository->findLessonByTime($this->time->getCurrentTime());
+        } catch (NonUniqueResultException $e) {
             throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
-        }
-        catch (NoResultException $e) {
+        } catch (NoResultException $e) {
             throw new LessonException("Šiuo metu nėra pamokos");
         }
     }
 
     /**
-     * Finds next lesson by given id
+     * Finds next lesson
      *
-     * @param  mixed $id
-     * @return mixed
+     * @param  Lesson $lesson
+     * @return Lesson|null
      */
-    public function getNext($id)
+    public function getNext(Lesson $lesson)
     {
-        return $this->repository->findNextLesson($id);
+        return $this->repository->findNextLessonById($lesson->getId());
     }
 
     /**
-     * Finds previous lesson by given id
+     * Finds previous lesson
      *
-     * @param  mixed $id
-     * @return mixed
+     * @param  Lesson $lesson
+     * @return Lesson|null
      */
-    public function getPrev($id)
+    public function getPrev(Lesson $lesson)
     {
-        return $this->repository->findPrevLesson($id);
-    }
-
-    /**
-     * Finds lesson by given id
-     *
-     * @param  mixed $id
-     * @return mixed
-     */
-    public function getLesson($id)
-    {
-        return $this->repository->findLesson($id);
+        return $this->repository->findPrevLessonById($lesson->getId());
     }
 }
