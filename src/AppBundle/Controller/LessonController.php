@@ -3,7 +3,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Lesson;
 use AppBundle\Exception\LessonException;
-use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -24,18 +23,16 @@ class LessonController extends Controller
     }
 
     /**
-     * @Route("/lesson/{id}", name="lesson")
+     * @Route("/lesson/{Lesson}", name="lesson")
      */
-    public function lessonAction($id)
+    public function lessonAction(Lesson $Lesson = null)
     {
-        try {
-            $lesson = $this->get('app.lesson_service')->getLesson($id);
-        } catch (NoResultException $e) {
-            $this->addFlash('notice', "Pamoka nerasta");
-            return $this->render('@App/Lesson/errors.html.twig');
+        if (!$Lesson) {
+            $this->addFlash('danger', 'Tokia pamoka neegzistuoja!');
+            return $this->redirectToRoute('homepage');
         }
 
-        return $this->display($lesson, 'Pamoka');
+        return $this->display($Lesson, 'Pamoka');
     }
 
     /**
@@ -43,26 +40,15 @@ class LessonController extends Controller
      * @param  string $title
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function display($lesson, $title)
+    private function display(Lesson $lesson, $title)
     {
-        $id = $lesson->getId();
         $classInfo = $lesson->getClassInfo();
 
         $students = $this->get('app.student_info')->getStudentListByClass($classInfo);
         $activities = $this->get('app.activity')->getActivityList();
         $results = $this->get('app.result')->getLastResultsByClass($classInfo);
-
-        try {
-            $nextLesson = $this->get('app.lesson_service')->getNext($id);
-        } catch (NoResultException $e) {
-            $nextLesson = false;
-        }
-
-        try {
-            $prevLesson = $this->get('app.lesson_service')->getPrev($id);
-        } catch (NoResultException $e) {
-            $prevLesson = false;
-        }
+        $nextLesson = $this->get('app.lesson_service')->getNext($lesson);
+        $prevLesson = $this->get('app.lesson_service')->getPrev($lesson);
 
         return $this->render('AppBundle:Lesson:lesson.html.twig', [
             'title' => $title,
