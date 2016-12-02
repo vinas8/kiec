@@ -2,20 +2,24 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Lesson;
+use AppBundle\Entity\Result;
 use AppBundle\Exception\LessonException;
+use AppBundle\Form\ResultSet;
+use AppBundle\Form\ResultSetType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class LessonController extends Controller
 {
     /**
      * @Route("/current", name="current")
      */
-    public function currentAction()
+    public function currentAction(Request $request)
     {
         try {
             $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
-            return $this->display($currentLesson, 'Dabartinė pamoka');
+            return $this->display($currentLesson, 'Dabartinė pamoka', $request);
         } catch (LessonException $e) {
             $this->addFlash('notice', $e->getMessage());
             return $this->render('@App/Lesson/errors.html.twig');
@@ -25,22 +29,23 @@ class LessonController extends Controller
     /**
      * @Route("/lesson/{Lesson}", name="lesson")
      */
-    public function lessonAction(Lesson $Lesson = null)
+    public function lessonAction(Lesson $Lesson = null, Request $request)
     {
         if (!$Lesson) {
             $this->addFlash('danger', 'Tokia pamoka neegzistuoja!');
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->display($Lesson, 'Pamoka');
+        return $this->display($Lesson, 'Pamoka', $request);
     }
 
     /**
      * @param  Lesson $lesson
      * @param  string $title
+     * @param  Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function display(Lesson $lesson, $title)
+    private function display(Lesson $lesson, $title, $request)
     {
         $classInfo = $lesson->getClassInfo();
 
@@ -50,6 +55,27 @@ class LessonController extends Controller
         $nextLesson = $this->get('app.lesson_service')->getNext($lesson);
         $prevLesson = $this->get('app.lesson_service')->getPrev($lesson);
 
+        $resultSet = new ResultSet();
+        foreach ($students as $student) {
+            $result = new Result();
+            $resultSet->getResults()->add($result);
+        }
+        $form = $this->createForm(ResultSetType::class, $resultSet);
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newResults = $form->getData();
+            foreach ($newResults->getResults() as $newResult) {
+                if ($newResult->getValue() !== null) {
+                    $newResult->setTimestamp(new \DateTime());
+                    $em->persist($newResult);
+                }
+            }
+            $em->flush();
+        }
+
         return $this->render('AppBundle:Lesson:lesson.html.twig', [
             'title' => $title,
             'lesson' => $lesson,
@@ -57,7 +83,8 @@ class LessonController extends Controller
             'prevLesson' => $prevLesson,
             'students' => $students,
             'activities' => $activities,
-            'results' => $results
+            'results' => $results,
+            'form' => $form->createView()
         ]);
     }
 }
