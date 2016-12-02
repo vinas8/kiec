@@ -18,8 +18,7 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere(':currentTime BETWEEN l.startTime AND l.endTime')
             ->setParameter('currentTime', $now)
             ->getQuery()
-            ->getSingleResult()
-        ;
+            ->getSingleResult();
     }
 
     /**

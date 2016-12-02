@@ -1,24 +1,51 @@
-{% extends 'HWIOAuthBundle::layout.html.twig' %}
+{% extends 'base-login.html.twig' %}
 
 {% block page_content %}
     {% if error is defined and error %}
         <span>{{ error }}</span>
     {% endif %}
+    {#todo: normalios formos#}
+    <body class="login-page">
+        <div class="login-box">
+            <div class="login-box-body">
+                <p class="login-box-msg">Prašome prisijungti</p>
+                <form action="/login_check" method="post">
+                    <div class="form-group has-feedback">
+                        <input type="text" name="_username" class="form-control" placeholder="Elektroninis paštas"/>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" name="_password" class="form-control" placeholder="Slaptažodis"/>
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Prisiminti mane
+                                </label>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Prisijungti</button>
+                        </div><!-- /.col -->
+                    </div>
+                </form>
 
-    <div class="row">
-    <!-- Profile Image -->
-    <div class="col-md-3">
-        <div class="box">
+                <div class="social-auth-links text-center">
+                    <p>- ARBA -</p>
+                    {% for owner in hwi_oauth_resource_owners() %}
+                        {#<a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>#}
+                        <a href="{{ hwi_oauth_login_url(owner) }}"
+                           class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i>
+                            Prisijungti su Google+</a>
+                    {% endfor %}
+                </div><!-- /.social-auth-links -->
 
-        {% for owner in hwi_oauth_resource_owners() %}
+                <a href="{{ path('fos_user_registration_register') }}" class="text-center">Registruotis</a>
 
-            <a href="{{ hwi_oauth_login_url(owner) }}"
-               class="btn btn-block btn-social btn-google">
-                <i class="fa fa-google-plus"></i>  Prisijungti naudojant {{ owner }}+
-            </a>
+            </div><!-- /.login-box-body -->
         </div>
-    </div>
-    </div>
+    </body>
 
-    {% endfor %}
 {% endblock page_content %}

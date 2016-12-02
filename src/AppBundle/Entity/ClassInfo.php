@@ -29,12 +29,12 @@ class ClassInfo
     private $name;
 
     /**
-     * @var Collection
      *
      * @ORM\OneToMany(targetEntity="StudentInfo", mappedBy="classInfo")
      *
      */
     private $students;
+
 
     /**
      * Get id
@@ -70,16 +70,13 @@ class ClassInfo
         return $this->name;
     }
 
-    /**
-     * @return Collection
-     */
+
     public function getStudents()
     {
         return $this->students;
     }
 
     /**
-     * @param Collection $students
      * @return ClassInfo
      */
     public function setStudents($students)

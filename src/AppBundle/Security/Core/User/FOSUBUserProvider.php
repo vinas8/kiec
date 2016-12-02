@@ -50,8 +50,10 @@ class FOSUBUserProvider extends BaseClass
             $user->$setter_token($response->getAccessToken());
             //I have set all requested data with the user's username
             //modify here with relevant data
-            $user->setUsername($username);
-            $user->setEmail($username);
+            $user->setUsername($response->getEmail());
+            $user->setEmail($response->getEmail());
+            $user->setProfilePicture($response->getProfilePicture());
+            $user->setName($response->getFirstName() . ' ' . $response->getLastName());
             $user->setPassword($username);
             $user->setEnabled(true);
             $this->userManager->updateUser($user);

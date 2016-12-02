@@ -32,4 +32,9 @@ services:
         tags:
             - { name: twig.extension }
         arguments:
-            - '@security.token_storage'
+            - '@app.current_user_data_service'
+    app.current_user_data_service:
+          class: AppBundle\Service\CurrentUserDataService
+          arguments:
+              - '@security.token_storage'
+
