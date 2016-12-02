@@ -67,7 +67,7 @@ class LessonController extends Controller
         $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
             $newResults = $form->getData();
-            foreach($newResults->getResults() as $newResult) {
+            foreach ($newResults->getResults() as $newResult) {
                 if ($newResult->getValue() !== null) {
                     $newResult->setTimestamp(new \DateTime());
                     $em->persist($newResult);

@@ -21,6 +21,7 @@ class StudentInfoToNumberTransformer implements DataTransformerInterface
     {
         $this->em = $em;
     }
+
     /**
      * Transforms an object (studentInfo) to an integer (id).
      *

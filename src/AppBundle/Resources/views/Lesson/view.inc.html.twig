@@ -5,17 +5,18 @@
 			<div class="container-fluid">
 				<div class="col-xs-6">
 					<div class="row">
-						<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}. {{ student.name }}</a>
+						<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}
+							. {{ student.name }}</a>
 					</div>
 					{% for activity in activities %}
 						<div class="row activity-change hidden" data-activityId="{{ activity.id }}">
-						Paskutinis rezultatas:
-						{% if results[student.id][activity.id] is defined %}
-							{{ results[student.id][activity.id] }}
-						{% else %}
-							nėra
-						{% endif %}
-					</div>
+							Paskutinis rezultatas:
+							{% if results[student.id][activity.id] is defined %}
+								{{ results[student.id][activity.id] }}
+							{% else %}
+								nėra
+							{% endif %}
+						</div>
 					{% endfor %}
 				</div>
 				<div class="col-xs-6">

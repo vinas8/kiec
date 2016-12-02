@@ -3,7 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use AppBundle\Entity\StudentInfo;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\StudentInfo;
 
 class ProfileController extends Controller
 {
@@ -19,8 +20,12 @@ class ProfileController extends Controller
         $bestResults = $resultService->getBestResultsByStudent($studentInfo);
         $allResults = $resultService->getResultListByStudent($studentInfo);
 
-        return $this->render('AppBundle:Profile:profile.html.twig', ["student" => $studentInfo, "activities" => $activities,
-            "bestResults" => $bestResults, "allResults" => $allResults]);
+        return $this->render('AppBundle:Profile:profile.html.twig', [
+            "student" => $studentInfo,
+            "activities" => $activities,
+            "bestResults" => $bestResults,
+            "allResults" => $allResults
+        ]);
     }
 
     /**

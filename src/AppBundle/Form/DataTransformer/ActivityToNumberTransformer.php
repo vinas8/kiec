@@ -21,6 +21,7 @@ class ActivityToNumberTransformer implements DataTransformerInterface
     {
         $this->em = $em;
     }
+
     /**
      * Transforms an object (activity) to an integer (id).
      *
