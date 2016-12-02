@@ -27,3 +27,4 @@ class CurrentUserDataService
         return $this->tokenStorage->getToken()->getUser();
     }
 }
+
