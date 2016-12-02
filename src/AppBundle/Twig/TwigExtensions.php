@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Twig;
 
+use AppBundle\Service\CurrentUserDataService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
@@ -14,11 +15,11 @@ class TwigExtensions extends \Twig_Extension
     /**
      * @var TokenStorage
      */
-    protected $tokenStorage;
+    protected $currentUserDataService;
 
-    public function __construct(TokenStorage $tokenStorage)
+    public function __construct(CurrentUserDataService $currentUserDataService)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->currentUserDataService = $currentUserDataService;
     }
 
     public function getFunctions()
@@ -33,7 +34,7 @@ class TwigExtensions extends \Twig_Extension
 
     private function getUser()
     {
-        return $this->tokenStorage->getToken()->getUser();
+        return $this->currentUserDataService->getUser();
     }
 
     public function getProfileEmail()
