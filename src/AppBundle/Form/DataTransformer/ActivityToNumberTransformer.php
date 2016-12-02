@@ -8,7 +8,6 @@
 
 namespace AppBundle\Form\DataTransformer;
 
-
 use AppBundle\Entity\Activity;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;

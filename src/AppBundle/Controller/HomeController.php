@@ -19,6 +19,4 @@ class HomeController extends Controller
 
         return $this->render('AppBundle:Home:index.html.twig', ['auth' => $auth]);
     }
-
-
 }

@@ -8,7 +8,6 @@
 
 namespace AppBundle\Form;
 
-
 use AppBundle\Entity\Result;
 use AppBundle\Form\DataTransformer\ActivityToNumberTransformer;
 use AppBundle\Form\DataTransformer\StudentInfoToNumberTransformer;

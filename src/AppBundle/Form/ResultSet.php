@@ -8,7 +8,6 @@
 
 namespace AppBundle\Form;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 
 class ResultSet
@@ -38,6 +37,4 @@ class ResultSet
     {
         $this->results = $results;
     }
-
-
 }

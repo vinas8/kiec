@@ -30,8 +30,12 @@ class ResultService
         $query = $this->em->createQueryBuilder()
             ->select('ro')
             ->from(Result::class, 'ro')
-            ->leftJoin(Result::class, 'rt', 'WITH',
-                'ro.activity = rt.activity AND ro.studentInfo = rt.studentInfo AND ro.timestamp < rt.timestamp')
+            ->leftJoin(
+                Result::class,
+                'rt',
+                'WITH',
+                'ro.activity = rt.activity AND ro.studentInfo = rt.studentInfo AND ro.timestamp < rt.timestamp'
+            )
             ->innerJoin('ro.studentInfo', 's', 'WITH', 's.classInfo = :class')
             ->setParameter("class", $classInfo)
             ->where('rt.timestamp is NULL')
