@@ -27,3 +27,7 @@ class CurrentUserDataService
         return $this->tokenStorage->getToken()->getUser();
     }
 }
+
+$now = new \DateTime();
+$now->setTimezone(new \DateTimeZone('Europe/Vilnius'));
+$now->format("l H:m");
