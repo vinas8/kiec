@@ -24,7 +24,6 @@ class User extends FOSUser
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     private $google_access_token;
 
-
     /**
      * @var string
      *
