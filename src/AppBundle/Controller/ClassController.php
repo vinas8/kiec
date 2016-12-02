@@ -11,11 +11,11 @@ class ClassController extends Controller
     /**
      * @Route("/classes", name="classes")
      */
-    public function classesAction()
+    public function classListAction()
     {
 
         $classes = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')
-            ->findClassesByTeacher($this->getTeacher());
+            ->findClassesByTeacher($this->get('app.current_user_data_service')->getUser());
         return $this->render('@App/Class/classes.html.twig', array(
             'classes' => $classes
         ));
@@ -27,14 +27,9 @@ class ClassController extends Controller
     public function classAction($id)
     {
         $class = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')
-            ->findClassesByTeacherAndClassId($this->getTeacher(), $id);
+            ->findClassesByTeacherAndClassId($this->get('app.current_user_data_service')->getUser(), $id);
         return $this->render('@App/Class/class.html.twig', array(
             'class' => $class
         ));
-    }
-
-    private function getTeacher()
-    {
-        return $this->get('security.token_storage')->getToken()->getUser();
     }
 }
