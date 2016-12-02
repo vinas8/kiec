@@ -13,25 +13,23 @@ class LessonService
      * @var LessonRepository
      */
     private $repository;
+    private $time;
 
     /**
      * LessonService constructor.
      *
      * @param LessonRepository $repository
      */
-    public function __construct(LessonRepository $repository)
+    public function __construct(LessonRepository $repository, TimeService $time)
     {
         $this->repository = $repository;
+        $this->time = $time;
     }
 
     public function getCurrentLesson()
     {
-        $now = new \DateTime();
-        $now->format("Y-m-d H:m");
-        $now->setTimezone(new \DateTimeZone('Europe/Vilnius'));
-
         try {
-            return $this->repository->findLessonByTime($now);
+            return $this->repository->findLessonByTime($this->time->getCurrentTime());
         } catch (NonUniqueResultException $e) {
             throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
         } catch (NoResultException $e) {
