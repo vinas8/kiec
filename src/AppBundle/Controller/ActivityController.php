@@ -18,7 +18,8 @@ class ActivityController extends Controller
     {
         $activities = $this->get('app.activity')->getActivityList();
         return $this->render(
-            'AppBundle:Activity:view.html.twig', array(
+            'AppBundle:Activity:view.html.twig',
+            array(
             "activities" => $activities
             )
         );
@@ -38,7 +39,8 @@ class ActivityController extends Controller
             return $this->redirectToRoute("activities_view");
         }
         return $this->render(
-            'AppBundle:Activity:edit.html.twig', array(
+            'AppBundle:Activity:edit.html.twig',
+            array(
                 "form" => $form->createView(),
                 "activity" => $activity
             )
@@ -77,7 +79,8 @@ class ActivityController extends Controller
             return $this->redirectToRoute("activities_view");
         }
         return $this->render(
-            'AppBundle:Activity:create.html.twig', array(
+            'AppBundle:Activity:create.html.twig',
+            array(
                 "form" => $form->createView(),
             )
         );

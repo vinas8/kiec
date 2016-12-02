@@ -140,6 +140,4 @@ class Activity
     {
         $this->units = $units;
     }
-
-
 }

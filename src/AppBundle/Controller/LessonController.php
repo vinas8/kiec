@@ -80,7 +80,8 @@ class LessonController extends Controller
 
 
         return $this->render(
-            'AppBundle:Lesson:lesson.html.twig', [
+            'AppBundle:Lesson:lesson.html.twig',
+            [
             'title' => $title,
             'lesson' => $lesson,
             'nextLesson' => $nextLesson,

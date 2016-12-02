@@ -15,7 +15,8 @@ $(".activity-select").change(
 );
 
 $('.modal-button').on(
-    'click', function(e) {
+    'click',
+    function (e) {
         e.preventDefault();
         $('#activity-edit-modal').modal('show').find('.modal-content').load($(this).attr('href'));
     }

@@ -17,7 +17,9 @@ class ActivityType extends AbstractType
     {
         $builder->add('name')
             ->add(
-                'bestResultDetermination', ChoiceType::class, array(
+                'bestResultDetermination',
+                ChoiceType::class,
+                array(
                 'choices'  => array(
                     'Didžiausias rezultatas' => Activity::BEST_RESULT_DETERMINATION_MAX,
                     'Mažiausias rezultatas' => Activity::BEST_RESULT_DETERMINATION_MIN

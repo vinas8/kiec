@@ -18,7 +18,9 @@ class ResultSetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'results', CollectionType::class, array(
+            'results',
+            CollectionType::class,
+            array(
             'entry_type' => ResultType::class
             )
         );
