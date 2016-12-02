@@ -15,5 +15,4 @@ class UserController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         return $this->render('@App/User/profile.html.twig', array('user' => $user));
     }
-
 }
