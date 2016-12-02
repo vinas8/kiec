@@ -3,7 +3,7 @@
 	{% for student in students %}
 		<li class="list-group-item">
 			<div class="container-fluid">
-				<div class="col-xs-6">
+				<div class="col-xs-8">
 					<div class="row">
 						<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}
 							. {{ student.name }}</a>
@@ -19,9 +19,9 @@
 						</div>
 					{% endfor %}
 				</div>
-				<div class="col-xs-6">
+				<div class="col-xs-4">
 					<div class="input-group result-input pull-right">
-						{{ form_widget(form.results[loop.index0].value) }}
+						{{ form_widget(form.results[loop.index0].value, {attr: {class: 'form-control'}}) }}
 						{{ form_widget(form.results[loop.index0].activity, {attr: {class: 'result-activityId'}}) }}
 						{{ form_widget(form.results[loop.index0].studentInfo, {value: student.id }) }}
 					</div>

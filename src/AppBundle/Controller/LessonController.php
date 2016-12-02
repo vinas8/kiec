@@ -74,7 +74,10 @@ class LessonController extends Controller
                 }
             }
             $em->flush();
+            $this->addFlash('success', "Įrašyti nauji rezultatai.");
+            return $this->redirect($request->headers->get('referer'));
         }
+
 
         return $this->render('AppBundle:Lesson:lesson.html.twig', [
             'title' => $title,
