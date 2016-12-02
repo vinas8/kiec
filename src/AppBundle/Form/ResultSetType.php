@@ -17,15 +17,19 @@ class ResultSetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('results', CollectionType::class, array(
+        $builder->add(
+            'results', CollectionType::class, array(
             'entry_type' => ResultType::class
-        ));
+            )
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ResultSet::class,
-        ));
+            )
+        );
     }
 }

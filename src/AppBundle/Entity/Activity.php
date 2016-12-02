@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Activity
 {
+    const BEST_RESULT_DETERMINATION_MAX = 'max';
+    const BEST_RESULT_DETERMINATION_MIN = 'min';
+
     /**
      * @var int
      *
@@ -30,10 +33,23 @@ class Activity
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="bestResultDetermination", type="string", columnDefinition="ENUM('max', 'min')")
+     */
+    private $bestResultDetermination;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="units", type="string", length=255)
+     */
+    private $units;
+
+    /**
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Result", mappedBy="activity")
-     *
      */
     private $results;
 
@@ -89,4 +105,41 @@ class Activity
         $this->results = $results;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getBestResultDetermination()
+    {
+        return $this->bestResultDetermination;
+    }
+
+    /**
+     * @param string $bestResultDetermination
+     */
+    public function setBestResultDetermination($bestResultDetermination)
+    {
+        if (!in_array($bestResultDetermination, array(self::BEST_RESULT_DETERMINATION_MAX, self::BEST_RESULT_DETERMINATION_MIN))) {
+            throw new \InvalidArgumentException("Invalid best result determination");
+        }
+        $this->$bestResultDetermination = $bestResultDetermination;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUnits()
+    {
+        return $this->units;
+    }
+
+    /**
+     * @param string $units
+     */
+    public function setUnits($units)
+    {
+        $this->units = $units;
+    }
+
+
 }

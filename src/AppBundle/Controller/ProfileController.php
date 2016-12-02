@@ -20,12 +20,14 @@ class ProfileController extends Controller
         $bestResults = $resultService->getBestResultsByStudent($studentInfo);
         $allResults = $resultService->getResultListByStudent($studentInfo);
 
-        return $this->render('AppBundle:Profile:profile.html.twig', [
+        return $this->render(
+            'AppBundle:Profile:profile.html.twig', [
             "student" => $studentInfo,
             "activities" => $activities,
             "bestResults" => $bestResults,
             "allResults" => $allResults
-        ]);
+            ]
+        );
     }
 
     /**
