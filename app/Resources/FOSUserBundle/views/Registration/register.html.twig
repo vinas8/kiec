@@ -1,4 +1,5 @@
 {% extends 'base-login.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {% block page_content %}
     {% if error is defined and error %}
@@ -11,54 +12,13 @@
 
         <div class="register-box-body">
             <p class="login-box-msg">Registracija</p>
+            {{ form_widget(form) }}
 
-            <form action="{{ path('fos_user_registration_register') }}" method="POST"
-                  class="fos_user_registration_register">
 
-                <div class="form-group has-feedback">
-                    <input name="fos_user_registration_form[username]" type="text" class="form-control"
-                           placeholder="Prisijungimo vardas">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input name="fos_user_registration_form[email]" type="email" class="form-control"
-                           placeholder="El. paštas">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input name="fos_user_registration_form[plainPassword][first]" type="password" class="form-control"
-                           placeholder="Slaptažodis">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input name="fos_user_registration_form[plainPassword][second]" type="password" class="form-control"
-                           placeholder="Pakartokite slaptažodį">
-                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                </div>
-                <div>
-                    <input type="hidden" id="fos_user_registration_form__token"
-                           name="fos_user_registration_form[_token]"
-                           value="uza09ifvRipCUF3JsgKihOXpxpzUbzYiZ8PjUwxDBmc">
-                </div>
-                {{ form_widget(form._token) }}
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                Paspausdamas registruotis sutinku su <a href="#">taisyklėmis</a>
-                            </label>
-                        </div>
-                    </div>
-                    <!-- /.col -->
+            <div>
+                <input class="btn btn-primary btn-block btn-flat" type="submit" value="{{ 'Registruotis'|trans }}" />
+            </div>
 
-                    <div class="col-xs-4">
-                        <button value="registration.submit" type="submit" class="btn btn-primary btn-block btn-flat">
-                            Registruotis
-                        </button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
         </div>
         <!-- /.form-box -->
     </div>

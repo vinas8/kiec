@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as FOSUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -28,6 +29,16 @@ class User extends FOSUser
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     *
+     *
+     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=255,
+     *     minMessage="Vardas yra per trumpas",
+     *     maxMessage="Vardas yra per ilgas",
+     *     groups={"Registration", "Profile"}
+     * )
      */
     private $name;
     /**
@@ -36,6 +47,29 @@ class User extends FOSUser
      * @ORM\Column(name="profile_picture", type="string", length=255, nullable=true)
      */
     private $profilePicture;
+
+    /**
+     * @ORM\Column(name="profile_picture_file", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Prašome įkelti nuotrauką")
+     * @Assert\File(mimeTypes={ "image/*" })
+     */
+    private $profilePictureFile;
+
+    /**
+     * @return mixed
+     */
+    public function getProfilePictureFile()
+    {
+        return $this->profilePictureFile;
+    }
+
+    /**
+     * @param mixed $profilePictureFile
+     */
+    public function setProfilePictureFile($profilePictureFile)
+    {
+        $this->profilePictureFile = $profilePictureFile;
+    }
 
     /**
      * @return string

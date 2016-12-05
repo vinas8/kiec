@@ -13,6 +13,8 @@ hwi_oauth_connect:
 app:
     resource: "@AppBundle/Controller"
     type: annotation
+    requirements:
+        _locale: en|lt
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
