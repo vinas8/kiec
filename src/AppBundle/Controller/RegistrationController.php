@@ -48,7 +48,7 @@ class RegistrationController extends FOSController
 
                 /** @var \AppBundle\Service\FileUploadService $uploaderService */
                 $file = $form->get('profile_picture')->getData();
-                if ($file){
+                if ($file) {
                     $fileName = $this->get('app.profile_picture_uploader_service')->upload($file);
                     $user->setProfilePicture(GlobalConstants::PROFILE_IMAGE_LOCATION . $fileName);
                 }
@@ -63,7 +63,8 @@ class RegistrationController extends FOSController
                     $response = new RedirectResponse($url);
                 }
 
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED,
+                    new FilterUserResponseEvent($user, $request, $response));
 
                 return $response;
             }

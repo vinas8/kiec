@@ -16,7 +16,6 @@ class RegistrationType extends AbstractType
             FileType::class,
             array('label' => 'form.profile_picture', 'translation_domain' => 'FOSUserBundle', 'required' => false)
         );
-
     }
 
     public function getParent()
