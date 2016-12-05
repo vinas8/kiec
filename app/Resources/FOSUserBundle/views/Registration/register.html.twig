@@ -1,6 +1,5 @@
 {% extends 'base-login.html.twig' %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
-
 {% block page_content %}
     {% if error is defined and error %}
         <span>{{ error }}</span>
@@ -12,12 +11,13 @@
 
         <div class="register-box-body">
             <p class="login-box-msg">Registracija</p>
+            {{ form_start(form) }}
             {{ form_widget(form) }}
 
-
             <div>
-                <input class="btn btn-primary btn-block btn-flat" type="submit" value="{{ 'Registruotis'|trans }}" />
+                <input formnovalidate class="btn btn-primary btn-block btn-flat" type="submit" value="{{ 'Register'|trans }}" />
             </div>
+            {{ form_end(form) }}
 
         </div>
         <!-- /.form-box -->

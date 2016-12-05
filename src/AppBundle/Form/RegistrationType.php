@@ -12,9 +12,9 @@ class RegistrationType extends AbstractType
     {
         $builder->add('name', null, array('label' => 'form.name', 'translation_domain' => 'FOSUserBundle'));
         $builder->add(
-            'profile_picture_file',
+            'profile_picture',
             FileType::class,
-            array('label' => 'form.profile_picture', 'translation_domain' => 'FOSUserBundle')
+            array('label' => 'form.profile_picture', 'translation_domain' => 'FOSUserBundle', 'required' => false)
         );
 
     }

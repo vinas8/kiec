@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Twig;
 
+use AppBundle\GlobalConstants;
 use AppBundle\Service\CurrentUserDataService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
@@ -44,7 +45,11 @@ class TwigExtensions extends \Twig_Extension
 
     public function getProfilePicture()
     {
-        return $this->getUser()->getProfilePicture();
+        $profilePic = $this->getUser()->getProfilePicture();
+
+        if (!file_exists($profilePic)) return GlobalConstants::PROFILE_IMAGE_DEFAULT;
+
+        return $profilePic;
     }
 
     public function getProfileName()

@@ -29,47 +29,38 @@ class User extends FOSUser
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
-     *
-     *
-     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\NotBlank(message="This value should not be blank.")
      * @Assert\Length(
      *     min=3,
      *     max=255,
-     *     minMessage="Vardas yra per trumpas",
-     *     maxMessage="Vardas yra per ilgas",
-     *     groups={"Registration", "Profile"}
+     *     minMessage="Name is too short",
+     *     maxMessage="Name is too long",
      * )
      */
     private $name;
+
     /**
      * @var string
      *
-     * @ORM\Column(name="profile_picture", type="string", length=255, nullable=true)
+     * @ORM\Column(name="profile_picture", type="string", nullable=true)
+     * @Assert\File(mimeTypes={ "image/*" })
      */
     private $profilePicture;
 
-    /**
-     * @ORM\Column(name="profile_picture_file", type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Prašome įkelti nuotrauką")
-     * @Assert\File(mimeTypes={ "image/*" })
-     */
-    private $profilePictureFile;
 
     /**
-     * @return mixed
+     * @Assert\NotBlank()
+     * @Assert\Length(min=6, max=4096)
      */
-    public function getProfilePictureFile()
-    {
-        return $this->profilePictureFile;
-    }
+    protected $plainPassword;
+
 
     /**
-     * @param mixed $profilePictureFile
+     * @Assert\Email()
+     * @Assert\NotBlank()
      */
-    public function setProfilePictureFile($profilePictureFile)
-    {
-        $this->profilePictureFile = $profilePictureFile;
-    }
+    protected $email;
+
 
     /**
      * @return string
