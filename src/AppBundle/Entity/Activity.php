@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * Activity
@@ -13,9 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Activity
 {
-    const BEST_RESULT_DETERMINATION_MAX = 'max';
-    const BEST_RESULT_DETERMINATION_MIN = 'min';
-
     /**
      * @var int
      *
@@ -35,7 +33,8 @@ class Activity
     /**
      * @var string
      *
-     * @ORM\Column(name="bestResultDetermination", type="string", columnDefinition="ENUM('max', 'min')")
+     * @ORM\Column(name="bestResultDetermination", type="BestResultDeterminationType", nullable=false)
+     * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BestResultDeterminationType")
      */
     private $bestResultDetermination;
 
@@ -119,10 +118,7 @@ class Activity
      */
     public function setBestResultDetermination($bestResultDetermination)
     {
-        if (!in_array($bestResultDetermination, array(self::BEST_RESULT_DETERMINATION_MAX, self::BEST_RESULT_DETERMINATION_MIN))) {
-            throw new \InvalidArgumentException("Invalid best result determination");
-        }
-        $this->$bestResultDetermination = $bestResultDetermination;
+        $this->bestResultDetermination = $bestResultDetermination;
     }
 
     /**

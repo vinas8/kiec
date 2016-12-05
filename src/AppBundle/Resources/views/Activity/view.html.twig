@@ -27,7 +27,7 @@
 								<td>{{ activity.name }}</td>
 								<td>{{ activity.units }}</td>
 								<td>
-									{% if activity.bestResultDetermination is constant("AppBundle\\Entity\\Activity::BEST_RESULT_DETERMINATION_MAX") %}
+									{% if activity.bestResultDetermination == 'MAX'|enum_constant('BestResultDeterminationType') %}
 										Didžiausias rezultatas
 									{% else %}
 										Mažiausias rezultatas

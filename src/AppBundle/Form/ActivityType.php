@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\DBAL\Types\BestResultDeterminationType;
 use AppBundle\Entity\Activity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,11 +20,9 @@ class ActivityType extends AbstractType
             ->add(
                 'bestResultDetermination',
                 ChoiceType::class,
-                array(
-                'choices'  => array(
-                    'Didžiausias rezultatas' => Activity::BEST_RESULT_DETERMINATION_MAX,
-                    'Mažiausias rezultatas' => Activity::BEST_RESULT_DETERMINATION_MIN
-                ))
+                [
+                    'choices' => BestResultDeterminationType::getChoices()
+                ]
             )
             ->add('units');
     }
