@@ -40,9 +40,9 @@ services:
         class: AppBundle\Service\CurrentUserDataService
         arguments:
             - '@security.token_storage'
-    app.result_type:
-            class: AppBundle\Form\ResultType
+    app.result_hidden_type:
+            class: AppBundle\Form\ResultHiddenType
             arguments: [ "@doctrine.orm.entity_manager" ]
             tags:
-              - { name: form.type, alias: app_result_type }
+              - { name: form.type, alias: app_result_hidden_type }
 

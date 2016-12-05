@@ -17,6 +17,6 @@ $('.modal-button').on(
     'click',
     function (e) {
         e.preventDefault();
-        $('#activity-edit-modal').modal('show').find('.modal-content').load($(this).attr('href'));
+        $('#modal').modal('show').find('.modal-content').load($(this).attr('href'));
     }
 );

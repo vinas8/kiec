@@ -71,20 +71,33 @@
 								<tr>
 									<th class="text-center">Data</th>
 									<th class="text-center">Rezultatas</th>
+									<th class="text-center">Veiksmai</th>
 								</tr>
 								{% for result in allResults[activity.id] %}
 									<tr>
 										<td>{{ result.timestamp|date("Y-m-d H:m:s") }}</td>
 										<td>{{ result.value }}</td>
+										<td>
+											<a href="{{ path('result_edit', {'result': result.id}) }}" class="btn btn-danger btn-xs modal-button">
+												<span class="fa fa-edit"></span>
+											</a>
+											<a href="{{ path('result_delete', {'result': result.id}) }}" class="btn btn-danger btn-xs">
+												<span class="fa fa-close"></span>
+											</a>
+										</td>
 									</tr>
 								{% endfor %}
 							</table>
+
 						{% else %}
 							<div class="alert alert-danger activity-change no-margin hidden" role="alert"
 							     data-activityId="{{ activity.id }}">Rezultatų nėra
 							</div>
 						{% endif %}
 					{% endfor %}
+					<a href="{{ path('result_create', {'studentInfo': student.id}) }}" class="btn btn-danger btn-block modal-button">
+						<span class="fa fa-plus"></span>
+					</a>
 				</div>
 			</div>
 		</div>
