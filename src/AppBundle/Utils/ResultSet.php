@@ -6,7 +6,7 @@
  * Time: 21.32
  */
 
-namespace AppBundle\Form;
+namespace AppBundle\Utils;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

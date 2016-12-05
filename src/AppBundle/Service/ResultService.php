@@ -90,4 +90,16 @@ class ResultService
 
         return $allResults;
     }
+
+    public function addNewResults($results) {
+        foreach ($results->getActivities() as $activityResults) {
+            foreach ($activityResults->getResults() as $result) {
+                if ($result->getValue() !== null) {
+                    $result->setTimestamp(new \DateTime());
+                    $this->em->persist($result);
+                }
+            }
+        }
+        $this->em->flush();
+    }
 }
