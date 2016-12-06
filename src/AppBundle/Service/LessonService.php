@@ -71,6 +71,7 @@ class LessonService
      */
     public function getUserLessonsFromNow(User $user, $offset, $limit)
     {
-        return $this->lessonRepository->findUserLessonsFromDate($user, $this->timeService->getCurrentTime(), $offset, $limit);
+        return $this->lessonRepository->findUserLessonsFromDate($user, $this->timeService->getCurrentTime(), $offset,
+            $limit);
     }
 }
