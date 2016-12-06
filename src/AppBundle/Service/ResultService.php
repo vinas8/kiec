@@ -82,12 +82,22 @@ class ResultService
         $allResults = [];
         foreach ($results as $result) {
             $activityId = $result->getActivity()->getId();
-            if (!isset($allResults[$activityId])) {
-                $allResults[$activityId] = [];
-            }
-            array_push($allResults[$activityId], $result);
+            $allResults[$activityId][] = $result;
         }
 
         return $allResults;
+    }
+
+    public function addNewResults($results)
+    {
+        foreach ($results->getActivities() as $activityResults) {
+            foreach ($activityResults->getResults() as $result) {
+                if ($result->getValue() !== null) {
+                    $result->setTimestamp(new \DateTime());
+                    $this->em->persist($result);
+                }
+            }
+        }
+        $this->em->flush();
     }
 }

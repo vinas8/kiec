@@ -1,34 +1,34 @@
-<ul class="list-group no-margin student-list-group hidden">
 	{{ form_start(form) }}
-	{% for student in students %}
-		<li class="list-group-item">
-			<div class="container-fluid">
-				<div class="col-xs-8">
-					<div class="row">
-						<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}
-							. {{ student.name }}</a>
-					</div>
-					{% for activity in activities %}
-						<div class="row activity-change hidden" data-activityId="{{ activity.id }}">
+	{% for activity in activities %}
+		<ul class="list-group no-margin student-list-group hidden activity-change" data-activityId="{{ activity.id }}">
+		{% for student in students %}
+			<li class="list-group-item">
+				<div class="container-fluid">
+					<div class="col-xs-8">
+						<div class="row">
+							<a href="{{ path('profile', {'studentInfo': student.id}) }}">{{ loop.index }}
+								. {{ student.name }}</a>
+						</div>
+						<div class="row">
 							Paskutinis rezultatas:
 							{% if results[student.id][activity.id] is defined %}
-								{{ results[student.id][activity.id] }}
+								{{ results[student.id][activity.id] }} {{ activity.units }}
 							{% else %}
 								nėra
 							{% endif %}
 						</div>
-					{% endfor %}
-				</div>
-				<div class="col-xs-4">
-					<div class="input-group result-input pull-right">
-						{{ form_widget(form.results[loop.index0].value, {attr: {class: 'form-control'}}) }}
-						{{ form_widget(form.results[loop.index0].activity, {attr: {class: 'result-activityId'}}) }}
-						{{ form_widget(form.results[loop.index0].studentInfo, {value: student.id }) }}
+					</div>
+					<div class="col-xs-4">
+						<div class="input-group result-input pull-right">
+							{{ form_widget(form.activities[loop.parent.loop.index0].results[loop.index0].value, {attr: {class: 'form-control'}}) }}
+							{{ form_widget(form.activities[loop.parent.loop.index0].results[loop.index0].activity) }}
+							{{ form_widget(form.activities[loop.parent.loop.index0].results[loop.index0].studentInfo) }}
+						</div>
 					</div>
 				</div>
-			</div>
-		</li>
+			</li>
+		{% endfor %}
+		<input type="submit" class="btn btn-block" value="Irašyti"/>
+		</ul>
 	{% endfor %}
-	<input type="submit" class="btn btn-block" value="Irašyti"/>
-	{{ form_end(form) }}
-</ul>
+{{ form_end(form) }}

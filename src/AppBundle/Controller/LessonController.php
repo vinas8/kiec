@@ -4,8 +4,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Lesson;
 use AppBundle\Entity\Result;
 use AppBundle\Exception\LessonException;
-use AppBundle\Form\ResultSet;
-use AppBundle\Form\ResultSetType;
+use AppBundle\Form\ActivityResultSetType;
+use AppBundle\Utils\ResultSet;
+use AppBundle\Utils\ActivityResultSet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,26 +63,21 @@ class LessonController extends Controller
         $results = $this->get('app.result')->getLastResultsByClass($classInfo);
         $nextLesson = $this->get('app.lesson_service')->getNext($lesson);
         $prevLesson = $this->get('app.lesson_service')->getPrev($lesson);
-
-        $resultSet = new ResultSet();
-        foreach ($students as $student) {
-            $result = new Result();
-            $resultSet->getResults()->add($result);
+        $activityResultSet = new ActivityResultSet();
+        foreach ($activities as $activity) {
+            $resultSet = new ResultSet();
+            $activityResultSet->getActivities()->add($resultSet);
+            foreach ($students as $student) {
+                $result = new Result($activity, $student);
+                $resultSet->getResults()->add($result);
+            }
         }
-        $form = $this->createForm(ResultSetType::class, $resultSet);
+        $form = $this->createForm(ActivityResultSetType::class, $activityResultSet);
 
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
-            $newResults = $form->getData();
-            foreach ($newResults->getResults() as $newResult) {
-                if ($newResult->getValue() !== null) {
-                    $newResult->setTimestamp(new \DateTime());
-                    $em->persist($newResult);
-                }
-            }
-            $em->flush();
+            $this->get('app.result')->addNewResults($form->getData());
             $this->addFlash('success', "Įrašyti nauji rezultatai.");
             return $this->redirect($request->headers->get('referer'));
         }

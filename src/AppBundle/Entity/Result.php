@@ -54,6 +54,17 @@ class Result
      */
     private $studentInfo;
 
+    /**
+     * Result constructor.
+     * @param object $activity
+     * @param object $studentInfo
+     */
+    public function __construct(Activity $activity, StudentInfo $studentInfo)
+    {
+        $this->activity = $activity;
+        $this->studentInfo = $studentInfo;
+    }
+
 
     /**
      * Get id

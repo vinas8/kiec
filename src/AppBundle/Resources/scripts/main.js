@@ -10,7 +10,6 @@ $(".activity-select").change(
         $(".result-activityId").val(showId);
         $(".activity-change").addClass('hidden');
         $(".activity-change[data-activityId='" + showId + "']").removeClass('hidden');
-        $(".student-list-group").removeClass('hidden');
     }
 );
 
