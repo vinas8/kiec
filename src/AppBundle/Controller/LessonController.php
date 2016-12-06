@@ -9,11 +9,15 @@ use AppBundle\Form\ResultSetType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class LessonController extends Controller
 {
     /**
      * @Route("/current", name="current")
+     *
+     * @param  Request $request
+     * @return Response
      */
     public function currentAction(Request $request)
     {
@@ -21,29 +25,33 @@ class LessonController extends Controller
             $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
             return $this->display($currentLesson, 'Dabartinė pamoka', $request);
         } catch (LessonException $e) {
-            $this->addFlash('notice', $e->getMessage());
-            return $this->render('@App/Lesson/errors.html.twig');
+            $this->addFlash('info', $e->getMessage());
+            return $this->redirectToRoute('homepage');
         }
     }
 
     /**
-     * @Route("/lesson/{Lesson}", name="lesson")
+     * @Route("/lesson/{lesson}", name="lesson")
+     *
+     * @param  Request $request
+     * @param  Lesson $lesson
+     * @return Response
      */
-    public function lessonAction(Lesson $Lesson = null, Request $request)
+    public function lessonAction(Request $request, Lesson $lesson = null)
     {
-        if (!$Lesson) {
+        if (!$lesson) {
             $this->addFlash('danger', 'Tokia pamoka neegzistuoja!');
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->display($Lesson, 'Pamoka', $request);
+        return $this->display($lesson, 'Pamoka', $request);
     }
 
     /**
-     * @param  Lesson $lesson
-     * @param  string $title
+     * @param  Lesson  $lesson
+     * @param  string  $title
      * @param  Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     private function display(Lesson $lesson, $title, $request)
     {
@@ -79,7 +87,9 @@ class LessonController extends Controller
         }
 
 
-        return $this->render('AppBundle:Lesson:lesson.html.twig', [
+        return $this->render(
+            'AppBundle:Lesson:lesson.html.twig',
+            [
             'title' => $title,
             'lesson' => $lesson,
             'nextLesson' => $nextLesson,
@@ -88,6 +98,7 @@ class LessonController extends Controller
             'activities' => $activities,
             'results' => $results,
             'form' => $form->createView()
-        ]);
+            ]
+        );
     }
 }

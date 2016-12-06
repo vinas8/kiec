@@ -16,9 +16,12 @@ class ClassController extends Controller
 
         $classes = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')
             ->findClassesByTeacher($this->get('app.current_user_data_service')->getUser());
-        return $this->render('@App/Class/classes.html.twig', array(
+        return $this->render(
+            '@App/Class/classes.html.twig',
+            array(
             'classes' => $classes
-        ));
+            )
+        );
     }
 
     /**
@@ -28,8 +31,11 @@ class ClassController extends Controller
     {
         $class = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')
             ->findClassesByTeacherAndClassId($this->get('app.current_user_data_service')->getUser(), $id);
-        return $this->render('@App/Class/class.html.twig', array(
+        return $this->render(
+            '@App/Class/class.html.twig',
+            array(
             'class' => $class
-        ));
+            )
+        );
     }
 }

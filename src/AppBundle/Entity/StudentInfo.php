@@ -46,7 +46,6 @@ class StudentInfo
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Result", mappedBy="studentInfo")
-     *
      */
     private $results;
 

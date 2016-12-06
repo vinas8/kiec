@@ -26,7 +26,8 @@
         "symfony/assetic-bundle": "^2.8",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "hwi/oauth-bundle": "^0.5.1",
-        "twig/extensions": "^1.4"
+        "twig/extensions": "^1.4",
+        "fresh/doctrine-enum-bundle": "~4.8"
     },
     "require-dev": {
         "fzaninotto/faker": "*",
