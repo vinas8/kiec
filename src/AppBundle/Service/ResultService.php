@@ -93,7 +93,6 @@ class ResultService
         foreach ($results->getActivities() as $activityResults) {
             foreach ($activityResults->getResults() as $result) {
                 if ($result->getValue() !== null) {
-                    $result->setTimestamp(new \DateTime());
                     $this->em->persist($result);
                 }
             }

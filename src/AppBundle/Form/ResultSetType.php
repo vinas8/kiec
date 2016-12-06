@@ -22,7 +22,7 @@ class ResultSetType extends AbstractType
             'results',
             CollectionType::class,
             array(
-            'entry_type' => ResultType::class
+            'entry_type' => ResultHiddenType::class
             )
         );
     }
