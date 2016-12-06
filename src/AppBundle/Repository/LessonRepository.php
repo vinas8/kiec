@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Lesson;
+use AppBundle\Entity\User;
 
 /**
  * LessonRepository
@@ -55,5 +56,28 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * Finds all lessons from given date
+     *
+     * @param  User $user
+     * @param  string $date
+     * @param  int $offset
+     * @param  int $limit
+     * @return array
+     */
+    public function findUserLessonsFromDate(User $user, $date, $offset, $limit)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.startTime > :date')
+            ->setParameter('date', $date)
+            ->andWhere('a.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('a.startTime', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
     }
 }
