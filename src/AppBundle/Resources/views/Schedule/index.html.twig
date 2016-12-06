@@ -1,0 +1,179 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Tvarkaraštis{% endblock %}
+
+{% block page_title %}Tvarkaraštis{% endblock %}
+{% block page_subtitle %}{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-9">
+            <div id="timeline"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-calendar-plus-o"></i>
+                    <h3 class="box-title">Pamokų planavimas</h3>
+                </div>
+                <form role="form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="classinfo">Klasė</label>
+                            <select id="classinfo" class="form-control">
+                                <option value="">Pasirinkite:</option>
+                                <option value="1">5A</option>
+                                <option value="2">5B</option>
+                                <option value="3">5C</option>
+                            </select>
+                        </div>
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1" data-toggle="tab" aria-expanded="true">Viena</a>
+                                </li>
+                                <li class="">
+                                    <a href="#tab_2" data-toggle="tab" aria-expanded="false">Pasikartojanti</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab_1" class="tab-pane active">
+                                    <div class="form-group">
+                                        <label for="datepicker">Data:</label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input id="datepicker" class="form-control pull-right datepicker" type="text" name="startDate"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker1">Pradžia:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker1" class="form-control timepicker" type="text" name="startTime"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker2">Pabaiga:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker2" class="form-control timepicker" type="text" name="endTime"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab_2" class="tab-pane">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="datepicker1">Pradžia:</label>
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input id="datepicker1" class="form-control pull-right datepicker" type="text" name="startDate"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="datepicker2">Pabaiga:</label>
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input id="datepicker2" class="form-control pull-right datepicker" type="text" name="endDate"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                {% for i, weekday in ['Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis', 'Sekmadienis'] %}
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="weekdays" value="{{ i }}" /> {{ weekday }}</label>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker3">Pradžia:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker3" class="form-control timepicker" type="text" name="startTime"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker4">Pabaiga:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker4" class="form-control timepicker" type="text" name="endTime"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button class="btn btn-primary" type="submit">Įrašyti</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var timelineUrl = '{{ path('api_schedule') }}',
+            lessonUrl = '{{ path('lesson') }}';
+
+        $(function () {
+            $('.datepicker').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                language: 'lt'
+            });
+
+            $('.timepicker').timepicker({
+                showInputs: false,
+                minuteStep: 5,
+                showSeconds: false,
+                showMeridian: false,
+                defaultTime: '08:00'
+            });
+        });
+    </script>
+    <script src="{{ asset('js/timeline.js') }}"></script>
+{% endblock %}
