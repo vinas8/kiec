@@ -32,9 +32,14 @@ class ActivityController extends Controller
     {
         $form = $this->createForm(ActivityType::class, $activity, array('action' => $this->generateUrl("activities_edit", array('activity' => $activity->getId()))));
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Rungtis atnaujinta.');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Rungtis atnaujinta.');
+            }
+            else {
+                $this->addFlash('danger', 'Netinkama reikšmė.');
+            }
             return $this->redirectToRoute("activities_view");
         }
         return $this->render(
@@ -70,10 +75,15 @@ class ActivityController extends Controller
         $activity = new Activity();
         $form = $this->createForm(ActivityType::class, $activity, array('action' => $this->generateUrl("activities_create")));
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($activity);
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Rungtis pridėta.');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this->getDoctrine()->getManager()->persist($activity);
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Rungtis pridėta.');
+            }
+            else {
+                $this->addFlash('danger', 'Netinkama reikšmė.');
+            }
             return $this->redirectToRoute("activities_view");
         }
         return $this->render(
