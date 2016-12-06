@@ -33,11 +33,15 @@ class Lesson
      */
     private $endTime;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="ClassInfo")
      */
     private $class_info;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $user;
 
     /**
      * Get id
@@ -47,6 +51,29 @@ class Lesson
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param  User|null $user
+     * @return Lesson
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     /**
