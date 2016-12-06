@@ -45,4 +45,11 @@ services:
             arguments: [ "@doctrine.orm.entity_manager" ]
             tags:
               - { name: form.type, alias: app_result_type }
+    app.form.registration_type:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+    app.profile_picture_uploader_service:
+        class: AppBundle\Service\FileUploadService
+        arguments: ['%profile_images_directory%']
 
