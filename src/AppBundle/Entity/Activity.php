@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * Activity
@@ -30,10 +31,24 @@ class Activity
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="bestResultDetermination", type="BestResultDeterminationType", nullable=false)
+     * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BestResultDeterminationType")
+     */
+    private $bestResultDetermination;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="units", type="string", length=255)
+     */
+    private $units;
+
+    /**
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Result", mappedBy="activity")
-     *
      */
     private $results;
 
@@ -88,5 +103,37 @@ class Activity
     {
         $this->results = $results;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBestResultDetermination()
+    {
+        return $this->bestResultDetermination;
+    }
+
+    /**
+     * @param string $bestResultDetermination
+     */
+    public function setBestResultDetermination($bestResultDetermination)
+    {
+        $this->bestResultDetermination = $bestResultDetermination;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUnits()
+    {
+        return $this->units;
+    }
+
+    /**
+     * @param string $units
+     */
+    public function setUnits($units)
+    {
+        $this->units = $units;
     }
 }

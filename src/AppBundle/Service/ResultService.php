@@ -56,7 +56,7 @@ class ResultService
     {
         $query = $this->em->createQueryBuilder()
             ->select('r AS result')
-            ->addSelect('MAX(r.value) AS max_value')
+            ->addSelect('MAX(r.value) AS max_value, MIN(r.value) AS min_value')
             ->from(Result::class, 'r')
             ->innerJoin("r.activity", "s")
             ->where("r.studentInfo = :student")

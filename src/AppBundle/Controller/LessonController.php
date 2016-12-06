@@ -48,8 +48,8 @@ class LessonController extends Controller
     }
 
     /**
-     * @param  Lesson $lesson
-     * @param  string $title
+     * @param  Lesson  $lesson
+     * @param  string  $title
      * @param  Request $request
      * @return Response
      */
@@ -87,7 +87,9 @@ class LessonController extends Controller
         }
 
 
-        return $this->render('AppBundle:Lesson:lesson.html.twig', [
+        return $this->render(
+            'AppBundle:Lesson:lesson.html.twig',
+            [
             'title' => $title,
             'lesson' => $lesson,
             'nextLesson' => $nextLesson,
@@ -96,6 +98,7 @@ class LessonController extends Controller
             'activities' => $activities,
             'results' => $results,
             'form' => $form->createView()
-        ]);
+            ]
+        );
     }
 }

@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new Fresh\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
