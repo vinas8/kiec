@@ -12,7 +12,7 @@
 						<div class="row">
 							Paskutinis rezultatas:
 							{% if results[student.id][activity.id] is defined %}
-								{{ results[student.id][activity.id] }}
+								{{ results[student.id][activity.id] }} {{ activity.units }}
 							{% else %}
 								nėra
 							{% endif %}

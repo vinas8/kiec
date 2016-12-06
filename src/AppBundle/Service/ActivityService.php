@@ -8,9 +8,7 @@
 
 namespace AppBundle\Service;
 
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\EntityManager;
-use AppBundle\Entity\Activity;
 
 class ActivityService
 {
@@ -33,28 +31,5 @@ class ActivityService
         $activities = $query->getResult();
 
         return $activities;
-    }
-
-    public function createActivity($activity)
-    {
-        $this->em->persist($activity);
-        $this->em->flush();
-    }
-
-    public function deleteActivity($activity)
-    {
-        try {
-            $this->em->remove($activity);
-            $this->em->flush();
-            return true;
-        } catch (ForeignKeyConstraintViolationException $e) {
-            return false;
-        }
-    }
-
-    public function editActivity($activity)
-    {
-        $this->em->persist($activity);
-        $this->em->flush();
     }
 }

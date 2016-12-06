@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Activity;
 use AppBundle\Form\ActivityType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class ActivityController extends Controller
         $form = $this->createForm(ActivityType::class, $activity, array('action' => $this->generateUrl("activities_edit", array('activity' => $activity->getId()))));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.activity')->editActivity($activity);
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Rungtis atnaujinta.');
             return $this->redirectToRoute("activities_view");
         }
@@ -50,11 +51,14 @@ class ActivityController extends Controller
      */
     public function deleteAction(Activity $activity)
     {
-        if ($this->get('app.activity')->deleteActivity($activity)) {
+        try {
+            $this->getDoctrine()->getManager()->remove($activity);
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Rungtis pašalinta');
-        } else {
+        } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash('danger', 'Yra rezultatų, priklausančių šiai rungčiai.');
         }
+
         return $this->redirectToRoute("activities_view");
     }
 
@@ -67,7 +71,8 @@ class ActivityController extends Controller
         $form = $this->createForm(ActivityType::class, $activity, array('action' => $this->generateUrl("activities_create")));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.activity')->createActivity($activity);
+            $this->getDoctrine()->getManager()->persist($activity);
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Rungtis pridėta.');
             return $this->redirectToRoute("activities_view");
         }

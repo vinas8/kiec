@@ -82,10 +82,7 @@ class ResultService
         $allResults = [];
         foreach ($results as $result) {
             $activityId = $result->getActivity()->getId();
-            if (!isset($allResults[$activityId])) {
-                $allResults[$activityId] = [];
-            }
-            array_push($allResults[$activityId], $result);
+            $allResults[$activityId][] = $result;
         }
 
         return $allResults;

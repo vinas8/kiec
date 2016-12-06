@@ -40,7 +40,14 @@
 							{% for bestResult in bestResults %}
 								<tr>
 									<td>{{ bestResult.result.activity.name }}</td>
-									<td>{{ bestResult.max_value }}</td>
+									<td>
+										{% if bestResult.result.activity.bestResultDetermination == 'MAX'|enum_constant('BestResultDeterminationType') %}
+											{{ bestResult.max_value }}
+										{% else %}
+											{{ bestResult.min_value }}
+										{% endif %}
+										{{ bestResult.result.activity.units }}
+									</td>
 								</tr>
 							{% endfor %}
 						</table>
@@ -76,7 +83,7 @@
 								{% for result in allResults[activity.id] %}
 									<tr>
 										<td>{{ result.timestamp|date("Y-m-d H:m:s") }}</td>
-										<td>{{ result.value }}</td>
+										<td>{{ result.value }} {{ result.activity.units }}</td>
 										<td>
 											<a href="{{ path('result_edit', {'result': result.id}) }}" class="btn btn-danger btn-xs modal-button">
 												<span class="fa fa-edit"></span>
@@ -88,7 +95,6 @@
 									</tr>
 								{% endfor %}
 							</table>
-
 						{% else %}
 							<div class="alert alert-danger activity-change no-margin hidden" role="alert"
 							     data-activityId="{{ activity.id }}">Rezultatų nėra
