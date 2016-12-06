@@ -80,8 +80,7 @@ class LessonController extends Controller
             if ($form->isValid()) {
                 $this->get('app.result')->addNewResults($form->getData());
                 $this->addFlash('success', "Įrašyti nauji rezultatai.");
-            }
-            else {
+            } else {
                 $this->addFlash('danger', 'Netinkama reikšmė.');
             }
             return $this->redirect($request->headers->get('referer'));

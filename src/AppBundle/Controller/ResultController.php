@@ -24,8 +24,7 @@ class ResultController extends Controller
             if ($form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Rezultatas atnaujintas.');
-            }
-            else {
+            } else {
                 $this->addFlash('danger', 'Netinkama reikšmė.');
             }
             return new RedirectResponse($request->headers->get('referer'));
@@ -64,8 +63,7 @@ class ResultController extends Controller
                 $this->getDoctrine()->getManager()->persist($result);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Rezultatas pridėtas.');
-            }
-            else {
+            } else {
                 $this->addFlash('danger', 'Netinkama reikšmė.');
             }
 

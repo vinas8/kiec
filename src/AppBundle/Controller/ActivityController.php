@@ -36,8 +36,7 @@ class ActivityController extends Controller
             if ($form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Rungtis atnaujinta.');
-            }
-            else {
+            } else {
                 $this->addFlash('danger', 'Netinkama reikšmė.');
             }
             return $this->redirectToRoute("activities_view");
@@ -80,8 +79,7 @@ class ActivityController extends Controller
                 $this->getDoctrine()->getManager()->persist($activity);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Rungtis pridėta.');
-            }
-            else {
+            } else {
                 $this->addFlash('danger', 'Netinkama reikšmė.');
             }
             return $this->redirectToRoute("activities_view");
