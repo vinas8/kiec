@@ -15,6 +15,9 @@ class LessonController extends Controller
 {
     /**
      * @Route("/current", name="current")
+     *
+     * @param  Request $request
+     * @return Response
      */
     public function currentAction(Request $request)
     {
@@ -22,8 +25,8 @@ class LessonController extends Controller
             $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
             return $this->display($currentLesson, 'Dabartinė pamoka', $request);
         } catch (LessonException $e) {
-            $this->addFlash('notice', $e->getMessage());
-            return $this->render('@App/Lesson/errors.html.twig');
+            $this->addFlash('info', $e->getMessage());
+            return $this->redirectToRoute('homepage');
         }
     }
 
