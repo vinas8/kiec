@@ -21,7 +21,7 @@ class ResultController extends Controller
         $form = $this->createForm(ResultType::class, $result, array('action' => $this->generateUrl("result_edit", array('result' => $result->getId()))));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.result')->editResult($result);
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Rezultatas atnaujintas.');
             return new RedirectResponse($request->headers->get('referer'));
         }
@@ -39,7 +39,8 @@ class ResultController extends Controller
      */
     public function deleteAction(Result $result, Request $request)
     {
-        $this->get('app.result')->deleteResult($result);
+        $this->getDoctrine()->getManager()->remove($result);
+        $this->getDoctrine()->getManager()->flush();
         $this->addFlash('success', 'Rezultatas pašalintas');
 
         return new RedirectResponse($request->headers->get('referer'));
@@ -50,13 +51,12 @@ class ResultController extends Controller
      */
     public function createAction(StudentInfo $studentInfo = null, Request $request)
     {
-        $result = new Result();
-        $result->setStudentInfo($studentInfo);
-        $result->setTimestamp(new \DateTime());
+        $result = new Result(null, $studentInfo);
         $form = $this->createForm(ResultType::class, $result, array('action' => $this->generateUrl("result_create")));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.result')->createResult($result);
+            $this->getDoctrine()->getManager()->persist($result);
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Rezultatas pridėtas.');
             return new RedirectResponse($request->headers->get('referer'));
         }

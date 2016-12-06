@@ -63,6 +63,7 @@ class Result
     {
         $this->activity = $activity;
         $this->studentInfo = $studentInfo;
+        $this->timestamp = new \DateTime();
     }
 
 

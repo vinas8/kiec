@@ -93,33 +93,10 @@ class ResultService
         foreach ($results->getActivities() as $activityResults) {
             foreach ($activityResults->getResults() as $result) {
                 if ($result->getValue() !== null) {
-                    $result->setTimestamp(new \DateTime());
                     $this->em->persist($result);
                 }
             }
         }
-        $this->em->flush();
-    }
-    public function createResult($result)
-    {
-        $this->em->persist($result);
-        $this->em->flush();
-    }
-
-    public function deleteResult($result)
-    {
-        try {
-            $this->em->remove($result);
-            $this->em->flush();
-            return true;
-        } catch (ForeignKeyConstraintViolationException $e) {
-            return false;
-        }
-    }
-
-    public function editResult($result)
-    {
-        $this->em->persist($result);
         $this->em->flush();
     }
 }
