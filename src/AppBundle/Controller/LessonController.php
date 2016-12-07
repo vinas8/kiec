@@ -5,6 +5,7 @@ use AppBundle\Entity\Lesson;
 use AppBundle\Entity\Result;
 use AppBundle\Exception\LessonException;
 use AppBundle\Form\ActivityResultSetType;
+use AppBundle\Service\LessonService;
 use AppBundle\Utils\ResultSet;
 use AppBundle\Utils\ActivityResultSet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,11 +24,11 @@ class LessonController extends Controller
     public function currentAction(Request $request)
     {
         try {
-            $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
+            $currentLesson = $this->lessonService()->getCurrentLesson($this->getCurrentUser());
             return $this->display($currentLesson, 'Dabartinė pamoka', $request);
         } catch (LessonException $e) {
             $this->addFlash('info', $e->getMessage());
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('classes');
         }
     }
 
@@ -58,11 +59,13 @@ class LessonController extends Controller
     {
         $classInfo = $lesson->getClassInfo();
 
+        $user = $this->getCurrentUser();
+
         $students = $this->get('app.student_info')->getStudentListByClass($classInfo);
         $activities = $this->get('app.activity')->getActivityList();
         $results = $this->get('app.result')->getLastResultsByClass($classInfo);
-        $nextLesson = $this->get('app.lesson_service')->getNext($lesson);
-        $prevLesson = $this->get('app.lesson_service')->getPrev($lesson);
+        $nextLesson = $this->get('app.lesson_service')->getNext($user, $lesson);
+        $prevLesson = $this->get('app.lesson_service')->getPrev($user, $lesson);
         $activityResultSet = new ActivityResultSet();
         foreach ($activities as $activity) {
             $resultSet = new ResultSet();
@@ -101,5 +104,21 @@ class LessonController extends Controller
             'form' => $form->createView()
             ]
         );
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getCurrentUser()
+    {
+        return $this->get('app.current_user_data_service')->getUser();
+    }
+
+    /**
+     * @return LessonService
+     */
+    private function lessonService()
+    {
+        return $this->get('app.lesson_service');
     }
 }

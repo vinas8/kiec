@@ -2,6 +2,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Lesson;
+use AppBundle\Entity\User;
 use AppBundle\Exception\LessonException;
 use AppBundle\Repository\LessonRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -26,10 +27,10 @@ class LessonService
         $this->time = $time;
     }
 
-    public function getCurrentLesson()
+    public function getCurrentLesson(User $user)
     {
         try {
-            return $this->repository->findLessonByTime($this->time->getCurrentTime());
+            return $this->repository->findUserLessonByTime($user, $this->time->getCurrentTime());
         } catch (NonUniqueResultException $e) {
             throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
         } catch (NoResultException $e) {
@@ -38,24 +39,26 @@ class LessonService
     }
 
     /**
-     * Finds next lesson
+     * Finds next user lesson
      *
+     * @param  User $user
      * @param  Lesson $lesson
      * @return Lesson|null
      */
-    public function getNext(Lesson $lesson)
+    public function getNext(User $user, Lesson $lesson)
     {
-        return $this->repository->findNextLessonById($lesson->getId());
+        return $this->repository->findNextUserLessonById($user, $lesson->getId());
     }
 
     /**
-     * Finds previous lesson
+     * Finds previous user lesson
      *
+     * @param  User $user
      * @param  Lesson $lesson
      * @return Lesson|null
      */
-    public function getPrev(Lesson $lesson)
+    public function getPrev(User $user, Lesson $lesson)
     {
-        return $this->repository->findPrevLessonById($lesson->getId());
+        return $this->repository->findPrevUserLessonById($user, $lesson->getId());
     }
 }
