@@ -68,7 +68,7 @@ class LessonController extends Controller
             $resultSet = new ResultSet();
             $activityResultSet->getActivities()->add($resultSet);
             foreach ($students as $student) {
-                $result = new Result($activity, $student);
+                $result = new Result($activity, $student, $this->get('security.token_storage')->getToken()->getUser(), $this->get('app.time_service'));
                 $resultSet->getResults()->add($result);
             }
         }
@@ -76,10 +76,15 @@ class LessonController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.result')->addNewResults($form->getData());
-            $this->addFlash('success', "Įrašyti nauji rezultatai.");
-            return $this->redirect($request->headers->get('referer'));
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this->get('app.result')->addNewResults($form->getData());
+                $this->addFlash('success', "Įrašyti nauji rezultatai.");
+                return $this->redirect($request->headers->get('referer'));
+            } else {
+                $this->addFlash('danger', "Neteisingai įvesti duomenys.");
+                return $this->redirect($request->headers->get('referer'));
+            }
         }
 
 

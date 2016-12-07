@@ -11,6 +11,9 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
+use AppBundle\Service\CurrentUserDataService;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -19,15 +22,37 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ResultType extends AbstractType
 {
+    private $em;
+
+    private $currentUser;
+
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
+    {
+        $this->em = $em;
+        $this->currentUser = $currentUserDataService->getUser();
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('value', NumberType::class)
             ->add('activity', EntityType::class, array(
                 'class' => Activity::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->where('a.user = :user')
+                        ->setParameter('user', $this->currentUser)
+                        ->orderBy('a.name');
+                },
                 'choice_label' => 'name',
             ))
             ->add('studentInfo', EntityType::class, array(
                 'class' => StudentInfo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->innerJoin('s.classInfo', 'c', 'WITH', ':user MEMBER OF c.user')
+                        ->setParameter('user', $this->currentUser)
+                        ->orderBy('s.name');
+                },
                 'choice_label' => 'name',
             ));
     }

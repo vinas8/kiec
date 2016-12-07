@@ -11,6 +11,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 
 class ResultService
@@ -20,9 +21,15 @@ class ResultService
      */
     private $em;
 
-    public function __construct(EntityManager $em)
+    /**
+     * @var User
+     */
+    private $currentUser;
+
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
     {
         $this->em = $em;
+        $this->currentUser = $currentUserDataService->getUser();
     }
 
     public function getLastResultsByClass($classInfo)

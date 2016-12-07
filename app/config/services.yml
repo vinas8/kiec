@@ -7,10 +7,10 @@ parameters:
 services:
     app.activity:
           class: AppBundle\Service\ActivityService
-          arguments: ["@doctrine.orm.entity_manager"]
+          arguments: ["@doctrine.orm.entity_manager", "@app.current_user_data_service"]
     app.result:
           class: AppBundle\Service\ResultService
-          arguments: ["@doctrine.orm.entity_manager"]
+          arguments: ["@doctrine.orm.entity_manager", "@app.current_user_data_service"]
     app.lesson_repository:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
@@ -25,7 +25,7 @@ services:
         class: AppBundle\Service\TimeService
     app.student_info:
         class: AppBundle\Service\StudentInfoService
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service" ]
     my_user_provider:
         class: AppBundle\Security\Core\User\FOSUBUserProvider
         #facebook: facebook_id, this is the place where the properties are passed to the UserProvider - see config.yml
@@ -41,10 +41,15 @@ services:
         arguments:
             - '@security.token_storage'
     app.result_hidden_type:
-            class: AppBundle\Form\ResultHiddenType
-            arguments: [ "@doctrine.orm.entity_manager" ]
-            tags:
-              - { name: form.type, alias: app_result_hidden_type }
+        class: AppBundle\Form\ResultHiddenType
+        arguments: [ "@doctrine.orm.entity_manager" ]
+        tags:
+          - { name: form.type, alias: app_result_hidden_type }
+    app.result_type:
+        class: AppBundle\Form\ResultType
+        arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service" ]
+        tags:
+          - { name: form.type, alias: app_result_hidden_type }
     app.form.registration_type:
         class: AppBundle\Form\RegistrationType
         tags:
