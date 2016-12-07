@@ -92,7 +92,7 @@ class ActivityController extends Controller
      */
     public function createAction(Request $request)
     {
-        $activity = new Activity($this->getCurrentUser());
+        $activity = new Activity($this->getCurrentUser(), OriginType::CREATED);
         $form = $this->createForm(
             ActivityType::class,
             $activity,
