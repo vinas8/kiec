@@ -1,9 +1,10 @@
 'use strict';
 
-var gulp    = require('gulp');
-var sass    = require('gulp-sass');
-var concat  = require('gulp-concat');
-var uglify  = require('gulp-uglify');
+var gulp     = require('gulp');
+var sass     = require('gulp-sass');
+var concat   = require('gulp-concat');
+var uglify   = require('gulp-uglify');
+var cleanCSS = require('gulp-clean-css');
 
 var dir = {
     assets: './src/AppBundle/Resources/',
@@ -24,6 +25,8 @@ gulp.task('scripts', function() {
             dir.npm + 'jquery/dist/jquery.min.js',
             dir.npm + 'bootstrap-sass/assets/javascripts/bootstrap.min.js',
             dir.npm + 'admin-lte/dist/js/app.min.js',
+            dir.npm + 'moment/min/moment-with-locales.js',
+            dir.npm + 'eonasdan-bootstrap-datetimepicker/build/js/boostrap-datetimepicker.min.js',
 
             // Main JS file
             dir.assets + 'scripts/main.js'
@@ -52,8 +55,10 @@ gulp.task('adminlte', function() {
     gulp.src([
         dir.npm + 'admin-lte/dist/css/AdminLTE.min.css',
         dir.npm + 'admin-lte/dist/css/skins/skin-red.min.css',
-        dir.npm + 'font-awesome/css/font-awesome.min.css'
+        dir.npm + 'font-awesome/css/font-awesome.min.css',
+        dir.npm + 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css'
         ])
+        .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(concat('adminlte.css'))
         .pipe(gulp.dest(dir.dist + 'css'));
 });
