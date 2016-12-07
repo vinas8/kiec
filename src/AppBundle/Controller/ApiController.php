@@ -26,19 +26,15 @@ class ApiController extends Controller
         $user = $this->get('app.current_user_data_service')->getUser();
 
         $lessons = $this->lessonService()->getUserLessonsFromNow($user, $offset, $limit);
-        $hasMore = count($this->lessonService()->getUserLessonsFromNow($user, $offset + $limit, $limit)) > 0;
+        $hasMore = $this->lessonService()->hasUserLessonsFromNow($user, $offset + $limit, $limit);
 
         $results = [
             'collection' => [],
-            'next_href'  => $this->generateUrl('api_schedule', [
+            'next_href'  => $hasMore ? $this->generateUrl('api_schedule', [
                 'offset' => $offset + $limit,
                 'limit'  => $limit
-            ])
+            ]) : null
         ];
-
-        if (!$hasMore) {
-            unset($results['next_href']);
-        }
 
         /**
          * @var Lesson $lesson

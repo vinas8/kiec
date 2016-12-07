@@ -14,6 +14,10 @@ class LessonService
      * @var LessonRepository
      */
     private $lessonRepository;
+
+    /**
+     * @var TimeService
+     */
     private $timeService;
 
     /**
@@ -79,5 +83,18 @@ class LessonService
             $offset,
             $limit
         );
+    }
+
+    /**
+     * Checks if user has lessons from current time
+     *
+     * @param  User $user
+     * @param  int $offset
+     * @param  int $limit
+     * @return bool
+     */
+    public function hasUserLessonsFromNow(User $user, $offset, $limit)
+    {
+        return count($this->getUserLessonsFromNow($user, $offset, $limit)) > 0;
     }
 }
