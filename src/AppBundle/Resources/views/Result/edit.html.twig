@@ -44,3 +44,21 @@
 	<button type="submit" class="btn btn-success">Išsaugoti pakeitimus</button>
 </div>
 {{ form_end(form) }}
+
+<script type="text/javascript">
+    $(function () {
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            language: 'lt'
+        });
+
+        $('.timepicker').timepicker({
+            showInputs: false,
+            minuteStep: 5,
+            showSeconds: false,
+            showMeridian: false,
+            defaultTime: '08:00'
+        });
+    });
+</script>
