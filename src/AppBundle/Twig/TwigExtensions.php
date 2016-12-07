@@ -47,11 +47,11 @@ class TwigExtensions extends \Twig_Extension
     {
         $profilePic = $this->getUser()->getProfilePicture();
 
-        if (substr( $profilePic, 0, 4) === 'http') {
+        if (substr($profilePic, 0, 4) === 'http') {
             return $profilePic;
         }
 
-        if (!file_exists(substr( $profilePic, 0, 1) )){
+        if (!file_exists(substr($profilePic, 0, 1))) {
             return GlobalConstants::PROFILE_IMAGE_DEFAULT;
         }
 

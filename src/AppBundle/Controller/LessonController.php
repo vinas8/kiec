@@ -71,7 +71,12 @@ class LessonController extends Controller
             $resultSet = new ResultSet();
             $activityResultSet->getActivities()->add($resultSet);
             foreach ($students as $student) {
-                $result = new Result($activity, $student, $this->get('security.token_storage')->getToken()->getUser(), $this->get('app.time_service'));
+                $result = new Result(
+                    $activity,
+                    $student,
+                    $this->get('security.token_storage')->getToken()->getUser(),
+                    $this->get('app.time_service')
+                );
                 $resultSet->getResults()->add($result);
             }
         }

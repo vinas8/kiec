@@ -24,7 +24,7 @@ class ActivityController extends Controller
         return $this->render(
             'AppBundle:Activity:view.html.twig',
             array(
-            "activities" => $activities
+                "activities" => $activities
             )
         );
     }
@@ -40,7 +40,13 @@ class ActivityController extends Controller
         if ($activity->getUser() !== $this->getCurrentUser()) {
             throw new AccessDeniedException("Rungtis nepasiekiama.");
         }
-        $form = $this->createForm(ActivityType::class, $activity, array('action' => $this->generateUrl("activities_edit", array('activity' => $activity->getId()))));
+        $form = $this->createForm(
+            ActivityType::class,
+            $activity,
+            array(
+                'action' => $this->generateUrl("activities_edit", array('activity' => $activity->getId()))
+            )
+        );
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
@@ -86,8 +92,14 @@ class ActivityController extends Controller
      */
     public function createAction(Request $request)
     {
-        $activity = new Activity($this->getCurrentUser(), OriginType::CREATED);
-        $form = $this->createForm(ActivityType::class, $activity, array('action' => $this->generateUrl("activities_create")));
+        $activity = new Activity($this->getCurrentUser());
+        $form = $this->createForm(
+            ActivityType::class,
+            $activity,
+            array(
+                'action' => $this->generateUrl("activities_create")
+            )
+        );
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
@@ -108,8 +120,8 @@ class ActivityController extends Controller
     }
 
     /**
-    * @return User
-    */
+     * @return User
+     */
     private function getCurrentUser()
     {
         return $this->get('app.current_user_data_service')->getUser();
