@@ -76,9 +76,13 @@ class LessonController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.result')->addNewResults($form->getData());
-            $this->addFlash('success', "Įrašyti nauji rezultatai.");
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this->get('app.result')->addNewResults($form->getData());
+                $this->addFlash('success', "Įrašyti nauji rezultatai.");
+            } else {
+                $this->addFlash('danger', 'Netinkama reikšmė.');
+            }
             return $this->redirect($request->headers->get('referer'));
         }
 

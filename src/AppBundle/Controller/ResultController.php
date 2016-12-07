@@ -20,9 +20,13 @@ class ResultController extends Controller
     {
         $form = $this->createForm(ResultType::class, $result, array('action' => $this->generateUrl("result_edit", array('result' => $result->getId()))));
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Rezultatas atnaujintas.');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Rezultatas atnaujintas.');
+            } else {
+                $this->addFlash('danger', 'Netinkama reikšmė.');
+            }
             return new RedirectResponse($request->headers->get('referer'));
         }
         return $this->render(
@@ -54,10 +58,15 @@ class ResultController extends Controller
         $result = new Result(null, $studentInfo);
         $form = $this->createForm(ResultType::class, $result, array('action' => $this->generateUrl("result_create")));
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($result);
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Rezultatas pridėtas.');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this->getDoctrine()->getManager()->persist($result);
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Rezultatas pridėtas.');
+            } else {
+                $this->addFlash('danger', 'Netinkama reikšmė.');
+            }
+
             return new RedirectResponse($request->headers->get('referer'));
         }
         return $this->render(
