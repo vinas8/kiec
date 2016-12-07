@@ -34,7 +34,6 @@ gulp.task('scripts', function() {
             dir.npm + 'admin-lte/plugins/datepicker/locales/bootstrap-datepicker.lt.js',
             dir.npm + 'admin-lte/plugins/timepicker/bootstrap-timepicker.js',
             dir.npm + 'moment/min/moment-with-locales.js',
-            dir.npm + 'eonasdan-bootstrap-datetimepicker/build/js/boostrap-datetimepicker.min.js',
 
             // Main JS file
             dir.assets + 'scripts/main.js'
@@ -65,8 +64,7 @@ gulp.task('adminlte', function() {
         dir.npm + 'admin-lte/dist/css/skins/skin-red.min.css',
         dir.npm + 'admin-lte/plugins/datepicker/datepicker3.css',
         dir.npm + 'admin-lte/plugins/timepicker/bootstrap-timepicker.css',
-        dir.npm + 'font-awesome/css/font-awesome.min.css',
-        dir.npm + 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css'
+        dir.npm + 'font-awesome/css/font-awesome.min.css'
         ])
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(concat('adminlte.css'))
