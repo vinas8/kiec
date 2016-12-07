@@ -10,12 +10,12 @@
 		<div class="box-header with-border">
 			<div class="btn-grp box-tools pull-left" style="position: static">
 				{% if prevLesson != null %}
-					<a href="{{ path('lesson', { 'Lesson': prevLesson.id }) }}" class="btn btn-default"><i
+					<a href="{{ path('lesson', { 'lesson': prevLesson.id }) }}" class="btn btn-default"><i
 							class="fa fa-arrow-left"></i></a>
 				{% endif %}
 				<h3 class="box-title inline">{{ lesson.startTime|date('H:i') }} - {{ lesson.classInfo.name }}</h3>
 				{% if nextLesson != null %}
-					<a href="{{ path('lesson', { 'Lesson': nextLesson.id }) }}" class="btn btn-default"><i
+					<a href="{{ path('lesson', { 'lesson': nextLesson.id }) }}" class="btn btn-default"><i
 							class="fa fa-arrow-right"></i></a>
 				{% endif %}
 			</div>
