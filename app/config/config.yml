@@ -57,6 +57,7 @@ doctrine:
             enum: string
         types:
             BestResultDeterminationType: AppBundle\DBAL\Types\BestResultDeterminationType
+            OriginType: AppBundle\DBAL\Types\OriginType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"

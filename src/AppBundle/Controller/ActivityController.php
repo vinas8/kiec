@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\DBAL\Types\OriginType;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\User;
 use AppBundle\Form\ActivityType;
