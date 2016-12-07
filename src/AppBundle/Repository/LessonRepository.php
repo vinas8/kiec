@@ -13,27 +13,32 @@ use AppBundle\Entity\User;
  */
 class LessonRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findLessonByTime($now)
+    public function findUserLessonByTime(User $user, $now)
     {
         return $this->createQueryBuilder('l')
-            ->andWhere(':currentTime BETWEEN l.startTime AND l.endTime')
+            ->where(':currentTime BETWEEN l.startTime AND l.endTime')
             ->setParameter('currentTime', $now)
+            ->andWhere('l.user = :user')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getSingleResult();
     }
 
     /**
-     * Finds next lesson
+     * Finds next user lesson
      *
-     * @param  mixed $id
+     * @param  User $user
+     * @param  int $id
      * @return mixed
      */
-    public function findNextLessonById($id)
+    public function findNextUserLessonById(User $user, $id)
     {
         return $this->createQueryBuilder('a')
             ->setParameter('id', $id)
             ->leftJoin(Lesson::class, 'b', 'WITH', 'b.id = :id')
             ->where('a.startTime >= b.endTime')
+            ->andWhere('a.user = :user')
+            ->setParameter('user', $user)
             ->orderBy('a.startTime')
             ->setMaxResults(1)
             ->getQuery()
@@ -41,17 +46,20 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Finds previous lesson
+     * Finds previous user lesson
      *
-     * @param  mixed $id
+     * @param  User $user
+     * @param  int $id
      * @return mixed
      */
-    public function findPrevLessonById($id)
+    public function findPrevUserLessonById(User $user, $id)
     {
         return $this->createQueryBuilder('a')
             ->setParameter('id', $id)
             ->leftJoin(Lesson::class, 'b', 'WITH', 'b.id = :id')
             ->where('a.endTime <= b.startTime')
+            ->andWhere('a.user = :user')
+            ->setParameter('user', $user)
             ->orderBy('a.startTime', 'DESC')
             ->setMaxResults(1)
             ->getQuery()

@@ -28,10 +28,10 @@ class LessonService
         $this->timeService = $timeService;
     }
 
-    public function getCurrentLesson()
+    public function getCurrentLesson(User $user)
     {
         try {
-            return $this->lessonRepository->findLessonByTime($this->timeService->getCurrentTime());
+            return $this->lessonRepository->findUserLessonByTime($user, $this->timeService->getCurrentTime());
         } catch (NonUniqueResultException $e) {
             throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
         } catch (NoResultException $e) {
@@ -40,25 +40,27 @@ class LessonService
     }
 
     /**
-     * Finds next lesson
+     * Finds next user lesson
      *
+     * @param  User $user
      * @param  Lesson $lesson
      * @return Lesson|null
      */
-    public function getNext(Lesson $lesson)
+    public function getNext(User $user, Lesson $lesson)
     {
-        return $this->lessonRepository->findNextLessonById($lesson->getId());
+        return $this->lessonRepository->findNextUserLessonById($user, $lesson->getId());
     }
 
     /**
-     * Finds previous lesson
+     * Finds previous user lesson
      *
+     * @param  User $user
      * @param  Lesson $lesson
      * @return Lesson|null
      */
-    public function getPrev(Lesson $lesson)
+    public function getPrev(User $user, Lesson $lesson)
     {
-        return $this->lessonRepository->findPrevLessonById($lesson->getId());
+        return $this->lessonRepository->findPrevUserLessonById($user, $lesson->getId());
     }
 
     /**

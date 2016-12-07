@@ -39,6 +39,8 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         admin_skin: skin-red
+    date:
+        timezone: Europe/Vilnius
 
 # Doctrine Configuration
 doctrine:

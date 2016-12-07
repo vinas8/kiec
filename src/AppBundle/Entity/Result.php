@@ -55,15 +55,24 @@ class Result
     private $studentInfo;
 
     /**
+     * @var object
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $user;
+
+    /**
      * Result constructor.
      * @param object $activity
      * @param object $studentInfo
+     * @param object $user
      */
-    public function __construct(Activity $activity = null, StudentInfo $studentInfo = null)
+    public function __construct(Activity $activity = null, StudentInfo $studentInfo = null, User $user)
     {
-        $this->activity = $activity;
-        $this->studentInfo = $studentInfo;
-        $this->timestamp = new \DateTime();
+        $this->setActivity($activity);
+        $this->setStudentInfo($studentInfo);
+        $this->setUser($user);
+        $this->timestamp = new \DateTime('now', new \DateTimeZone('Europe/Vilnius'));
     }
 
 
@@ -171,5 +180,21 @@ class Result
     public function getStudentInfo()
     {
         return $this->studentInfo;
+    }
+
+    /**
+     * @return object
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param object $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }
