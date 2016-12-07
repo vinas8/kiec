@@ -14,13 +14,11 @@ class HomeController extends Controller
     public function indexAction()
     {
         try {
-            $currentLesson = $this->get('app.lesson_service')->getCurrentLesson();
             $response = $this->forward('AppBundle:Lesson:current');
         } catch (LessonException $e) {
             $this->addFlash('info', $e->getMessage());
             $response = $this->forward('AppBundle:Class:classList');
         }
-
 
         return $response;
     }
