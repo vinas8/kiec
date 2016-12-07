@@ -54,6 +54,18 @@ class Result
      */
     private $studentInfo;
 
+    /**
+     * Result constructor.
+     * @param object $activity
+     * @param object $studentInfo
+     */
+    public function __construct(Activity $activity = null, StudentInfo $studentInfo = null)
+    {
+        $this->activity = $activity;
+        $this->studentInfo = $studentInfo;
+        $this->timestamp = new \DateTime();
+    }
+
 
     /**
      * Get id

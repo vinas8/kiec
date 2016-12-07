@@ -37,12 +37,19 @@ services:
         arguments:
             - '@app.current_user_data_service'
     app.current_user_data_service:
-          class: AppBundle\Service\CurrentUserDataService
-          arguments:
-              - '@security.token_storage'
-    app.result_type:
-            class: AppBundle\Form\ResultType
+        class: AppBundle\Service\CurrentUserDataService
+        arguments:
+            - '@security.token_storage'
+    app.result_hidden_type:
+            class: AppBundle\Form\ResultHiddenType
             arguments: [ "@doctrine.orm.entity_manager" ]
             tags:
-              - { name: form.type, alias: app_result_type }
+              - { name: form.type, alias: app_result_hidden_type }
+    app.form.registration_type:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+    app.profile_picture_uploader_service:
+        class: AppBundle\Service\FileUploadService
+        arguments: ['%profile_images_directory%']
 

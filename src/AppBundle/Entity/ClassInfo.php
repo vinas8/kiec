@@ -31,7 +31,6 @@ class ClassInfo
     /**
      *
      * @ORM\OneToMany(targetEntity="StudentInfo", mappedBy="classInfo")
-     *
      */
     private $students;
 

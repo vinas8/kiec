@@ -56,7 +56,7 @@ class ResultService
     {
         $query = $this->em->createQueryBuilder()
             ->select('r AS result')
-            ->addSelect('MAX(r.value) AS max_value')
+            ->addSelect('MAX(r.value) AS max_value, MIN(r.value) AS min_value')
             ->from(Result::class, 'r')
             ->innerJoin("r.activity", "s")
             ->where("r.studentInfo = :student")
@@ -82,12 +82,21 @@ class ResultService
         $allResults = [];
         foreach ($results as $result) {
             $activityId = $result->getActivity()->getId();
-            if (!isset($allResults[$activityId])) {
-                $allResults[$activityId] = [];
-            }
-            array_push($allResults[$activityId], $result);
+            $allResults[$activityId][] = $result;
         }
 
         return $allResults;
+    }
+
+    public function addNewResults($results)
+    {
+        foreach ($results->getActivities() as $activityResults) {
+            foreach ($activityResults->getResults() as $result) {
+                if ($result->getValue() !== null) {
+                    $this->em->persist($result);
+                }
+            }
+        }
+        $this->em->flush();
     }
 }

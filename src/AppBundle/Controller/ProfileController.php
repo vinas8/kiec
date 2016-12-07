@@ -20,20 +20,14 @@ class ProfileController extends Controller
         $bestResults = $resultService->getBestResultsByStudent($studentInfo);
         $allResults = $resultService->getResultListByStudent($studentInfo);
 
-        return $this->render('AppBundle:Profile:profile.html.twig', [
+        return $this->render(
+            'AppBundle:Profile:profile.html.twig',
+            [
             "student" => $studentInfo,
             "activities" => $activities,
             "bestResults" => $bestResults,
             "allResults" => $allResults
-        ]);
-    }
-
-    /**
-     * @Route("/teacher-profile", name="teacher_profile")
-     */
-    public function viewTeacherProfileAction()
-    {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        return $this->render('@App/Profile/teacher.html.twig', array('teacher' => $user));
+            ]
+        );
     }
 }

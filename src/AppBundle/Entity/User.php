@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as FOSUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -18,24 +19,52 @@ class User extends FOSUser
      */
     protected $id;
 
-    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    /**
+ * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
+*/
     private $google_id;
 
-    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    /**
+ * @ORM\Column(name="google_access_token", type="string", length=255, nullable=true)
+*/
     private $google_access_token;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="This value should not be blank.")
+     * @Assert\Length(
+     *     min=3,
+     *     max=255,
+     *     minMessage="Name is too short",
+     *     maxMessage="Name is too long",
+     * )
      */
     private $name;
+
     /**
      * @var string
      *
-     * @ORM\Column(name="profile_picture", type="string", length=255, nullable=true)
+     * @ORM\Column(name="profile_picture", type="string", nullable=true)
+     * @Assert\File(mimeTypes={ "image/*" })
      */
     private $profilePicture;
+
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=6, max=4096)
+     */
+    protected $plainPassword;
+
+
+    /**
+     * @Assert\Email()
+     * @Assert\NotBlank()
+     */
+    protected $email;
+
 
     /**
      * @return string
