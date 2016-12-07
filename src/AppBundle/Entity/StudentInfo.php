@@ -49,7 +49,6 @@ class StudentInfo
      */
     private $results;
 
-
     /**
      * Get id
      *

@@ -46,11 +46,27 @@ class Activity
     private $units;
 
     /**
+     * @var object
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $user;
+
+    /**
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Result", mappedBy="activity")
      */
     private $results;
+
+    /**
+     * Activity constructor.
+     * @param object $user
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
 
     /**
@@ -135,5 +151,21 @@ class Activity
     public function setUnits($units)
     {
         $this->units = $units;
+    }
+
+    /**
+     * @return object
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param object $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }
