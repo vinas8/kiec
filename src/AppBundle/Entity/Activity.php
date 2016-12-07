@@ -193,6 +193,4 @@ class Activity
     {
         $this->origin = $origin;
     }
-
-
 }
