@@ -54,29 +54,6 @@ class Lesson
     }
 
     /**
-     * Get user
-     *
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set user
-     *
-     * @param  User|null $user
-     * @return Lesson
-     */
-    public function setUser(User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
      * Set classInfo
      *
      * @param \AppBundle\Entity\ClassInfo $classInfo

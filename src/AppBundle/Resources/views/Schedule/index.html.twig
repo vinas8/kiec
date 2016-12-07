@@ -158,22 +158,6 @@
     <script type="text/javascript">
         var timelineUrl = '{{ path('api_schedule') }}',
             lessonUrl = '{{ path('lesson') }}';
-
-        $(function () {
-            $('.datepicker').datepicker({
-                autoclose: true,
-                format: 'yyyy-mm-dd',
-                language: 'lt'
-            });
-
-            $('.timepicker').timepicker({
-                showInputs: false,
-                minuteStep: 5,
-                showSeconds: false,
-                showMeridian: false,
-                defaultTime: '08:00'
-            });
-        });
     </script>
     <script src="{{ asset('js/timeline.js') }}"></script>
 {% endblock %}

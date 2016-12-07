@@ -20,3 +20,19 @@ $('.modal-button').on(
         $('#modal').modal('show').find('.modal-content').load($(this).attr('href'));
     }
 );
+
+$(function () {
+    $('.datepicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        language: 'lt'
+    });
+
+    $('.timepicker').timepicker({
+        showInputs: false,
+        minuteStep: 5,
+        showSeconds: false,
+        showMeridian: false,
+        defaultTime: '08:00'
+    });
+});
