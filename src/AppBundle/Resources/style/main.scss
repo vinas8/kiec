@@ -1,5 +1,6 @@
 //bootstrap
 @import "./node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&subset=latin-ext');
 
 @media (max-width: 768px) {
   .container-fluid {
@@ -10,6 +11,6 @@
   }
 }
 
-.img-profile{
+.img-profile {
   max-width: 100px;
 }
