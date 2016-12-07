@@ -1,3 +1,6 @@
+{% if students is empty %}
+	<div class="alert alert-danger no-margin" role="alert">Mokinių nėra</div>
+{% else %}
 	{{ form_start(form) }}
 	{% for activity in activities %}
 		<ul class="list-group no-margin student-list-group hidden activity-change" data-activityId="{{ activity.id }}">
@@ -31,4 +34,5 @@
 		<input type="submit" class="btn btn-block" value="Irašyti"/>
 		</ul>
 	{% endfor %}
-{{ form_end(form) }}
+	{{ form_end(form) }}
+{% endif %}

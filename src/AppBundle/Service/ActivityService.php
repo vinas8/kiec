@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\DBAL\Types\OriginType;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 
@@ -34,10 +35,13 @@ class ActivityService
         $repository = $this->em->getRepository('AppBundle:Activity');
         $query = $repository->createQueryBuilder('r')
             ->where('r.user = :user')
+            ->orWhere('r.origin = :origin')
             ->setParameter('user', $this->currentUser)
+            ->setParameter('origin', OriginType::NATIVE)
             ->orderBy('r.name')
             ->getQuery();
         $activities = $query->getResult();
+
 
         return $activities;
     }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\DBAL\Types\OriginType;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\User;
 use AppBundle\Form\ActivityType;
@@ -85,7 +86,7 @@ class ActivityController extends Controller
      */
     public function createAction(Request $request)
     {
-        $activity = new Activity($this->getCurrentUser());
+        $activity = new Activity($this->getCurrentUser(), OriginType::CREATED);
         $form = $this->createForm(ActivityType::class, $activity, array('action' => $this->generateUrl("activities_create")));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {

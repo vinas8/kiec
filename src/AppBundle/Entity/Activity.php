@@ -46,6 +46,14 @@ class Activity
     private $units;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="origin", type="OriginType", nullable=false)
+     * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\OriginType")
+     */
+    private $origin;
+
+    /**
      * @var object
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -63,9 +71,10 @@ class Activity
      * Activity constructor.
      * @param object $user
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $origin)
     {
-        $this->user = $user;
+        $this->setUser($user);
+        $this->setOrigin($origin);
     }
 
 
@@ -168,4 +177,22 @@ class Activity
     {
         $this->user = $user;
     }
+
+    /**
+     * @return string
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    /**
+     * @param string $origin
+     */
+    public function setOrigin($origin)
+    {
+        $this->origin = $origin;
+    }
+
+
 }

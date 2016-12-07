@@ -21,7 +21,6 @@
 			</div>
 			<div class="box-tools pull-right" style="position: static">
 				<select class="activity-select">
-					<option class="select-default" selected disabled>Pasirinkite rungtį</option>
 					{% for activity in activities %}
 						<option data-activityId="{{ activity.id }}">{{ activity.name }}</option>
 					{% endfor %}
