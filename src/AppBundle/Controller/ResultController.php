@@ -26,7 +26,13 @@ class ResultController extends Controller
         if ($result->getUser() !== $this->getUser()) {
             throw new AccessDeniedException("Rezultatas nepasiekiamas.");
         }
-        $form = $this->createForm(ResultType::class, $result, array('action' => $this->generateUrl("result_edit", array('result' => $result->getId()))));
+        $form = $this->createForm(
+            ResultType::class,
+            $result,
+            array(
+                'action' => $this->generateUrl("result_edit", array('result' => $result->getId()))
+            )
+        );
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
