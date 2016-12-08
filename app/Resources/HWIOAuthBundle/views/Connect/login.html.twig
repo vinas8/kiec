@@ -1,9 +1,6 @@
 {% extends 'base-login.html.twig' %}
 
 {% block page_content %}
-    {% if error is defined and error %}
-        <span>{{ error }}</span>
-    {% endif %}
     {#todo: normalios formos, remember, password reset #}
     <body class="login-page">
         <div class="login-box">
@@ -18,6 +15,9 @@
                         <input type="password" name="_password" class="form-control" placeholder="Slaptažodis"/>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
+                    {% if error is defined and error %}
+                        <div class="alert alert-danger alert-small">{{ error|trans }}</div>
+                    {% endif %}
                     <div class="row">
                         <div class="col-xs-8">
                             <div class="checkbox">

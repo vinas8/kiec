@@ -6,6 +6,10 @@
                 <source>Register</source>
                 <target>Registruotis</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Bad credentials.</source>
+                <target>Klaida: Neteisingi prisijungimo duomenys</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
