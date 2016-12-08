@@ -12,7 +12,7 @@ class ClassController extends Controller
     /**
      * @Route("/class/view/{classInfo}", name="class_view")
      */
-    public function classAction(ClassInfo $classInfo = null)
+    public function viewAction(ClassInfo $classInfo = null)
     {
         if ($classInfo) {
             if (!$classInfo->getUser()->contains($this->get('app.current_user_data_service')->getUser())) {

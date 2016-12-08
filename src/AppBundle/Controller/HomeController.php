@@ -17,7 +17,7 @@ class HomeController extends Controller
             $response = $this->forward('AppBundle:Lesson:current');
         } catch (LessonException $e) {
             $this->addFlash('info', $e->getMessage());
-            $response = $this->forward('AppBundle:Class:classList');
+            $response = $this->forward('AppBundle:Class:view');
         }
 
         return $response;
