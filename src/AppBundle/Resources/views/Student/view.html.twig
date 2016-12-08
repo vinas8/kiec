@@ -6,104 +6,205 @@
 {% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
+    <script type="text/javascript">
+        var activities = new Array();
+        var labels = new Array();
+        var units = new Array();
+    </script>
 	<div class="container-fluid text-center">
-		<div class="col-lg-4">
-			<div class="box">
-				<div class="box-header with-border">
-					<h3 class="box-title">Pagrindinė informacija</h3>
-				</div>
-				<div class="box-body">
-					<img src="{{ asset('images/default_user_image.png') }}" class="img-rounded img-profile"/>
-					<div class="row">
-						<h4>{{ student.name }}</h4>
-					</div>
-					<div class="row">
-						Gimimo data: {{ student.birthDate|date("Y-m-d") }}
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="box">
-				<div class="box-header with-border">
-					<h3 class="box-title">Geriausi rezultatai</h3>
-				</div>
-				<div class="box-body no-padding">
-					{% if bestResults is not empty %}
-						<table class="table table-striped">
-							<tr>
-								<th class="text-center">Rungtis</th>
-								<th class="text-center">Rezultatas</th>
-							</tr>
-							{% for bestResult in bestResults %}
-								<tr>
-									<td>{{ bestResult.result.activity.name }}</td>
-									<td>
-										{% if bestResult.result.activity.bestResultDetermination == 'MAX'|enum_constant('BestResultDeterminationType') %}
-											{{ bestResult.max_value }}
-										{% else %}
-											{{ bestResult.min_value }}
-										{% endif %}
-										{{ bestResult.result.activity.units }}
-									</td>
-								</tr>
-							{% endfor %}
-						</table>
-					{% else %}
-						<div class="alert alert-danger no-margin" role="alert">Rezultatų nėra</div>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="box">
-				<div class="box-header with-border">
-					<h3 class="box-title">Palyginimai</h3>
-					<div class="box-tools pull-right" style="position: static">
-						<select class="activity-select">
-							{% for activity in activities %}
-								<option data-activityId="{{ activity.id }}">{{ activity.name }}</option>
-							{% endfor %}
-						</select>
-					</div>
-				</div>
-				<div class="box-body no-padding">
-					{% for activity in activities %}
-						{% if allResults[activity.id] is defined %}
-							<table class="table table-striped activity-change hidden"
-							       data-activityId="{{ activity.id }}">
-								<tr>
-									<th class="text-center">Data</th>
-									<th class="text-center">Rezultatas</th>
-									<th class="text-center">Veiksmai</th>
-								</tr>
-								{% for result in allResults[activity.id] %}
-									<tr>
-										<td>{{ result.timestamp|date("Y-m-d H:m:s") }}</td>
-										<td>{{ result.value }} {{ result.activity.units }}</td>
-										<td>
-											<a href="{{ path('result_edit', {'result': result.id}) }}" class="btn btn-danger btn-xs modal-button">
-												<span class="fa fa-edit"></span>
-											</a>
-											<a href="{{ path('result_delete', {'result': result.id}) }}" class="btn btn-danger btn-xs">
-												<span class="fa fa-close"></span>
-											</a>
-										</td>
-									</tr>
-								{% endfor %}
-							</table>
-						{% else %}
-							<div class="alert alert-danger activity-change no-margin hidden" role="alert"
-							     data-activityId="{{ activity.id }}">Rezultatų nėra
-							</div>
-						{% endif %}
-					{% endfor %}
-					<a href="{{ path('result_create', {'studentInfo': student.id}) }}" class="btn btn-danger btn-block modal-button">
-						<span class="fa fa-plus"></span>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Pagrindinė informacija</h3>
+                    </div>
+                    <div class="box-body">
+                        <img src="{{ asset('images/default_user_image.png') }}" class="img-rounded img-profile"/>
+                        <div class="row">
+                            <h4>{{ student.name }}</h4>
+                        </div>
+                        <div class="row">
+                            Gimimo data: {{ student.birthDate|date("Y-m-d") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Geriausi rezultatai</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        {% if bestResults is not empty %}
+                            <table class="table table-striped">
+                                <tr>
+                                    <th class="text-center">Rungtis</th>
+                                    <th class="text-center">Rezultatas</th>
+                                </tr>
+                                {% for bestResult in bestResults %}
+                                    <tr>
+                                        <td>{{ bestResult.result.activity.name }}</td>
+                                        <td>
+                                            {% if bestResult.result.activity.bestResultDetermination == 'MAX'|enum_constant('BestResultDeterminationType') %}
+                                                {{ bestResult.max_value }}
+                                            {% else %}
+                                                {{ bestResult.min_value }}
+                                            {% endif %}
+                                            {{ bestResult.result.activity.units }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            <div class="alert alert-danger no-margin" role="alert">Rezultatų nėra</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Palyginimai</h3>
+                        <div class="box-tools pull-right" style="position: static">
+                            <select class="activity-select" id="activity">
+                                {% for activity in activities %}
+                                    <option data-activityId="{{ activity.id }}" value="{{ activity.id }}">{{ activity.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        {% for activity in activities %}
+                            {% if allResults[activity.id] is defined %}
+                                <table class="table table-striped activity-change hidden"
+                                       data-activityId="{{ activity.id }}">
+                                    <tr>
+                                        <th class="text-center">Data</th>
+                                        <th class="text-center">Rezultatas</th>
+                                        <th class="text-center">Veiksmai</th>
+                                    </tr>
+                                    {% for result in allResults[activity.id] %}
+                                        <tr>
+                                            <td>{{ result.timestamp|date("Y-m-d H:m:s") }}</td>
+                                            <td>{{ result.value }} {{ result.activity.units }}</td>
+                                            <td>
+                                                <a href="{{ path('result_edit', {'result': result.id}) }}" class="btn btn-danger btn-xs modal-button">
+                                                    <span class="fa fa-edit"></span>
+                                                </a>
+                                                <a href="{{ path('result_delete', {'result': result.id}) }}" class="btn btn-danger btn-xs">
+                                                    <span class="fa fa-close"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <script type="text/javascript">
+                                            if (activities[{{ activity.id }}] == null) {
+                                                activities[{{ activity.id }}] = new Array();
+                                            }
+
+                                            if (labels[{{ activity.id }}] == null) {
+                                                labels[{{ activity.id }}] = new Array();
+                                            }
+
+                                            units[{{ activity.id }}] = '{{ result.activity.bestResultDetermination }}';
+
+                                            activities[{{ activity.id }}].push({{ result.value }});
+                                            labels[{{ activity.id }}].push('{{ result.timestamp|date("Y-m-d H:m:s") }}');
+                                        </script>
+                                    {% endfor %}
+                                    <script type="text/javascript">
+                                        activities[{{ activity.id }}].reverse();
+                                        labels[{{ activity.id }}].reverse();
+                                    </script>
+                                </table>
+                            {% else %}
+                                <div class="alert alert-danger activity-change no-margin hidden" role="alert"
+                                     data-activityId="{{ activity.id }}">Rezultatų nėra
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <a href="{{ path('result_create', {'studentInfo': student.id}) }}" class="btn btn-danger btn-block modal-button">
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="chart-container">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            var lineChart = null;
+
+            function drawChart(objChart, data, deter) {
+                if (lineChart != null) {
+                    lineChart.destroy();
+                }
+
+                var ctx = objChart.getContext('2d');
+
+                lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    reverse: (deter == 'min')
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+
+            $("#activity").change(function () {
+                var id = this.value;
+                var deter = units[id];
+                var data = {
+                    labels: labels[id],
+                    datasets: [
+                        {
+                            label: "Rezultatas",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data: activities[id],
+                            spanGaps: false,
+                        }
+                    ]
+                };
+
+                var ctx = document.getElementById('chart');
+
+                drawChart(ctx, data, deter);
+            });
+        });
+    </script>
 {% endblock %}
