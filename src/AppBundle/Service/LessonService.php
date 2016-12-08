@@ -97,4 +97,17 @@ class LessonService
     {
         return count($this->getUserLessonsFromNow($user, $offset, $limit)) > 0;
     }
+
+    /**
+     * Checks if user has lessons at given time interval
+     *
+     * @param  User $user
+     * @param  \DateTime $start_time
+     * @param  \DateTime $end_time
+     * @return bool
+     */
+    public function hasUserLessonAt(User $user, $start_time, $end_time)
+    {
+        return $this->lessonRepository->countUserLessonsAt($user, $start_time, $end_time) > 0;
+    }
 }

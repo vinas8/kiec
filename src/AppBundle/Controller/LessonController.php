@@ -36,7 +36,7 @@ class LessonController extends Controller
      * @Route("/lesson/{lesson}", name="lesson")
      *
      * @param  Request $request
-     * @param  Lesson $lesson
+     * @param  Lesson|null $lesson
      * @return Response
      */
     public function lessonAction(Request $request, Lesson $lesson = null)
@@ -47,6 +47,27 @@ class LessonController extends Controller
         }
 
         return $this->display($lesson, 'Pamoka', $request);
+    }
+
+    /**
+     * @Route("/lesson/remove/{lesson}", name="lesson_remove")
+     *
+     * @param  Lesson|null $lesson
+     * @return Response
+     */
+    public function removeAction(Lesson $lesson = null)
+    {
+        if (!$lesson && $lesson->getUser() !== $this->getUser()) {
+            $this->addFlash('danger', 'Tokia pamoka neegzistuoja!');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($lesson);
+            $em->flush();
+
+            $this->addFlash('success', 'Pamoka atšaukta sėkmingai!');
+        }
+
+        return $this->redirectToRoute('schedule');
     }
 
     /**

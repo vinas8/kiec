@@ -69,10 +69,10 @@ class Timeline extends React.Component {
             items.push(
                 <li key={lesson.id}>
                     <div className="timeline-item">
-                        <span className="time"><i className="fa fa-clock-o"> </i> {moment(lesson.startTime, 'YYYY-MM-DD HH:mm').format('LT')}</span>
+                        <span className="time"><i className="fa fa-clock-o"> </i> {moment(lesson.startTime, 'YYYY-MM-DD HH:mm').format('LT')} - {moment(lesson.endTime, 'YYYY-MM-DD HH:mm').format('LT')}</span>
                         <h3 className="timeline-header"><a href={lessonUrl + '/' + lesson.id}>{lesson.group}</a></h3>
                         <div className="timeline-footer">
-                            <a className="btn btn-primary btn-xs">Atšaukti pamoką</a>
+                            <a href="#" data-href={lessonUrl + '/remove/' + lesson.id} className="btn btn-primary btn-xs" data-toggle="modal" data-target="#confirm-delete">Atšaukti pamoką</a>
                         </div>
                     </div>
                 </li>

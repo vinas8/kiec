@@ -88,4 +88,26 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Counts user lessons at given time interval
+     *
+     * @param  User $user
+     * @param  \DateTime $start_time
+     * @param  \DateTime $end_time
+     * @return int
+     */
+    public function countUserLessonsAt(User $user, $start_time, $end_time)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a.id)')
+            ->where('a.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere(':start_time BETWEEN a.startTime AND a.endTime')
+            ->setParameter('start_time', $start_time)
+            ->andWhere(':end_time BETWEEN a.startTime AND a.endTime')
+            ->setParameter('end_time', $end_time)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
