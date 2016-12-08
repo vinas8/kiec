@@ -17,4 +17,11 @@ class TimeService
         $now->setTimezone(new \DateTimeZone('Europe/Vilnius'));
         return $now;
     }
+    public function getCurrentDate()
+    {
+        $now = new \DateTime('today');
+        $now->format("Y-m-d");
+        $now->setTimezone(new \DateTimeZone('Europe/Vilnius'));
+        return $now;
+    }
 }
