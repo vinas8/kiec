@@ -69,7 +69,7 @@
 							{% for result in results %}
 								<tr>
 									<td>
-										<a href="{{ path('profile', {'studentInfo': result.studentInfo.id}) }}">
+										<a href="{{ path('student_view', {'studentInfo': result.studentInfo.id}) }}">
 											{{ result.studentInfo.name }}
 										</a>
 									</td>
