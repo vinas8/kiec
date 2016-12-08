@@ -1,12 +1,24 @@
 <?php
 namespace AppBundle\Security\Core\User;
 
+use AppBundle\Service\LoadDummyDataService;
+use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class FOSUBUserProvider extends BaseClass
 {
+    private $loadDummyDataService;
+
+    public function __construct(UserManagerInterface $userManager, LoadDummyDataService $loadDummyDataService, array $properties)
+    {
+        $this->userManager = $userManager;
+        $this->properties  = array_merge($this->properties, $properties);
+        $this->accessor    = PropertyAccess::createPropertyAccessor();
+        $this->loadDummyDataService = $loadDummyDataService;
+    }
     /**
      * {@inheritDoc}
      */
@@ -57,6 +69,7 @@ class FOSUBUserProvider extends BaseClass
             $user->setPassword($username);
             $user->setEnabled(true);
             $this->userManager->updateUser($user);
+            $this->loadDummyDataService->loadDummyData($user);
             return $user;
         }
         //if user exists - go with the HWIOAuth way
