@@ -37,7 +37,7 @@ class ActivityController extends Controller
         if (!$activity) {
             throw new NotFoundHttpException("Rungtis nerasta.");
         }
-        if ($activity->getUser() !== $this->getCurrentUser()) {
+        if ($activity->getUser() !== $this->getCurrentUser() || $activity->getOrigin() === OriginType::NATIVE) {
             throw new AccessDeniedException("Rungtis nepasiekiama.");
         }
         $form = $this->createForm(
@@ -73,7 +73,7 @@ class ActivityController extends Controller
         if (!$activity) {
             throw new NotFoundHttpException("Rungtis nerasta.");
         }
-        if ($activity->getUser() !== $this->getCurrentUser()) {
+        if ($activity->getUser() !== $this->getCurrentUser() || $activity->getOrigin() === OriginType::NATIVE) {
             throw new AccessDeniedException("Rungtis nepasiekiama.");
         }
         try {
