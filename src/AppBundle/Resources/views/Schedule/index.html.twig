@@ -207,6 +207,12 @@
     <script type="text/javascript">
         var timelineUrl = '{{ path('api_schedule') }}',
             lessonUrl = '{{ path('lesson') }}';
+            
+        $(function () {
+            $("#datepicker").val(moment().format('YYYY-MM-DD'));
+            $("#datepicker1").val(moment().format('YYYY-MM-DD'));
+            $("#datepicker2").val(moment().format('YYYY-MM-DD'));
+        });
 
         $('#confirm-delete').on('show.bs.modal', function(e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
