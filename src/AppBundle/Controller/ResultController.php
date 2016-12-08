@@ -6,6 +6,7 @@ use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
 use AppBundle\Entity\User;
 use AppBundle\Form\ResultType;
+use AppBundle\Form\TopResultType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -99,6 +100,30 @@ class ResultController extends Controller
             'AppBundle:Result:create.html.twig',
             array(
                 "form" => $form->createView(),
+            )
+        );
+    }
+
+    /**
+     * @Route("/result/top", name="result_top")
+     */
+    public function resultTopAction(Request $request)
+    {
+        $form = $this->createForm(TopResultType::class);
+        $form->handleRequest($request);
+        $results = null;
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $results = $this->get('app.result')->getTopResults($form);
+            } else {
+                $this->addFlash('danger', 'Neteisingai įvesti duomenys.');
+            }
+        }
+        return $this->render(
+            'AppBundle:Result:top.html.twig',
+            array(
+                "form" => $form->createView(),
+                "results" => $results
             )
         );
     }

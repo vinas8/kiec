@@ -49,7 +49,12 @@ services:
         class: AppBundle\Form\ResultType
         arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service" ]
         tags:
-          - { name: form.type, alias: app_result_hidden_type }
+          - { name: form.type, alias: app_result_type }
+    app.top_result_type:
+        class: AppBundle\Form\TopResultType
+        arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service" ]
+        tags:
+          - { name: form.type, alias: app_top_result_type }
     app.form.registration_type:
         class: AppBundle\Form\RegistrationType
         tags:
