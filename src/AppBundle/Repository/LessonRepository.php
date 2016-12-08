@@ -65,4 +65,49 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * Finds all lessons from given date
+     *
+     * @param  User $user
+     * @param  string $date
+     * @param  int $offset
+     * @param  int $limit
+     * @return array
+     */
+    public function findUserLessonsFromDate(User $user, $date, $offset, $limit)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.startTime > :date')
+            ->setParameter('date', $date)
+            ->andWhere('a.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('a.startTime', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Counts user lessons at given time interval
+     *
+     * @param  User $user
+     * @param  \DateTime $start_time
+     * @param  \DateTime $end_time
+     * @return int
+     */
+    public function countUserLessonsAt(User $user, $start_time, $end_time)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a.id)')
+            ->where('a.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere(':start_time BETWEEN a.startTime AND a.endTime')
+            ->setParameter('start_time', $start_time)
+            ->andWhere(':end_time BETWEEN a.startTime AND a.endTime')
+            ->setParameter('end_time', $end_time)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

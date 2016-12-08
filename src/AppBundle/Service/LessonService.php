@@ -13,24 +13,29 @@ class LessonService
     /**
      * @var LessonRepository
      */
-    private $repository;
-    private $time;
+    private $lessonRepository;
+
+    /**
+     * @var TimeService
+     */
+    private $timeService;
 
     /**
      * LessonService constructor.
      *
-     * @param LessonRepository $repository
+     * @param LessonRepository $lessonRepository
+     * @param TimeService $timeService
      */
-    public function __construct(LessonRepository $repository, TimeService $time)
+    public function __construct(LessonRepository $lessonRepository, TimeService $timeService)
     {
-        $this->repository = $repository;
-        $this->time = $time;
+        $this->lessonRepository = $lessonRepository;
+        $this->timeService = $timeService;
     }
 
     public function getCurrentLesson(User $user)
     {
         try {
-            return $this->repository->findUserLessonByTime($user, $this->time->getCurrentTime());
+            return $this->lessonRepository->findUserLessonByTime($user, $this->timeService->getCurrentTime());
         } catch (NonUniqueResultException $e) {
             throw new LessonException("Jūsų pamokų laikai dubliuojasi, patikrinkite pamokų tvarkaraštį");
         } catch (NoResultException $e) {
@@ -47,7 +52,7 @@ class LessonService
      */
     public function getNext(User $user, Lesson $lesson)
     {
-        return $this->repository->findNextUserLessonById($user, $lesson->getId());
+        return $this->lessonRepository->findNextUserLessonById($user, $lesson->getId());
     }
 
     /**
@@ -59,6 +64,50 @@ class LessonService
      */
     public function getPrev(User $user, Lesson $lesson)
     {
-        return $this->repository->findPrevUserLessonById($user, $lesson->getId());
+        return $this->lessonRepository->findPrevUserLessonById($user, $lesson->getId());
+    }
+
+    /**
+     * Finds future lessons from current time
+     *
+     * @param  User $user
+     * @param  int $offset
+     * @param  int $limit
+     * @return array
+     */
+    public function getUserLessonsFromNow(User $user, $offset, $limit)
+    {
+        return $this->lessonRepository->findUserLessonsFromDate(
+            $user,
+            $this->timeService->getCurrentTime(),
+            $offset,
+            $limit
+        );
+    }
+
+    /**
+     * Checks if user has lessons from current time
+     *
+     * @param  User $user
+     * @param  int $offset
+     * @param  int $limit
+     * @return bool
+     */
+    public function hasUserLessonsFromNow(User $user, $offset, $limit)
+    {
+        return count($this->getUserLessonsFromNow($user, $offset, $limit)) > 0;
+    }
+
+    /**
+     * Checks if user has lessons at given time interval
+     *
+     * @param  User $user
+     * @param  \DateTime $start_time
+     * @param  \DateTime $end_time
+     * @return bool
+     */
+    public function hasUserLessonAt(User $user, $start_time, $end_time)
+    {
+        return $this->lessonRepository->countUserLessonsAt($user, $start_time, $end_time) > 0;
     }
 }

@@ -28,3 +28,19 @@ function showList(showId)
 }
 
 
+
+$(function () {
+    $('.datepicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        language: 'lt'
+    });
+
+    $('.timepicker').timepicker({
+        showInputs: false,
+        minuteStep: 5,
+        showSeconds: false,
+        showMeridian: false,
+        defaultTime: '08:00'
+    });
+});

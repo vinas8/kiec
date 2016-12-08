@@ -21,6 +21,15 @@ services:
         arguments:
             - "@app.lesson_repository"
             - "@app.time_service"
+    app.class_info_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\ClassInfo
+    app.class_info_service:
+        class: AppBundle\Service\ClassInfoService
+        arguments:
+            - "@app.class_info_repository"
     app.time_service:
         class: AppBundle\Service\TimeService
     app.student_info:

@@ -1,0 +1,222 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Tvarkaraštis{% endblock %}
+
+{% block page_title %}Tvarkaraštis{% endblock %}
+{% block page_subtitle %}{% endblock %}
+
+{% block page_content %}
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-label="mymodal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Įspėjimas!
+                </div>
+                <div class="modal-body">
+                    Ar tikrai norite atšaukti pamoką?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
+                    <a class="btn btn-danger btn-ok">Taip</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-calendar-plus-o"></i>
+                    <h3 class="box-title">Pamokų planavimas</h3>
+                </div>
+                {% if has_classes %}
+                    <div class="box-body">
+                        <div id="schedule-error" class="alert alert-danger alert-dismissable" style="display:none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                            <h4><i class="icon fa fa-ban"></i>Klaida!</h4>
+                            <div id="schedule-error-text"></div>
+                        </div>
+                    </div>
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab_1" data-toggle="tab" aria-expanded="true">Viena</a>
+                            </li>
+                            <li class="">
+                                <a href="#tab_2" data-toggle="tab" aria-expanded="false">Pasikartojanti</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab_1" class="tab-pane active">
+                                <form action="{{ path('api_schedule_add') }}" role="form" method="post" class="schedule-from">
+                                    <input type="hidden" name="type" value="single"/>
+                                    <div class="form-group">
+                                        <label for="classinfo">Klasė</label>
+                                        <select required name="class" id="classinfo" class="form-control">
+                                            <option value="">Pasirinkite:</option>
+                                            {% for class in classes %}
+                                                <option value="{{ class.id }}">{{ class.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="datepicker">Data:</label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input id="datepicker" required class="form-control pull-right datepicker" type="text" name="single_date"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker1">Pradžia:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker1" required class="form-control timepicker" type="text" name="single_start_time"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker2">Pabaiga:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker2" required class="form-control timepicker" type="text" name="single_end_time"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary" type="submit">Įrašyti</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="tab_2" class="tab-pane">
+                                <form action="{{ path('api_schedule_add') }}" role="form" method="post" class="schedule-from">
+                                    <input type="hidden" name="type" value="multiple"/>
+                                    <div class="form-group">
+                                        <label for="classinfo">Klasė</label>
+                                        <select name="class" id="classinfo" class="form-control">
+                                            <option value="">Pasirinkite:</option>
+                                            {% for class in classes %}
+                                                <option value="{{ class.id }}">{{ class.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="datepicker1">Pradžia:</label>
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input id="datepicker1" class="form-control pull-right datepicker" type="text" name="multiple_start_date"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="datepicker2">Pabaiga:</label>
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input id="datepicker2" class="form-control pull-right datepicker" type="text" name="multiple_end_date"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                {% for i, weekday in [null, 'Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis', 'Sekmadienis'] %}
+                                                    {% if i > 0 %}
+                                                        <div class="checkbox">
+                                                            <label><input type="checkbox" name="weekdays[]" value="{{ i }}" /> {{ weekday }}</label>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker3">Pradžia:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker3" class="form-control timepicker" type="text" name="multiple_start_time"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label for="timepicker4">Pabaiga:</label>
+                                                    <div class="input-group">
+                                                        <input id="timepicker4" class="form-control timepicker" type="text" name="multiple_end_time"/>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary" type="submit">Įrašyti</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="box-body">
+                        Neturite paskirtų klasių!
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="timeline"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var timelineUrl = '{{ path('api_schedule') }}',
+            lessonUrl = '{{ path('lesson') }}';
+            
+        $(function () {
+            $("#datepicker").val(moment().format('YYYY-MM-DD'));
+            $("#datepicker1").val(moment().format('YYYY-MM-DD'));
+            $("#datepicker2").val(moment().format('YYYY-MM-DD'));
+        });
+
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
+    <script src="{{ asset('js/timeline.js') }}"></script>
+{% endblock %}

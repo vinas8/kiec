@@ -30,6 +30,21 @@ class ClassInfoRepository extends \Doctrine\ORM\EntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * Counts user classes
+     *
+     * @param  User $user
+     * @return int
+     */
+    public function countUserClasses(User $user)
+    {
+        $query = $this->createQueryBuilder('ci')->select('COUNT(ci.id)');
+
+        $this->addTeacherJoin($query, $user);
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
     private function addTeacherJoin($qb, User $teacher)
     {
         return $qb->innerJoin('ci.user', 't')
