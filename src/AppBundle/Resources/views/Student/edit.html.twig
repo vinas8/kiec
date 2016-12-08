@@ -1,0 +1,32 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title">Mokinio redagavimas</h4>
+</div>
+<div class="modal-body">
+
+	<div class="form-group">
+		<label>Vardas Pavardė</label>
+		{{ form_widget(form.name, {attr: {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		<label>Gimimo data</label>
+		<div class="input-group date">
+			<div class="input-group-addon">
+				<i class="fa fa-calendar"></i>
+			</div>
+			{{ form_widget(form.birthDate, {attr: {'class': 'form-control pull-right datepicker'}}) }}
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Klasė</label>
+		{{ form_widget(form.classInfo, {attr: {'class': 'form-control'}}) }}
+	</div>
+
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
+	<button type="submit" class="btn btn-success">Keisti</button>
+</div>
+{{ form_end(form) }}

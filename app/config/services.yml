@@ -55,6 +55,11 @@ services:
         arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service" ]
         tags:
           - { name: form.type, alias: app_top_result_type }
+    app.student_type:
+        class: AppBundle\Form\StudentType
+        arguments: [ "@app.current_user_data_service" ]
+        tags:
+          - { name: form.type, alias: app_student_type }
     app.form.registration_type:
         class: AppBundle\Form\RegistrationType
         tags:
