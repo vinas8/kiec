@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\DBAL\Types\BestResultDeterminationType;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
@@ -105,5 +106,22 @@ class ResultService
             }
         }
         $this->em->flush();
+    }
+
+    public function getTopResults($form)
+    {
+        $repository = $this->em->getRepository('AppBundle:Result');
+        $query = $repository->createQueryBuilder('r')
+            ->join("r.studentInfo", "s", "WITH", "s.classInfo IN (:classInfo)")
+            ->where("r.activity = :activity")
+            ->setParameter("activity", $form->getData()->getActivity())
+            ->setParameter("classInfo", $form->getData()->getClassInfo())
+            ->setMaxResults($form->getData()->getMaxResults());
+        if ($form->getData()->getActivity()->getBestResultDetermination() === BestResultDeterminationType::MAX) {
+            $query->orderBy('r.value', 'DESC');
+        } else {
+            $query->orderBy('r.value');
+        }
+        return $query->getQuery()->getResult();
     }
 }
