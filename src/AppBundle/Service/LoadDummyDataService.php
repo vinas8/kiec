@@ -8,7 +8,6 @@
 
 namespace AppBundle\Service;
 
-
 use AppBundle\DBAL\Types\OriginType;
 use AppBundle\Entity\ClassInfo;
 use AppBundle\Entity\Result;
@@ -30,9 +29,9 @@ class LoadDummyDataService
     }
 
 
-    public function loadDummyData($user) {
-        foreach ($this->getDummyClasses() as $class)
-        {
+    public function loadDummyData($user)
+    {
+        foreach ($this->getDummyClasses() as $class) {
             $dummyClass = new ClassInfo();
             $dummyClass->setName($class['name']);
             $dummyClass->setUser(array($user));
@@ -73,14 +72,16 @@ class LoadDummyDataService
         $this->em->flush();
     }
 
-    private function getDummyClasses() {
+    private function getDummyClasses()
+    {
         return array (
             ['name' => '7a'],
             ['name' => '8b'],
             ['name' => '9c']
         );
     }
-    private function getDummyStudents() {
+    private function getDummyStudents()
+    {
         return array (
             ['name' => 'Antanas Antonaitis'],
             ['name' => 'Bronius Bronaitis'],
