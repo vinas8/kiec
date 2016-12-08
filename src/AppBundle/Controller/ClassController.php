@@ -29,20 +29,7 @@ class ClassController extends Controller
             ->findClassesByTeacher($this->get('app.current_user_data_service')->getUser());
         // load test data
         if (empty($classes)) {
-            $loader = new Loader();
-            $fixture = new LoadClassData();
-            $fixture->setUser($this->get('app.current_user_data_service')->getUser());
-            $loader->addFixture($fixture);
-            $fixture = new LoadStudentData();
-            $fixture->setUser($this->get('app.current_user_data_service')->getUser());
-            $loader->addFixture($fixture);
-            $fixture = new LoadResultData();
-            $fixture->setUser($this->get('app.current_user_data_service')->getUser());
-            $fixture->setActivities($this->get('app.activity')->getActivityList());
-            $loader->addFixture($fixture);
-            $purger = new ORMPurger($this->getDoctrine()->getManager());
-            $executor = new ORMExecutor($this->getDoctrine()->getManager(), $purger);
-            $executor->execute($loader->getFixtures(), true);
+
 
         }
         return $this->render(
