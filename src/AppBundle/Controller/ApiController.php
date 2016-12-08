@@ -6,7 +6,6 @@ use AppBundle\Entity\Lesson;
 use AppBundle\Entity\User;
 use AppBundle\Service\ClassInfoService;
 use AppBundle\Service\LessonService;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
