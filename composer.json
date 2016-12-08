@@ -28,7 +28,6 @@
         "hwi/oauth-bundle": "^0.5.1",
         "twig/extensions": "^1.4",
         "fresh/doctrine-enum-bundle": "~4.8",
-        "doctrine/doctrine-fixtures-bundle": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "*",

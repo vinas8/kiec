@@ -1,29 +1,12 @@
 <?php
 namespace AppBundle\Security\Core\User;
 
-use AppBundle\DataFixtures\ORM\LoadClassData;
-use AppBundle\Service\LoadDummyDataService;
-use Doctrine\ORM\EntityManager;
-use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 class FOSUBUserProvider extends BaseClass
 {
-    private $loadDummyDataService;
-
-    public function __construct(UserManagerInterface $userManager, LoadDummyDataService $loadDummyDataService, array $properties)
-    {
-        $this->userManager = $userManager;
-        $this->properties  = array_merge($this->properties, $properties);
-        $this->accessor    = PropertyAccess::createPropertyAccessor();
-        $this->loadDummyDataService = $loadDummyDataService;
-    }
     /**
      * {@inheritDoc}
      */
