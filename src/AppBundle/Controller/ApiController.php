@@ -192,8 +192,9 @@ class ApiController extends Controller
             foreach ($period as $dt) {
                 $day = $dt->format('Y-m-d');
 
-                if (!in_array($dt->format('N'), $weekdays))
+                if (!in_array($dt->format('N'), $weekdays)) {
                     continue;
+                }
 
                 $start_time = \DateTime::createFromFormat('Y-m-d H:i', $day . ' ' . $start_time->format('H:i'));
                 $end_time = \DateTime::createFromFormat('Y-m-d H:i', $day . ' ' . $end_time->format('H:i'));
