@@ -1,0 +1,67 @@
+{% extends '::base.html.twig' %}
+
+{% block page_title %}Mano klasės{% endblock %}
+
+{% block page_content %}
+<div class="container-fluid text-center">
+	<div class="col-lg-4">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">Mano klasės</h3>
+			</div>
+			<div class="box-body">
+				<ul class="list-group">
+					{% for class in classes %}
+						<li class="list-group-item classinfo">
+							<a href="{{ path('class_view', {'classInfo': class.id}) }}">{{ class.name }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-8">
+		{% if class is not null %}
+			<div class="box">
+				<div class="box-header with-border">
+					<h3 class="box-title">{{ class.name }} klasės mokiniai</h3>
+				</div>
+				<div class="box-body">
+					<table class="table table-striped">
+						<tr>
+							<th class="text-center">Vardas Pavardė</th>
+							<th class="text-center">Gimimo data</th>
+							<th class="text-center">Veiksmai</th>
+						</tr>
+						{% for student in class.students %}
+							<tr>
+								<td>
+									<a href="{{ path('student_view', {'studentInfo': student.id}) }}">{{ student.name }}</a>
+								</td>
+								<td>
+									{{ student.birthDate|date("Y-m-d") }}
+								</td>
+								<td>
+									<a href="{{ path('student_edit', {'studentInfo': student.id}) }}" class="btn btn-danger btn-xs modal-button">
+										<span class="fa fa-edit"></span>
+									</a>
+									<a href="{{ path('student_delete', {'studentInfo': student.id}) }}" class="btn btn-danger btn-xs">
+										<span class="fa fa-close"></span>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+					<a href="{{ path('student_create') }}" class="btn btn-danger btn-block modal-button">
+					<span class="fa fa-plus"></span>
+					</a>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}
+
+
+

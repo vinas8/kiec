@@ -28,7 +28,7 @@ class LessonController extends Controller
             return $this->display($currentLesson, 'Dabartinė pamoka', $request);
         } catch (LessonException $e) {
             $this->addFlash('info', $e->getMessage());
-            return $this->redirectToRoute('classes');
+            return $this->redirectToRoute('class_view');
         }
     }
 
