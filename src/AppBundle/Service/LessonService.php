@@ -79,7 +79,7 @@ class LessonService
     {
         return $this->lessonRepository->findUserLessonsFromDate(
             $user,
-            $this->timeService->getCurrentTime(),
+            $this->timeService->getCurrentDate(),
             $offset,
             $limit
         );
