@@ -12,13 +12,17 @@ class FOSUBUserProvider extends BaseClass
 {
     private $loadDummyDataService;
 
-    public function __construct(UserManagerInterface $userManager, LoadDummyDataService $loadDummyDataService, array $properties)
-    {
+    public function __construct(
+        UserManagerInterface $userManager,
+        LoadDummyDataService $loadDummyDataService,
+        array $properties
+    ) {
         $this->userManager = $userManager;
-        $this->properties  = array_merge($this->properties, $properties);
-        $this->accessor    = PropertyAccess::createPropertyAccessor();
+        $this->properties = array_merge($this->properties, $properties);
+        $this->accessor = PropertyAccess::createPropertyAccessor();
         $this->loadDummyDataService = $loadDummyDataService;
     }
+
     /**
      * {@inheritDoc}
      */
