@@ -67,7 +67,7 @@ gulp.task('adminlte', function() {
         dir.npm + 'admin-lte/plugins/timepicker/bootstrap-timepicker.css',
         dir.npm + 'font-awesome/css/font-awesome.min.css'
         ])
-        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(cleanCSS({compatibility: 'ie8', processImport: false}))
         .pipe(concat('adminlte.css'))
         .pipe(gulp.dest(dir.dist + 'css'));
 });
