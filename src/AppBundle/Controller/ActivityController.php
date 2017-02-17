@@ -20,11 +20,20 @@ class ActivityController extends Controller
      */
     public function listAction()
     {
+        $activity = new Activity($this->getCurrentUser(), OriginType::CREATED);
+        $form = $this->createForm(
+            ActivityType::class,
+            $activity,
+            array(
+                'action' => $this->generateUrl("activities_create")
+            )
+        );
         $activities = $this->get('app.activity')->getActivityList();
         return $this->render(
             'AppBundle:Activity:view.html.twig',
             array(
-                "activities" => $activities
+                "activities" => $activities,
+                "form" => $form->createView()
             )
         );
     }
@@ -109,14 +118,8 @@ class ActivityController extends Controller
             } else {
                 $this->addFlash('danger', 'Netinkama reikšmė.');
             }
-            return $this->redirectToRoute("activities_list");
         }
-        return $this->render(
-            'AppBundle:Activity:create.html.twig',
-            array(
-                "form" => $form->createView(),
-            )
-        );
+        return $this->redirectToRoute("activities_list");
     }
 
     /**
