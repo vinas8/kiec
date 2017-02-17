@@ -110,18 +110,22 @@ class ResultService
 
     public function getTopResults($form)
     {
-        $repository = $this->em->getRepository('AppBundle:Result');
-        $query = $repository->createQueryBuilder('r')
+        $query = $this->em->createQueryBuilder()
+            ->select('r AS result')
+            ->from(Result::class, 'r')
             ->join("r.studentInfo", "s", "WITH", "s.classInfo IN (:classInfo)")
             ->where("r.activity = :activity")
             ->setParameter("activity", $form->getData()->getActivity())
             ->setParameter("classInfo", $form->getData()->getClassInfo())
-            ->setMaxResults($form->getData()->getMaxResults());
-        if ($form->getData()->getActivity()->getBestResultDetermination() === BestResultDeterminationType::MAX) {
-            $query->orderBy('r.value', 'DESC');
-        } else {
-            $query->orderBy('r.value');
-        }
+            ->setMaxResults($form->getData()->getMaxResults())
+            ->groupBy("r.studentInfo");
+             if ($form->getData()->getActivity()->getBestResultDetermination() === BestResultDeterminationType::MAX) {
+                 $query->addSelect('MAX(r.value) AS top_value');
+                 $query->orderBy('top_value', 'DESC');
+             } else {
+                 $query->addSelect('MIN(r.value) AS top_value');
+                 $query->orderBy('top_value');
+             }
         return $query->getQuery()->getResult();
     }
 }
