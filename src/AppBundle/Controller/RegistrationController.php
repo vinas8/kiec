@@ -26,7 +26,6 @@ class RegistrationController extends FOSController
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
-        $loadDummyDataService = $this->get('app.load_dummy_data');
         /**
          * @var User $user
          */
@@ -59,7 +58,6 @@ class RegistrationController extends FOSController
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
                 $userManager->updateUser($user);
-                $loadDummyDataService->loadDummyData($user);
 
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('homepage');

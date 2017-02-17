@@ -38,7 +38,7 @@ services:
     my_user_provider:
         class: AppBundle\Security\Core\User\FOSUBUserProvider
         #facebook: facebook_id, this is the place where the properties are passed to the UserProvider - see config.yml
-        arguments: ["@fos_user.user_manager", "@app.load_dummy_data", { google: google_id}]
+        arguments: ["@fos_user.user_manager", { google: google_id}]
     twig.extensions:
         class: AppBundle\Twig\TwigExtensions
         tags:
@@ -76,7 +76,4 @@ services:
     app.profile_picture_uploader_service:
         class: AppBundle\Service\FileUploadService
         arguments: ['%profile_images_directory%']
-    app.load_dummy_data:
-        class: AppBundle\Service\LoadDummyDataService
-        arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service" ]
 
