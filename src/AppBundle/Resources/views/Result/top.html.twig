@@ -36,8 +36,8 @@
                     <i class="fa fa-search"></i>
 					<h3 class="box-title">Ieškoti</h3>
 				</div>
-				<div class="box-body">
-					{{ form_start(form) }}
+                <div class="box-body">
+                    {{ form_start(form) }}
 					<div class="form-group">
 						<label>Rungtis</label>
 						{{ form_widget(form.activity, {attr: {'class': 'form-control'}}) }}
@@ -50,7 +50,7 @@
                         <label>Klasės</label>
                         {{ form_widget(form.classInfo) }}
                     </div>
-					<input type="submit" class="btn btn-block" value="Ieškoti"/>
+					<input type="submit" class="btn btn-primary btn-block" value="Ieškoti"/>
 					{{ form_end(form) }}
 				</div>
 			</div>
@@ -62,7 +62,7 @@
 					<h3 class="box-title">Geriausi mokiniai</h3>
 				</div>
 				<div class="box-body text-center">
-					{% if results is defined %}
+					{% if results is not empty %}
 						<table class="table table-striped">
 							<tr>
 								<th class="text-center">Mokinys</th>
@@ -82,7 +82,9 @@
 								</tr>
 							{% endfor %}
 						</table>
-					{% endif %}
+                    {% else %}
+                        <div class="alert alert-danger no-margin" role="alert">Rezultatų nėra</div>
+                    {% endif %}
 				</div>
 			</div>
 		</div>
