@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ClassInfo;
 use AppBundle\Entity\StudentInfo;
 use AppBundle\Form\StudentType;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
@@ -103,11 +104,12 @@ class StudentController extends Controller
     }
 
     /**
-     * @Route("/student/create", name="student_create")
+     * @Route("/student/create/{classInfo}", name="student_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, ClassInfo $classInfo = null)
     {
         $studentInfo = new StudentInfo();
+        $studentInfo->setClassInfo($classInfo);
         $form = $this->createForm(
             StudentType::class,
             $studentInfo,

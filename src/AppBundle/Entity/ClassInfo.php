@@ -41,6 +41,15 @@ class ClassInfo
     private $user;
 
     /**
+     * Result constructor.
+     * @param mixed $user
+     */
+    public function __construct(array $user)
+    {
+        $this->setUser($user);
+    }
+
+    /**
      * @return mixed
      */
     public function getUser()
