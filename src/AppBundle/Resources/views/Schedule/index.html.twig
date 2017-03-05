@@ -23,21 +23,25 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <div class="box box-default">
+        <div class="col-md-4">
+            <div class="box box-default collapsed-box">
                 <div class="box-header with-border">
                     <i class="fa fa-calendar-plus-o"></i>
                     <h3 class="box-title">Pamokų planavimas</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 {% if has_classes %}
-                    <div class="box-body">
+                    <div class="box-body no-padding">
                         <div id="schedule-error" class="alert alert-danger alert-dismissable" style="display:none">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                             <h4><i class="icon fa fa-ban"></i>Klaida!</h4>
                             <div id="schedule-error-text"></div>
                         </div>
-                    </div>
-                    <div class="nav-tabs-custom">
+
+                    <div class="nav-tabs-custom no-margin">
                         <ul class="nav nav-tabs">
                             <li class="active">
                                 <a href="#tab_1" data-toggle="tab" aria-expanded="true">Viena</a>
@@ -98,7 +102,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button class="btn btn-primary" type="submit">Įrašyti</button>
+                                            <button class="btn btn-primary btn-block" type="submit">Įrašyti</button>
                                         </div>
                                     </div>
                                 </form>
@@ -182,13 +186,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button class="btn btn-primary" type="submit">Įrašyti</button>
+                                            <button class="btn btn-primary btn-block" type="submit">Įrašyti</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
+                        </div>
                 {% else %}
                     <div class="box-body">
                         Neturite paskirtų klasių!
@@ -196,7 +201,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div id="timeline"></div>
         </div>
     </div>
