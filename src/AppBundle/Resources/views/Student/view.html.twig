@@ -91,12 +91,21 @@
                                             <td>{{ result.timestamp|date("Y-m-d H:m:s") }}</td>
                                             <td>{{ result.value }} {{ result.activity.units }}</td>
                                             <td>
-                                                <a href="{{ path('result_edit', {'result': result.id}) }}" class="btn btn-danger btn-xs modal-button">
-                                                    <span class="fa fa-edit"></span>
-                                                </a>
-                                                <a href="{{ path('result_delete', {'result': result.id}) }}" class="btn btn-danger btn-xs">
-                                                    <span class="fa fa-close"></span>
-                                                </a>
+                                                {% if is_granted("ROLE_TEACHER") %}
+                                                    <a href="{{ path('result_edit', {'result': result.id}) }}" class="btn btn-danger btn-xs modal-button">
+                                                        <span class="fa fa-edit"></span>
+                                                    </a>
+                                                    <a href="{{ path('result_delete', {'result': result.id}) }}" class="btn btn-danger btn-xs">
+                                                        <span class="fa fa-close"></span>
+                                                    </a>
+                                                {% elseif is_granted("ROLE_STUDENT") and result.user == app.user %}
+                                                    <a href="{{ path('result_edit', {'result': result.id}) }}" class="btn btn-danger btn-xs modal-button">
+                                                        <span class="fa fa-edit"></span>
+                                                    </a>
+                                                    <a href="{{ path('result_delete', {'result': result.id}) }}" class="btn btn-danger btn-xs">
+                                                        <span class="fa fa-close"></span>
+                                                    </a>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         <script type="text/javascript">
@@ -118,6 +127,13 @@
                                         activities[{{ activity.id }}].reverse();
                                         labels[{{ activity.id }}].reverse();
                                     </script>
+                                    <tr>
+                                        <td colspan="3">
+                                            <a href="{{ path('result_create', {'studentInfo': student.id, 'activity': activity.id}) }}" class="btn btn-danger btn-block modal-button">
+                                                <span class="fa fa-plus"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 </table>
                             {% else %}
                                 <div class="alert alert-danger activity-change no-margin hidden" role="alert"
@@ -125,9 +141,6 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-                        <a href="{{ path('result_create', {'studentInfo': student.id}) }}" class="btn btn-danger btn-block modal-button">
-                            <span class="fa fa-plus"></span>
-                        </a>
                     </div>
                 </div>
             </div>
