@@ -65,6 +65,13 @@ class User extends FOSUser
      */
     protected $email;
 
+    /**
+     * @var StudentInfo
+     *
+     * @ORM\OneToOne(targetEntity="StudentInfo")
+     */
+    private $studentInfo;
+
 
     /**
      * @return string
@@ -154,4 +161,24 @@ class User extends FOSUser
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * @return StudentInfo
+     */
+    public function getStudentInfo()
+    {
+        return $this->studentInfo;
+    }
+
+    /**
+     * @param StudentInfo $studentInfo
+     */
+    public function setStudentInfo($studentInfo)
+    {
+        $this->studentInfo = $studentInfo;
+    }
+
+
+
+
 }

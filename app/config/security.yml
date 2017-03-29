@@ -31,7 +31,7 @@ security:
                     google: "/login/check-google"
                 login_path: /login
                 failure_path: /login
-                default_target_path: /current
+                default_target_path: /
                 check_path: /connect_check
                 provider: fos_userbundle
                 oauth_user_provider:
@@ -43,4 +43,10 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: /class, role: ROLE_TEACHER }
+        - { path: /activities, role: ROLE_TEACHER }
+        - { path: /current, role: ROLE_TEACHER }
+        - { path: /class, role: ROLE_TEACHER }
+        - { path: /schedule, role: ROLE_TEACHER }
+        - { path: /lesson, role: ROLE_TEACHER }
         - { path: ^/, role: IS_AUTHENTICATED_FULLY }

@@ -12,6 +12,7 @@ use AppBundle\DBAL\Types\OriginType;
 use AppBundle\Entity\Activity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
+use AppBundle\Entity\User;
 use AppBundle\Service\CurrentUserDataService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -26,6 +27,9 @@ class ResultType extends AbstractType
 {
     private $em;
 
+    /**
+     * @return User
+     */
     private $currentUser;
 
     public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
@@ -48,8 +52,9 @@ class ResultType extends AbstractType
                         ->orderBy('a.name');
                 },
                 'choice_label' => 'name',
-            ))
-            ->add('studentInfo', EntityType::class, array(
+            ));
+        if (in_array("ROLE_TEACHER", $this->currentUser->getRoles())) {
+            $builder->add('studentInfo', EntityType::class, array(
                 'class' => StudentInfo::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('s')
@@ -58,8 +63,9 @@ class ResultType extends AbstractType
                         ->orderBy('s.name');
                 },
                 'choice_label' => 'name',
-            ))
-        ->add('timestamp', DateTimeType::class, array(
+            ));
+        }
+        $builder->add('timestamp', DateTimeType::class, array(
             'date_widget' => 'single_text',
             'time_widget' => 'single_text',
             'view_timezone' => 'Europe/Vilnius'));
