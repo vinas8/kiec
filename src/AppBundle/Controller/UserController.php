@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use Proxies\__CG__\AppBundle\Entity\StudentInfo;
+use AppBundle\Entity\StudentInfo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
