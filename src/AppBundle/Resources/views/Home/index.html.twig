@@ -1,9 +1,26 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}KKnyga{% endblock %}
+{% block page_title %}{% endblock %}
+{% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
-{% endblock %}
-
-{% block avanzu_admin_footer %}
+    <div class="modal show modal-success" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Naudotojas sėkmingai sukurtas</h4>
+                </div>
+                <div class="modal-body">
+                    <p><b>K</b>Knyga sveikina sėkmingai užsiregistravus. Prieš pradedant prašome pasirinkti savo grupę:</p>
+                    <p class="text-center">
+                        <a href="{{ path("user_set_student") }}" class="btn btn-block btn-success">Mokinys</a>
+                        <a href="{{ path("user_set_teacher") }}" class="btn btn-block btn-success">Mokytojas</a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path("user_logout") }}" class="btn btn-success">Atsijungti</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}

@@ -178,6 +178,13 @@ class User extends FOSUser
         $this->studentInfo = $studentInfo;
     }
 
+    public function setEmail($email)
+    {
+        $email = is_null($email) ? '' : $email;
+        parent::setEmail($email);
+        $this->setUsername($email);
+    }
+
 
 
 

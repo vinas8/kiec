@@ -46,14 +46,6 @@ class RegistrationController extends FOSController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
 
-
-                /** @var \AppBundle\Service\FileUploadService $uploaderService */
-                $file = $form->get('profile_picture')->getData();
-                if ($file) {
-                    $fileName = $this->get('app.profile_picture_uploader_service')->upload($file);
-                    $user->setProfilePicture(GlobalConstants::PROFILE_IMAGE_LOCATION . $fileName);
-                }
-
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 

@@ -24,7 +24,9 @@
                             <h4>{{ student.name }}</h4>
                         </div>
                         <div class="row">
-                            Gimimo data: {{ student.birthDate|date("Y-m-d") }}
+                            {% if student.birthDate is not empty %}
+                                Gimimo data: {{ student.birthDate|date("Y-m-d") }}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

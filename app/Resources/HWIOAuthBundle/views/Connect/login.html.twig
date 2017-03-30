@@ -4,9 +4,11 @@
     {#todo: normalios formos, remember, password reset #}
     <body class="login-page">
         <div class="login-box">
+            {% include ':inc:logo.html.twig' %}
+
             <div class="login-box-body">
                 <p class="login-box-msg">Prašome prisijungti</p>
-                <form action="/login_check" method="post">
+                <form action="{{ path("fos_user_security_check") }}" method="post">
                     <div class="form-group has-feedback">
                         <input type="text" name="_username" class="form-control" placeholder="Elektroninis paštas"/>
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

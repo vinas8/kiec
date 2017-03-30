@@ -1,6 +1,8 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
+    always_authenticate_before_granting:  true
+
     encoders:
       FOS\UserBundle\Model\UserInterface: bcrypt
 
@@ -49,4 +51,5 @@ security:
         - { path: /class, role: ROLE_TEACHER }
         - { path: /schedule, role: ROLE_TEACHER }
         - { path: /lesson, role: ROLE_TEACHER }
-        - { path: ^/, role: IS_AUTHENTICATED_FULLY }
+        - { path: /user, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/, role: [ROLE_TEACHER, ROLE_STUDENT] }
