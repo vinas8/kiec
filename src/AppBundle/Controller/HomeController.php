@@ -13,13 +13,19 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        try {
-            $response = $this->forward('AppBundle:Lesson:current');
-        } catch (LessonException $e) {
-            $this->addFlash('info', $e->getMessage());
-            $response = $this->forward('AppBundle:Class:view');
+        if ($this->isGranted('ROLE_TEACHER')) {
+            try {
+                $response = $this->forward('AppBundle:Lesson:current');
+            } catch (LessonException $e) {
+                $this->addFlash('info', $e->getMessage());
+                $response = $this->forward('AppBundle:Class:view');
+            }
+        }
+        else if ($this->isGranted('ROLE_STUDENT')) {
+            $response = $this->forward('AppBundle:Student:profile');
         }
 
         return $response;
     }
+
 }

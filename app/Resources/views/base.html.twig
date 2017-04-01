@@ -12,7 +12,7 @@
     {% endblock %}
     {% block canonical_meta %}{% endblock %}
 </head>
-<body class="skin-red">
+<body class="skin-red layout-boxed">
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -31,7 +31,11 @@
 
             {% block sidebar %}
                 <aside class="main-sidebar sidebar-offcanvas">
-                    {% include "::inc/sidebar.html.twig" %}
+                    {% if is_granted('ROLE_TEACHER') %}
+                        {% include "::inc/sidebar-teacher.html.twig" %}
+                    {% else %}
+                        {% include "::inc/sidebar-student.html.twig" %}
+                    {% endif %}
                 </aside>
             {% endblock %}
 

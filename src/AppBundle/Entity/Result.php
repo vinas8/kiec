@@ -63,9 +63,9 @@ class Result
 
     /**
      * Result constructor.
-     * @param object $activity
-     * @param object $studentInfo
-     * @param object $user
+     * @param Activity $activity
+     * @param StudentInfo $studentInfo
+     * @param User $user
      */
     public function __construct(Activity $activity = null, StudentInfo $studentInfo = null, User $user)
     {

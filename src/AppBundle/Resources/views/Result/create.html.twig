@@ -9,10 +9,12 @@
 		<label>Rungtis</label>
 		{{ form_widget(form.activity, {attr: {'class': 'form-control'}}) }}
 	</div>
-	<div class="form-group">
-		<label>Mokinys</label>
-		{{ form_widget(form.studentInfo, {attr: {'class': 'form-control'}}) }}
-	</div>
+    {% if is_granted("ROLE_TEACHER") %}
+        <div class="form-group">
+            <label>Mokinys</label>
+            {{ form_widget(form.studentInfo, {attr: {'class': 'form-control'}}) }}
+        </div>
+    {% endif %}
 	<div class="form-group">
 		<label>Rezultatas</label>
 		{{ form_widget(form.value, {attr: {'class': 'form-control'}}) }}

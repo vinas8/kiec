@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ClassInfo;
 use AppBundle\Entity\StudentInfo;
 use AppBundle\Form\StudentType;
+use AppBundle\Entity\User;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,11 +21,16 @@ class StudentController extends Controller
      */
     public function profileAction(StudentInfo $studentInfo = null)
     {
-        if (!$studentInfo) {
-            throw new NotFoundHttpException("Mokinys nerastas.");
+        if ($this->isGranted("ROLE_STUDENT")) {
+            $studentInfo = $this->getCurrentUser()->getStudentInfo();
         }
-        if (!$studentInfo->getClassInfo()->getUser()->contains($this->getCurrentUser())) {
-            throw new AccessDeniedException("Mokinys nepasiekiamas.");
+        else {
+            if (!$studentInfo) {
+                throw new NotFoundHttpException("Mokinys nerastas.");
+            }
+            if (!$studentInfo->getClassInfo()->getUser()->contains($this->getCurrentUser())) {
+                throw new AccessDeniedException("Mokinys nepasiekiamas.");
+            }
         }
 
         $activityService = $this->get('app.activity');
@@ -103,11 +110,12 @@ class StudentController extends Controller
     }
 
     /**
-     * @Route("/student/create", name="student_create")
+     * @Route("/student/create/{classInfo}", name="student_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, ClassInfo $classInfo = null)
     {
         $studentInfo = new StudentInfo();
+        $studentInfo->setClassInfo($classInfo);
         $form = $this->createForm(
             StudentType::class,
             $studentInfo,

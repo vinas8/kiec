@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class FOSUBUserProvider extends BaseClass
 {
-    private $loadDummyDataService;
 
     /**
      * {@inheritDoc}

@@ -5,6 +5,35 @@
 
 {% block page_content %}
 	<div class="row">
+        <div class="col-lg-4">
+            <div class="box collapsed-box">
+                <div class="box-header with-border">
+                    <i class="fa fa-plus-square"></i>
+                    <h3 class="box-title">Rungties pridėjimas</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        <label>Rungties pavadinimas</label>
+                        {{ form_widget(form.name, {attr: {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        <label>Geriausio rezultato nustatymas</label>
+                        {{ form_widget(form.bestResultDetermination, {attr: {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        <label>Matavimo vienetai</label>
+                        {{ form_widget(form.units, {attr: {'class': 'form-control'}}) }}
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-block" value="Pridėti"/>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
         <div class="col-lg-8">
             <div class="box">
                 <div class="box-header with-border">
@@ -47,31 +76,6 @@
                     {% else %}
                         <div class="alert alert-danger no-margin" role="alert">Rungčių nėra</div>
                     {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="box">
-                <div class="box-header with-border">
-                    <i class="fa fa-plus-square"></i>
-                    <h3 class="box-title">Rungties pridėjimas</h3>
-                </div>
-                <div class="box-body">
-                    {{ form_start(form) }}
-                    <div class="form-group">
-                        <label>Rungties pavadinimas</label>
-                        {{ form_widget(form.name, {attr: {'class': 'form-control'}}) }}
-                    </div>
-                    <div class="form-group">
-                        <label>Geriausio rezultato nustatymas</label>
-                        {{ form_widget(form.bestResultDetermination, {attr: {'class': 'form-control'}}) }}
-                    </div>
-                    <div class="form-group">
-                        <label>Matavimo vienetai</label>
-                        {{ form_widget(form.units, {attr: {'class': 'form-control'}}) }}
-                    </div>
-                    <input type="submit" class="btn btn-block" value="Pridėti"/>
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

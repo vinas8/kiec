@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Activity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
 use AppBundle\Entity\User;
@@ -73,16 +74,19 @@ class ResultController extends Controller
     }
 
     /**
-     * @Route("/result/create/{studentInfo}", name="result_create")
+     * @Route("/result/create/{studentInfo}/{activity}", name="result_create")
      */
-    public function createAction(Request $request, StudentInfo $studentInfo = null)
+    public function createAction(Request $request, StudentInfo $studentInfo = null, Activity $activity = null)
     {
-        if ($studentInfo) {
+        if ($this->isGranted("ROLE_STUDENT")) {
+            $studentInfo = $this->getCurrentUser()->getStudentInfo();
+        }
+        else if ($studentInfo) {
             if (!$studentInfo->getClassInfo()->getUser()->contains($this->getCurrentUser())) {
                 throw new AccessDeniedException("Mokinys nepasiekiamas.");
             }
         }
-        $result = new Result(null, $studentInfo, $this->getCurrentUser());
+        $result = new Result($activity, $studentInfo, $this->getCurrentUser());
         $form = $this->createForm(ResultType::class, $result, array('action' => $this->generateUrl("result_create")));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
