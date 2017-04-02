@@ -92,6 +92,55 @@ fos_user:
     registration:
         form:
             type: AppBundle\Form\RegistrationType
+    from_email:
+        address: app@site.com
+        sender_name: App Admin
+
+nelmio_api_doc:
+    name: KKnyga REST API
+    sandbox:
+        authentication:
+            name: access_token
+            delivery: http
+            type: bearer
+        body_format:
+            default_format: json
+
+fos_rest:
+    body_converter:
+        enabled: true
+    disable_csrf_role: IS_AUTHENTICATED_FULLY
+    param_fetcher_listener: force
+    versioning:
+        enabled: true
+        default_version: v1
+    routing_loader:
+        default_format: json
+        include_format: false
+    format_listener:
+        enabled: false
+    view:
+        view_response_listener: true
+    exception:
+        enabled: true
+        exception_controller: 'AppBundle\Controller\Rest\ExceptionController::showAction'
+
+fos_oauth_server:
+    db_driver: orm
+    client_class: AppBundle\Entity\Client
+    access_token_class: AppBundle\Entity\AccessToken
+    refresh_token_class: AppBundle\Entity\RefreshToken
+    auth_code_class: AppBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_provider.username_email
+
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@AppBundle/Resources/config/serializer/fos"
 
 hwi_oauth:
     #this is my custom user provider, created from FOSUBUserProvider - will manage the

@@ -25,3 +25,15 @@ google_login:
 user_logout:
     path: /logout
 
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /rest/doc
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+app_api:
+    type: rest
+    prefix: /rest/{version}/
+    resource: "@AppBundle/Resources/config/rest.yml"
+    defaults: { version: v1 }

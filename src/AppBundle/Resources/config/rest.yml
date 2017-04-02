@@ -1,0 +1,4 @@
+user:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/UsersController.php"
+    name_prefix: rest_

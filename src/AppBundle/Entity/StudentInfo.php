@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * StudentInfo
@@ -18,6 +19,8 @@ class StudentInfo
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"details", "list"})
      */
     private $id;
 
@@ -25,6 +28,8 @@ class StudentInfo
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Serializer\Groups({"details", "list"})
      */
     private $name;
 
@@ -39,6 +44,8 @@ class StudentInfo
      * @var date
      *
      * @ORM\Column(name="birthDate", type="date", length=255)
+     *
+     * @Serializer\Groups({"details"})
      */
     private $birthDate;
 
