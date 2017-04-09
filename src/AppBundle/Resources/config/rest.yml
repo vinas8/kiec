@@ -7,3 +7,8 @@ class:
     type: rest
     resource: "@AppBundle/Controller/Rest/ClassesController.php"
     name_prefix: rest_
+
+schedule:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/ScheduleController.php"
+    name_prefix: rest_

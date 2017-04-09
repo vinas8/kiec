@@ -18,7 +18,7 @@ class User extends FOSUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Groups({"details", "list"})
+     * @Serializer\Groups({"user_short", "user_full"})
      */
     protected $id;
 
@@ -44,7 +44,7 @@ class User extends FOSUser
      *     maxMessage="Name is too long",
      * )
      *
-     * @Serializer\Groups({"details"})
+     * @Serializer\Groups({"user_full"})
      */
     private $name;
 
@@ -54,7 +54,7 @@ class User extends FOSUser
      * @ORM\Column(name="profile_picture", type="string", nullable=true)
      * @Assert\File(mimeTypes={ "image/*" })
      *
-     * @Serializer\Groups({"details"})
+     * @Serializer\Groups({"user_full"})
      */
     private $profilePicture;
 
@@ -70,7 +70,7 @@ class User extends FOSUser
      * @Assert\Email()
      * @Assert\NotBlank()
      *
-     * @Serializer\Groups({"me"})
+     * @Serializer\Groups({"user_short", "user_full"})
      */
     protected $email;
 

@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
@@ -21,25 +22,35 @@ class Lesson
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"lesson_short", "lesson_full"})
      */
     private $id;
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Serializer\Groups({"lesson_short", "lesson_full"})
      */
     private $startTime;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Serializer\Groups({"lesson_short", "lesson_full"})
      */
     private $endTime;
 
     /**
      * @ORM\ManyToOne(targetEntity="ClassInfo")
+     *
+     * @Serializer\Groups({"class_info_short"})
      */
     private $class_info;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
+     *
+     * @Serializer\Groups({"user_short"})
      */
     private $user;
 

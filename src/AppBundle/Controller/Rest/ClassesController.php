@@ -24,15 +24,9 @@ class ClassesController extends BaseRestController
      *          {
      *              "id": 1,
      *              "name": "5a",
-     *              "students": [
-     *                  {
-     *                      "id": 1,
-     *                      "name": "John Doe"
-     *                  }
-     *              ],
      *              "user": [
      *                  {
-     *                      "enabled": true
+     *                      "email": "test@email.com"
      *                      "id": 1
      *                  }
      *              ]
@@ -44,7 +38,7 @@ class ClassesController extends BaseRestController
      *       }
      *     }
      *
-     * @Rest\View(serializerGroups={"list"})
+     * @Rest\View(serializerGroups={"class_info_short", "user_short", "list"})
      *
      * @ApiDoc(
      *     section="Classes",

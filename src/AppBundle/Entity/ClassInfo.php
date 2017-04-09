@@ -20,7 +20,7 @@ class ClassInfo
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Groups({"details", "list"})
+     * @Serializer\Groups({"class_info_short", "class_info_full"})
      */
     private $id;
 
@@ -29,15 +29,13 @@ class ClassInfo
      *
      * @ORM\Column(name="name", type="string", length=255)
      *
-     * @Serializer\Groups({"details", "list"})
+     * @Serializer\Groups({"class_info_short", "class_info_full"})
      */
     private $name;
 
     /**
      *
      * @ORM\OneToMany(targetEntity="StudentInfo", mappedBy="classInfo")
-     *
-     * @Serializer\Groups({"details", "list"})
      */
     private $students;
 
@@ -45,7 +43,7 @@ class ClassInfo
     /**
      * @ORM\ManyToMany(targetEntity="User")
      *
-     * @Serializer\Groups({"details", "list"})
+     * @Serializer\Groups({"user_short"})
      */
     private $user;
 
