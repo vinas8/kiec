@@ -27,3 +27,8 @@ student:
     type: rest
     resource: "@AppBundle/Controller/Rest/StudentsController.php"
     name_prefix: rest_
+
+tokens:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/TokensController.php"
+    name_prefix: rest_

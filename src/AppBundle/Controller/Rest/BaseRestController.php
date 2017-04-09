@@ -54,6 +54,20 @@ abstract class BaseRestController extends FOSRestController
     }
 
     /**
+     * @param  string $message
+     * @return View
+     */
+    protected function buildDeletedResponse($message)
+    {
+        $metadata = [
+            'message' => $message,
+            'code' => HttpResponse::HTTP_CREATED
+        ];
+
+        return View::create($this->buildResponse([], $metadata), HttpResponse::HTTP_ACCEPTED);
+    }
+
+    /**
      * @param  Form $form
      * @return ValidationException
      */
