@@ -12,3 +12,8 @@ schedule:
     type: rest
     resource: "@AppBundle/Controller/Rest/ScheduleController.php"
     name_prefix: rest_
+
+activity:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/ActivitiesController.php"
+    name_prefix: rest_
