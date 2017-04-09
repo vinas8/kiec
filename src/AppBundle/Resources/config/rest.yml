@@ -22,3 +22,8 @@ result:
     type: rest
     resource: "@AppBundle/Controller/Rest/ResultsController.php"
     name_prefix: rest_
+
+student:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/StudentsController.php"
+    name_prefix: rest_
