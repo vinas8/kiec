@@ -44,6 +44,8 @@ class ClassInfo
 
     /**
      * @ORM\ManyToMany(targetEntity="User")
+     *
+     * @Serializer\Groups({"details", "list"})
      */
     private $user;
 
