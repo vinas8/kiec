@@ -6,7 +6,9 @@ use AppBundle\Exception\ValidationException;
 use AppBundle\Model\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 /**
  * Class BaseRestController
@@ -29,6 +31,26 @@ abstract class BaseRestController extends FOSRestController
         }
 
         return Response::create($data, $metadata);
+    }
+
+    /**
+     * @param  mixed $data
+     * @param  mixed $location
+     * @param  string $message
+     * @return View
+     */
+    protected function buildCreatedResponse($data, $location, $message)
+    {
+        $metadata = [
+            'message' => $message,
+            'code' => HttpResponse::HTTP_CREATED
+        ];
+
+        $headers = [
+            'Location' => $location
+        ];
+
+        return View::create($this->buildResponse($data, $metadata), HttpResponse::HTTP_CREATED, $headers);
     }
 
     /**

@@ -17,3 +17,8 @@ activity:
     type: rest
     resource: "@AppBundle/Controller/Rest/ActivitiesController.php"
     name_prefix: rest_
+
+result:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/ResultsController.php"
+    name_prefix: rest_

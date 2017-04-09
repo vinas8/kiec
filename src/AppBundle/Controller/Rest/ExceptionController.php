@@ -65,7 +65,7 @@ class ExceptionController extends BaseRestController
      * @param  \Exception $exception
      * @return int
      */
-    protected function getStatusCode(\Exception $exception) : int
+    protected function getStatusCode(\Exception $exception)
     {
         $statusCode = $this->get('fos_rest.exception.codes_map')->resolveException($exception);
 

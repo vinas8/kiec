@@ -36,6 +36,8 @@ class ClassInfo
     /**
      *
      * @ORM\OneToMany(targetEntity="StudentInfo", mappedBy="classInfo")
+     *
+     * @Serializer\Groups({"class_info_full"})
      */
     private $students;
 

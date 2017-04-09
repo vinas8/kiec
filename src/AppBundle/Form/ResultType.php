@@ -53,7 +53,7 @@ class ResultType extends AbstractType
                 },
                 'choice_label' => 'name',
             ));
-        if (in_array("ROLE_TEACHER", $this->currentUser->getRoles())) {
+        if (in_array("ROLE_TEACHER", $this->currentUser ? $this->currentUser->getRoles() : [])) {
             $builder->add('studentInfo', EntityType::class, array(
                 'class' => StudentInfo::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -62,7 +62,7 @@ class ResultType extends AbstractType
                         ->setParameter('user', $this->currentUser)
                         ->orderBy('s.name');
                 },
-                'choice_label' => 'name',
+                'choice_label' => 'name'
             ));
         }
         $builder->add('timestamp', DateTimeType::class, array(
