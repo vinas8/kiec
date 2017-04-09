@@ -17,6 +17,20 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        api_doc:
+            pattern: ^/rest/doc
+            security: false
+
+        oauth_token:
+            pattern: ^/oauth/v2/token
+            security: false
+
+        rest_api:
+            pattern: ^/rest
+            fos_oauth: true
+            stateless: true
+            anonymous: false
+
         main:
             form_login:
                 provider: fos_userbundle
@@ -49,4 +63,5 @@ security:
         - { path: /class, role: ROLE_TEACHER }
         - { path: /schedule, role: ROLE_TEACHER }
         - { path: /lesson, role: ROLE_TEACHER }
+        - { path: ^/rest/, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/, role: IS_AUTHENTICATED_FULLY }

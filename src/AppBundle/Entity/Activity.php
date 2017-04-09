@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Activity
@@ -20,6 +21,8 @@ class Activity
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"activity_short", "activity_full"})
      */
     private $id;
 
@@ -27,6 +30,8 @@ class Activity
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Serializer\Groups({"activity_short", "activity_full"})
      */
     private $name;
 
@@ -35,6 +40,8 @@ class Activity
      *
      * @ORM\Column(name="bestResultDetermination", type="BestResultDeterminationType", nullable=false)
      * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BestResultDeterminationType")
+     *
+     * @Serializer\Groups({"activity_short", "activity_full"})
      */
     private $bestResultDetermination;
 
@@ -42,6 +49,8 @@ class Activity
      * @var string
      *
      * @ORM\Column(name="units", type="string", length=255)
+     *
+     * @Serializer\Groups({"activity_short", "activity_full"})
      */
     private $units;
 
@@ -50,6 +59,8 @@ class Activity
      *
      * @ORM\Column(name="origin", type="OriginType", nullable=false)
      * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\OriginType")
+     *
+     * @Serializer\Groups({"activity_short", "activity_full"})
      */
     private $origin;
 
@@ -57,6 +68,8 @@ class Activity
      * @var object
      *
      * @ORM\ManyToOne(targetEntity="User")
+     *
+     * @Serializer\Groups({"user_short"})
      */
     private $user;
 

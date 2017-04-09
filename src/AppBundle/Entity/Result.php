@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Result
@@ -19,6 +20,8 @@ class Result
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"result_short", "result_full"})
      */
     private $id;
 
@@ -27,6 +30,8 @@ class Result
      *
      * @ORM\Column(name="value", type="float")
      * @Assert\NotNull()
+     *
+     * @Serializer\Groups({"result_short", "result_full"})
      */
     private $value;
 
@@ -35,6 +40,8 @@ class Result
      *
      * @ORM\Column(name="timestamp", type="datetime")
      * @Assert\NotNull()
+     *
+     * @Serializer\Groups({"result_short", "result_full"})
      */
     private $timestamp;
 
@@ -43,6 +50,8 @@ class Result
      *
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="results")
      * @Assert\NotNull()
+     *
+     * @Serializer\Groups({"activity_short"})
      */
     private $activity;
 
@@ -51,6 +60,8 @@ class Result
      *
      * @ORM\ManyToOne(targetEntity="StudentInfo", inversedBy="results")
      * @Assert\NotNull()
+     *
+     * @Serializer\Groups({"student_info_short"})
      */
     private $studentInfo;
 
@@ -58,6 +69,8 @@ class Result
      * @var object
      *
      * @ORM\ManyToOne(targetEntity="User")
+     *
+     * @Serializer\Groups({"user_short"})
      */
     private $user;
 
@@ -67,7 +80,7 @@ class Result
      * @param StudentInfo $studentInfo
      * @param User $user
      */
-    public function __construct(Activity $activity = null, StudentInfo $studentInfo = null, User $user)
+    public function __construct(Activity $activity = null, StudentInfo $studentInfo = null, User $user = null)
     {
         $this->setActivity($activity);
         $this->setStudentInfo($studentInfo);

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as FOSUser;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
@@ -16,6 +17,8 @@ class User extends FOSUser
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"user_short", "user_full"})
      */
     protected $id;
 
@@ -40,6 +43,8 @@ class User extends FOSUser
      *     minMessage="Name is too short",
      *     maxMessage="Name is too long",
      * )
+     *
+     * @Serializer\Groups({"user_full"})
      */
     private $name;
 
@@ -48,6 +53,8 @@ class User extends FOSUser
      *
      * @ORM\Column(name="profile_picture", type="string", nullable=true)
      * @Assert\File(mimeTypes={ "image/*" })
+     *
+     * @Serializer\Groups({"user_full"})
      */
     private $profilePicture;
 
@@ -62,6 +69,8 @@ class User extends FOSUser
     /**
      * @Assert\Email()
      * @Assert\NotBlank()
+     *
+     * @Serializer\Groups({"user_short", "user_full"})
      */
     protected $email;
 

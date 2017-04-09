@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * StudentInfo
@@ -18,6 +19,8 @@ class StudentInfo
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"student_info_short", "student_info_full"})
      */
     private $id;
 
@@ -25,6 +28,8 @@ class StudentInfo
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Serializer\Groups({"student_info_short", "student_info_full"})
      */
     private $name;
 
@@ -32,6 +37,8 @@ class StudentInfo
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="ClassInfo", inversedBy="students")
+     *
+     * @Serializer\Groups({"class_info_short"})
      */
     private $classInfo;
 
@@ -39,6 +46,8 @@ class StudentInfo
      * @var date
      *
      * @ORM\Column(name="birthDate", type="date", length=255)
+     *
+     * @Serializer\Groups({"student_info_full"})
      */
     private $birthDate;
 
@@ -46,6 +55,8 @@ class StudentInfo
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Result", mappedBy="studentInfo")
+     *
+     * @Serializer\Groups({"result_short"})
      */
     private $results;
 

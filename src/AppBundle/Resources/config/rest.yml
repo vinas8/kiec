@@ -1,0 +1,34 @@
+user:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/UsersController.php"
+    name_prefix: rest_
+
+class:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/ClassesController.php"
+    name_prefix: rest_
+
+schedule:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/ScheduleController.php"
+    name_prefix: rest_
+
+activity:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/ActivitiesController.php"
+    name_prefix: rest_
+
+result:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/ResultsController.php"
+    name_prefix: rest_
+
+student:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/StudentsController.php"
+    name_prefix: rest_
+
+tokens:
+    type: rest
+    resource: "@AppBundle/Controller/Rest/TokensController.php"
+    name_prefix: rest_
