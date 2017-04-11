@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\DBAL\Types\RoleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -14,6 +15,7 @@ class RegistrationType extends AbstractType
     {
         $builder->remove('username');
         $builder->add('name', null, array('label' => 'form.name', 'translation_domain' => 'FOSUserBundle'));
+        $builder->add('role', ChoiceType::class, ['choices' => RoleType::getChoices(), 'mapped' => false]);
     }
 
     public function getParent()

@@ -79,7 +79,7 @@ class ResultController extends Controller
     public function createAction(Request $request, StudentInfo $studentInfo = null, Activity $activity = null)
     {
         if ($this->isGranted("ROLE_STUDENT")) {
-            $studentInfo = $this->getCurrentUser()->getStudentInfo();
+            $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
         }
         else if ($studentInfo) {
             if (!$studentInfo->getClassInfo()->getUser()->contains($this->getCurrentUser())) {

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\User;
 
 /**
  * StudentInfo
@@ -48,6 +49,13 @@ class StudentInfo
      * @ORM\OneToMany(targetEntity="Result", mappedBy="studentInfo")
      */
     private $results;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="students")
+     */
+    private $user;
 
     /**
      * Get id
@@ -148,4 +156,22 @@ class StudentInfo
         $this->results = $results;
         return $this;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+
 }

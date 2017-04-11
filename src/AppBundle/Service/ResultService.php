@@ -62,30 +62,58 @@ class ResultService
 
     public function getBestResultsByStudent($studentInfo)
     {
-        $query = $this->em->createQueryBuilder()
-            ->select('r AS result')
-            ->addSelect('MAX(r.value) AS max_value, MIN(r.value) AS min_value')
-            ->from(Result::class, 'r')
-            ->innerJoin("r.activity", "s")
-            ->where("r.studentInfo = :student")
-            ->setParameter("student", $studentInfo)
-            ->groupBy("r.activity")
-            ->orderBy("s.name")
-            ->getQuery();
-        $results = $query->getResult();
+        if ($studentInfo->getUser() === null) {
+            $query = $this->em->createQueryBuilder()
+                ->select('r AS result')
+                ->addSelect('MAX(r.value) AS max_value, MIN(r.value) AS min_value')
+                ->from(Result::class, 'r')
+                ->innerJoin("r.activity", "s")
+                ->where("r.studentInfo = :student")
+                ->setParameter("student", $studentInfo)
+                ->groupBy("r.activity")
+                ->orderBy("s.name")
+                ->getQuery();
+            $results = $query->getResult();
+        }
+        else {
+            $query = $this->em->createQueryBuilder()
+                ->select('r AS result')
+                ->addSelect('MAX(r.value) AS max_value, MIN(r.value) AS min_value')
+                ->from(Result::class, 'r')
+                ->innerJoin("r.activity", "a")
+                ->innerJoin("r.studentInfo", "s")
+                ->where("s.user = :user")
+                ->setParameter("user", $studentInfo->getUser())
+                ->groupBy("r.activity")
+                ->orderBy("a.name")
+                ->getQuery();
+            $results = $query->getResult();
+        }
 
         return $results;
     }
 
     public function getResultListByStudent($studentInfo)
     {
-        $repository = $this->em->getRepository('AppBundle:Result');
-        $query = $repository->createQueryBuilder('r')
-            ->where("r.studentInfo = :student")
-            ->setParameter("student", $studentInfo)
-            ->orderBy('r.timestamp', 'DESC')
-            ->getQuery();
-        $results = $query->getResult();
+        if ($studentInfo->getUser() === null) {
+            $repository = $this->em->getRepository('AppBundle:Result');
+            $query = $repository->createQueryBuilder('r')
+                ->where("r.studentInfo = :student")
+                ->setParameter("student", $studentInfo)
+                ->orderBy('r.timestamp', 'DESC')
+                ->getQuery();
+            $results = $query->getResult();
+        }
+        else {
+            $repository = $this->em->getRepository('AppBundle:Result');
+            $query = $repository->createQueryBuilder('r')
+                ->innerJoin("r.studentInfo", "s")
+                ->where("s.user = :user")
+                ->setParameter("user", $studentInfo->getUser())
+                ->orderBy('r.timestamp', 'DESC')
+                ->getQuery();
+            $results = $query->getResult();
+        }
 
         $allResults = [];
         foreach ($results as $result) {

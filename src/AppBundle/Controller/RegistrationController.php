@@ -49,6 +49,8 @@ class RegistrationController extends FOSController
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
+                $user->setRoles(array($form['role']->getData()));
+                $user->setMainStudentInfo($this->get('app.student_info')->createStudentFromUser($user));
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {

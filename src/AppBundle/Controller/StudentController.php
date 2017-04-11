@@ -22,7 +22,7 @@ class StudentController extends Controller
     public function profileAction(StudentInfo $studentInfo = null)
     {
         if ($this->isGranted("ROLE_STUDENT")) {
-            $studentInfo = $this->getCurrentUser()->getStudentInfo();
+            $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
         }
         else {
             if (!$studentInfo) {
@@ -101,7 +101,7 @@ class StudentController extends Controller
         try {
             $this->getDoctrine()->getManager()->remove($studentInfo);
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Rungtis pašalinta');
+            $this->addFlash('success', 'Mokinys pašalintas');
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash('danger', 'Yra rezultatų, priklausančių šiam mokiniui.');
         }
