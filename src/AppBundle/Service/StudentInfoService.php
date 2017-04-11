@@ -20,9 +20,15 @@ class StudentInfoService
      */
     private $em;
 
-    public function __construct(EntityManager $em)
+    /**
+     * @var User
+     */
+    private $currentUser;
+
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
     {
         $this->em = $em;
+        $this->currentUser = $currentUserDataService->getUser();
     }
 
     public function getStudentListByClass($classInfo)
@@ -45,5 +51,21 @@ class StudentInfoService
         $this->em->flush();
 
         return $studentInfo;
+    }
+
+    public function joinStudentWithUser($joinCode) {
+        $studentInfo = $this->em->getRepository('AppBundle:StudentInfo')->findOneByJoinCode($joinCode);
+        if ($studentInfo === null) {
+            return false;
+        }
+        if ($studentInfo->getUser() !== null) {
+            return false;
+        }
+        else {
+            $studentInfo->setUser($this->currentUser);
+            $this->em->persist($studentInfo);
+            $this->em->flush();
+            return true;
+        }
     }
 }

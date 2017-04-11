@@ -58,6 +58,19 @@ class StudentInfo
     private $user;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="join_code", type="string", length=255)
+     */
+    private $joinCode;
+
+    function __construct()
+    {
+        $this->joinCode = bin2hex(openssl_random_pseudo_bytes(3));
+    }
+
+
+    /**
      * Get id
      *
      * @return int
@@ -172,6 +185,23 @@ class StudentInfo
     {
         $this->user = $user;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getJoinCode()
+    {
+        return $this->joinCode;
+    }
+
+    /**
+     * @param mixed $joinCode
+     */
+    public function setJoinCode($joinCode)
+    {
+        $this->joinCode = $joinCode;
+    }
+
 
 
 }

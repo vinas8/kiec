@@ -9,6 +9,7 @@ use AppBundle\Entity\User;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -136,6 +137,36 @@ class StudentController extends Controller
         }
         return $this->render(
             'AppBundle:Student:create.html.twig',
+            array(
+                "form" => $form->createView(),
+            )
+        );
+    }
+
+    /**
+     * @Route("/student/join", name="student_join")
+     */
+    public function joinAction(Request $request)
+    {
+        $form = $this->createFormBuilder(null, array('action' => $this->generateUrl("student_join")))
+            ->add('joinCode', TextType::class)
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                if ($this->get('app.student_info')->joinStudentWithUser($form['joinCode']->getData())) {
+                    $this->addFlash('success', 'Prisijungta sėkmingai.');
+                }
+                else {
+                    $this->addFlash('danger', 'Neteisingas kodas arba mokinys jau yra prijungtas.');
+                }
+            } else {
+                $this->addFlash('danger', 'Netinkama reikšmė.');
+            }
+            return new RedirectResponse($request->headers->get('referer'));
+        }
+        return $this->render(
+            'AppBundle:Student:join.html.twig',
             array(
                 "form" => $form->createView(),
             )
