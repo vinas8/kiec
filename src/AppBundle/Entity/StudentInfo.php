@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\User;
 
 /**
  * StudentInfo
@@ -38,7 +39,7 @@ class StudentInfo
     /**
      * @var date
      *
-     * @ORM\Column(name="birthDate", type="date", length=255)
+     * @ORM\Column(name="birthDate", type="date", length=255, nullable=true)
      */
     private $birthDate;
 
@@ -48,6 +49,26 @@ class StudentInfo
      * @ORM\OneToMany(targetEntity="Result", mappedBy="studentInfo")
      */
     private $results;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="students")
+     */
+    private $user;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="join_code", type="string", length=255)
+     */
+    private $joinCode;
+
+    function __construct()
+    {
+        $this->joinCode = bin2hex(openssl_random_pseudo_bytes(3));
+    }
+
 
     /**
      * Get id
@@ -148,4 +169,39 @@ class StudentInfo
         $this->results = $results;
         return $this;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJoinCode()
+    {
+        return $this->joinCode;
+    }
+
+    /**
+     * @param mixed $joinCode
+     */
+    public function setJoinCode($joinCode)
+    {
+        $this->joinCode = $joinCode;
+    }
+
+
+
 }

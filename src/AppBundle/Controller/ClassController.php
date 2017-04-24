@@ -85,7 +85,7 @@ class ClassController extends Controller
         try {
             $this->getDoctrine()->getManager()->remove($classInfo);
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Rungtis pašalinta');
+            $this->addFlash('success', 'Klasė pašalinta');
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash('danger', 'Yra mokinių, priklausančių šiai klasei.');
         }

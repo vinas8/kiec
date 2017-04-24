@@ -24,6 +24,11 @@ class HomeController extends Controller
         else if ($this->isGranted('ROLE_STUDENT')) {
             $response = $this->forward('AppBundle:Student:profile');
         }
+        else {
+            $response = $this->render(
+                'AppBundle:Home:index.html.twig'
+            );
+        }
 
         return $response;
     }

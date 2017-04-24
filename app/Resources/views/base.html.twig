@@ -33,7 +33,7 @@
                 <aside class="main-sidebar sidebar-offcanvas">
                     {% if is_granted('ROLE_TEACHER') %}
                         {% include "::inc/sidebar-teacher.html.twig" %}
-                    {% else %}
+                    {% elseif is_granted('ROLE_STUDENT') %}
                         {% include "::inc/sidebar-student.html.twig" %}
                     {% endif %}
                 </aside>

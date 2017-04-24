@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as FOSUser;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,12 +67,23 @@ class User extends FOSUser
     protected $email;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="StudentInfo", mappedBy="user")
+     */
+    private $students;
+
+    /**
      * @var StudentInfo
      *
      * @ORM\OneToOne(targetEntity="StudentInfo")
      */
-    private $studentInfo;
+    private $mainStudentInfo;
 
+
+    public function __construct() {
+        $this->students = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -156,26 +168,43 @@ class User extends FOSUser
         return $this->name;
     }
 
-    public function __construct()
+    public function setEmail($email)
     {
-        parent::__construct();
-        // your own logic
+        $email = is_null($email) ? '' : $email;
+        parent::setEmail($email);
+        $this->setUsername($email);
     }
 
     /**
      * @return StudentInfo
      */
-    public function getStudentInfo()
+    public function getMainStudentInfo()
     {
-        return $this->studentInfo;
+        return $this->mainStudentInfo;
     }
 
     /**
-     * @param StudentInfo $studentInfo
+     * @param StudentInfo $mainStudentInfo
      */
-    public function setStudentInfo($studentInfo)
+    public function setMainStudentInfo($mainStudentInfo)
     {
-        $this->studentInfo = $studentInfo;
+        $this->mainStudentInfo = $mainStudentInfo;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    /**
+     * @param Collection $students
+     */
+    public function setStudents($students)
+    {
+        $this->students = $students;
     }
 
 
