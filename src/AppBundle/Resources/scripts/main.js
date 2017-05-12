@@ -44,3 +44,11 @@ $(function () {
         defaultTime: '08:00'
     });
 });
+
+enquire
+    .register("screen and (min-width:95em)", function() {
+        $( "body" ).addClass( "layout-boxed" );
+    })
+    .register("screen and (max-width:95em)", function() {
+        $( "body" ).removeClass( "layout-boxed" );
+});
