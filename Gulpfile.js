@@ -35,9 +35,10 @@ gulp.task('scripts', function() {
             dir.npm + 'admin-lte/plugins/timepicker/bootstrap-timepicker.js',
             dir.npm + 'moment/min/moment-with-locales.js',
             dir.npm + 'chart.js/dist/Chart.js',
+            dir.npm + 'enquire.js/dist/enquire.js',
 
             // Main JS file
-            dir.assets + 'scripts/main.js'
+            dir.assets + 'scripts/main.js',
         ])
         .pipe(concat('script.js'))
         .pipe(uglify())
