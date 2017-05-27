@@ -10,6 +10,7 @@ namespace AppBundle\Service;
 
 use AppBundle\DBAL\Types\OriginType;
 use AppBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 
 class ActivityService
@@ -33,10 +34,18 @@ class ActivityService
     public function getActivityList()
     {
         $repository = $this->em->getRepository('AppBundle:Activity');
+        $users = new ArrayCollection();
+        $users->add($this->currentUser);
+        foreach ($this->currentUser->getStudents() as $student) {
+            foreach ($student->getClassInfo()->getUser() as $teacher) {
+                $users->add($teacher);
+            }
+        }
+
         $query = $repository->createQueryBuilder('r')
-            ->where('r.user = :user')
+            ->where('r.user IN (:users)')
             ->orWhere('r.origin = :origin')
-            ->setParameter('user', $this->currentUser)
+            ->setParameter('users', $users)
             ->setParameter('origin', OriginType::NATIVE)
             ->orderBy('r.name')
             ->getQuery();
