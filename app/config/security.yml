@@ -44,7 +44,6 @@ security:
         - { path: ^/connect.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: /class, role: ROLE_TEACHER }
         - { path: /activities, role: ROLE_TEACHER }
         - { path: /current, role: ROLE_TEACHER }

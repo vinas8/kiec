@@ -82,6 +82,7 @@ class User extends FOSUser
 
 
     public function __construct() {
+        parent::__construct();
         $this->students = new ArrayCollection();
     }
 
