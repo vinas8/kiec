@@ -11,9 +11,9 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ClassTest extends WebTestCase
+class ResultsTest extends WebTestCase
 {
-    public function testCreateClass()
+    public function testAddResult()
     {
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'mokytojas@gmail.com',
@@ -22,13 +22,11 @@ class ClassTest extends WebTestCase
 
         $client->followRedirects();
 
-
-        $crawler = $client->request('GET', '/class/view');
+        $crawler = $client->request('GET', '/');
+        $link = $crawler->filterXPath("//a[contains(@href, '/result/create')]")->link();
+        $crawler = $client->click($link);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-
-        $crawler = $client->request('GET', $crawler->filter('a[class="btn btn-danger btn-block modal-button"]')->attr('href'));
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
 
         $form = $crawler
@@ -36,7 +34,21 @@ class ClassTest extends WebTestCase
             ->eq(0)
             ->form()// select the first button in the list
         ;
-        $form['appbundle_classinfo[name]'] = '5a';
+        $form['result[activity]'] = '1';
+        // todo: 1
+        $form['result[studentInfo]'] = '2';
+        $form['result[value]'] = '100';
+        $form['result[timestamp][date]'] = '2015-05-21';
+        $form['result[timestamp][time]'] = '12:20';
+
+
         $crawler = $client->submit($form);
+
+        $crawler = $client->request('GET', '/student/view/2');
+
+        $result = $crawler->filter('html:contains("100 m")')->text();
+
+        $this->assertContains('100 m', $result);
+
     }
 }

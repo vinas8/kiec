@@ -50,11 +50,13 @@ class StudentInfoService
         $this->em->persist($studentInfo);
         $this->em->flush();
 
+
         return $studentInfo;
     }
 
     public function joinStudentWithUser($joinCode) {
         $studentInfo = $this->em->getRepository('AppBundle:StudentInfo')->findOneByJoinCode($joinCode);
+//        dump($studentInfo);
         if ($studentInfo === null) {
             return false;
         }
