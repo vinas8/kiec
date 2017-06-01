@@ -50,6 +50,27 @@ class JoinCodeTest extends WebTestCase
 
         $crawler = $client->submit($form);
 
+        $crawler = $client->request('GET', 'http://127.0.0.1:9999/');
+
+
+        $link = $crawler->filterXPath("//a[contains(@href, '/result/create')]")->link();
+        $crawler = $client->click($link);
+
+        $form = $crawler
+            ->filter('button:contains("Pridėti")') // find all buttons with the text "Add"
+            ->eq(0)
+            ->form()// select the first button in the list
+        ;
+
+
+//        $form['result[activity]'] = '1';
+//        // todo: 1
+//        $form['result[studentInfo]'] = '2';
+//        $form['result[value]'] = '100';
+//        $form['result[timestamp][date]'] = '2015-05-21';
+//        $form['result[timestamp][time]'] = '12:20';
+//        $crawler = $client->submit($form);
+
 
 //        echo $client->getResponse()->getContent() ;die;
 

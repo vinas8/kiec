@@ -40,8 +40,14 @@ class ResultsTest extends WebTestCase
         $form['result[value]'] = '100';
         $form['result[timestamp][date]'] = '2015-05-21';
         $form['result[timestamp][time]'] = '12:20';
+        $crawler = $client->submit($form);
 
-
+        $form['result[activity]'] = '1';
+        // todo: 1
+        $form['result[studentInfo]'] = '2';
+        $form['result[value]'] = '200';
+        $form['result[timestamp][date]'] = '2015-05-21';
+        $form['result[timestamp][time]'] = '12:20';
         $crawler = $client->submit($form);
 
         $crawler = $client->request('GET', '/student/view/2');

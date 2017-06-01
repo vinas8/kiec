@@ -50,7 +50,6 @@ class StudentInfoService
         $this->em->persist($studentInfo);
         $this->em->flush();
 
-
         return $studentInfo;
     }
 
@@ -64,7 +63,11 @@ class StudentInfoService
             return false;
         }
         else {
+            $this->currentUser->setMainStudentInfo($studentInfo);
+
             $studentInfo->setUser($this->currentUser);
+            $studentInfo->setJoinCode($joinCode);
+
             $this->em->persist($studentInfo);
             $this->em->flush();
             return true;

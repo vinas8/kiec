@@ -63,7 +63,7 @@ class ResultService
 
     public function getBestResultsByStudent($studentInfo)
     {
-
+//        dump($this->currentUser->getMainStudentInfo());
         if ($studentInfo->getUser() === null) {
             $query = $this->em->createQueryBuilder()
                 ->select('r AS result')
