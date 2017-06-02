@@ -56,7 +56,7 @@ services:
           - { name: form.type, alias: app_result_hidden_type }
     app.result_type:
         class: AppBundle\Form\ResultType
-        arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service" ]
+        arguments: [ "@doctrine.orm.entity_manager", "@app.current_user_data_service", "@app.activity" ]
         tags:
           - { name: form.type, alias: app_result_type }
     app.top_result_type:

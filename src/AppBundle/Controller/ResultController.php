@@ -80,6 +80,8 @@ class ResultController extends Controller
     {
         if ($this->isGranted("ROLE_STUDENT")) {
             $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
+//            dump($studentInfo);
+            dump("MIAAAAAAAAAAAAAAAAAAAU");
         }
         else if ($studentInfo) {
             if (!$studentInfo->getClassInfo()->getUser()->contains($this->getCurrentUser())) {

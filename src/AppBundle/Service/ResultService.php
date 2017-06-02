@@ -13,6 +13,7 @@ use AppBundle\Entity\Activity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
 use AppBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 
 class ResultService
@@ -62,6 +63,7 @@ class ResultService
 
     public function getBestResultsByStudent($studentInfo)
     {
+//        dump($this->currentUser->getMainStudentInfo());
         if ($studentInfo->getUser() === null) {
             $query = $this->em->createQueryBuilder()
                 ->select('r AS result')

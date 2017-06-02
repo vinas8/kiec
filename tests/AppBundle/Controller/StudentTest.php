@@ -11,9 +11,9 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ClassTest extends WebTestCase
+class StudentTest extends WebTestCase
 {
-    public function testCreateClass()
+    public function testAddStudentToClass()
     {
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'mokytojas@gmail.com',
@@ -26,8 +26,17 @@ class ClassTest extends WebTestCase
         $crawler = $client->request('GET', '/class/view');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
+        $link = $crawler
+            ->filter('a:contains("5a")') // find all links with the text "Greet"
+            ->eq(0) // select the second link in the list
+            ->link();
 
-        $crawler = $client->request('GET', $crawler->filter('a[class="btn btn-danger btn-block modal-button"]')->attr('href'));
+        $crawler = $client->click($link);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $link = $crawler->filterXPath("//a[contains(@href, '/student/create/1')]")->link();
+
+        $crawler = $client->click($link);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
 
@@ -36,7 +45,10 @@ class ClassTest extends WebTestCase
             ->eq(0)
             ->form()// select the first button in the list
         ;
-        $form['appbundle_classinfo[name]'] = '5a';
+        $form['student[name]'] = 'Tomas Gudauskas';
+        $form['student[birthDate]'] = '1993-10-11';
+        $form['student[classInfo]'] = '1';
+
         $crawler = $client->submit($form);
     }
 }

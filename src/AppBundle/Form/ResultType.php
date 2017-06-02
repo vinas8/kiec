@@ -13,7 +13,9 @@ use AppBundle\Entity\Activity;
 use AppBundle\Entity\Result;
 use AppBundle\Entity\StudentInfo;
 use AppBundle\Entity\User;
+use AppBundle\Service\ActivityService;
 use AppBundle\Service\CurrentUserDataService;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -31,26 +33,33 @@ class ResultType extends AbstractType
      * @return User
      */
     private $currentUser;
+    private $activityList;
 
-    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService, ActivityService $activityService)
     {
         $this->em = $em;
         $this->currentUser = $currentUserDataService->getUser();
+        $this->activityList = $activityService->getActivityList();
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+//        $user = $this->currentUser->getMainStudentInfo()->getClassInfo()->getUser();
+//        dump($user);
+        $users = new ArrayCollection();
+        $users->add($this->currentUser);
+        foreach ($this->currentUser->getStudents() as $student) {
+            foreach ($student->getClassInfo()->getUser() as $teacher) {
+                $users->add($teacher);
+            }
+        }
+
+
+
         $builder->add('value', NumberType::class)
             ->add('activity', EntityType::class, array(
                 'class' => Activity::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('a')
-                        ->where('a.user = :user')
-                        ->orWhere('a.origin = :origin')
-                        ->setParameter('user', $this->currentUser)
-                        ->setParameter('origin', OriginType::NATIVE)
-                        ->orderBy('a.name');
-                },
+                'choices' => $this->activityList,
                 'choice_label' => 'name',
             ));
         if (in_array("ROLE_TEACHER", $this->currentUser->getRoles())) {
