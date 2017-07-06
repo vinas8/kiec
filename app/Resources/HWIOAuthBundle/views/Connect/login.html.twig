@@ -39,7 +39,7 @@
 
                 <a href="{{ path('fos_user_registration_register') }}" class="btn btn-block btn-flat btn-primary">Registruotis</a>
 	 	<hr style="margin-top: 53px">	
-		
+	{#	
                     {% for owner in hwi_oauth_resource_owners() %}
                         <a href="{{ hwi_oauth_login_url(owner) }}"
                            class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i>
@@ -48,6 +48,7 @@
                            class="btn btn-block btn-social btn-google"><i class="fa fa-google-plus"></i>
                             Prisijungti su Google+</a>
                     {% endfor %}
+	#}
 		 <a href="mailto:navickaszilvinas@gmail.com?Subject=Dėl mokinių fizinio aktyvumo stebėjimo programos">Klausimus, pasiūlymus, pastebėjimus rašykite el paštu navickaszilvinas@gmail.com</a>
                 </div><!-- /.social-auth-links -->
             </div><!-- /.login-box-body -->
