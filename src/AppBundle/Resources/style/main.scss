@@ -26,9 +26,16 @@
 //}
 
 .login-page {
-	background:url(../images/bg.png) fixed
+	background:url(../images/bg.png) fixed;
+	overflow:hidden;
 }
 
 .register-page {
-	background:url(../images/bg.png) fixed
+	background:url(../images/bg.png) fixed;
+}
+.login-box {
+	margin: auto;
+}
+.login-logo {
+	padding-bottom: 15px
 }
