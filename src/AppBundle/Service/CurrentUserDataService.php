@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use FOS\UserBundle\Doctrine\UserManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class CurrentUserDataService
@@ -17,13 +18,37 @@ class CurrentUserDataService
      */
     protected $tokenStorage;
 
-    public function __construct(TokenStorage $tokenStorage)
+    /**
+     * @var UserManager
+     */
+    protected $userManager;
+
+    public function __construct(TokenStorage $tokenStorage, UserManager $userManager)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->userManager = $userManager;
     }
 
     public function getUser()
     {
         return $this->tokenStorage->getToken()->getUser();
+    }
+
+    public function assignRole($role) {
+        //Todo: validacija
+//        $studentInfo = $this->em->getRepository('AppBundle:StudentInfo')->findOneByJoinCode($joinCode);
+////        dump($studentInfo);
+//        if ($studentInfo === null) {
+//            return false;
+//        }
+//        if ($studentInfo->getUser() !== null) {
+//            return false;
+//        }
+//        else {
+            $user = $this->getUser();
+            $user->setRoles(array($role));
+            $this->userManager->updateUser($user);
+        return true;
+//        }
     }
 }

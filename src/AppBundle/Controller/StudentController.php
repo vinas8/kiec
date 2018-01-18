@@ -24,8 +24,14 @@ class StudentController extends Controller
     {
         if ($this->isGranted("ROLE_STUDENT")) {
             $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
-        }
-        else {
+            if ($studentInfo === null) {
+                $userManager = $this->get('fos_user.user_manager');
+                $user = $this->getCurrentUser();
+                $user->setMainStudentInfo($this->get('app.student_info')->createStudentFromUser($user));
+                $userManager->updateUser($user);
+                $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
+            }
+        } else {
             if (!$studentInfo) {
                 throw new NotFoundHttpException("Mokinys nerastas.");
             }
@@ -156,8 +162,7 @@ class StudentController extends Controller
             if ($form->isValid()) {
                 if ($this->get('app.student_info')->joinStudentWithUser($form['joinCode']->getData())) {
                     $this->addFlash('success', 'Prisijungta sėkmingai.');
-                }
-                else {
+                } else {
                     $this->addFlash('danger', 'Neteisingas kodas arba mokinys jau yra prijungtas.');
                 }
             } else {
