@@ -60,15 +60,12 @@
         });
 
         $('.btn-success').click(function (event) {
-            event.preventDefault();
             var classInfo = $('#student_classInfo option:selected').val();
             var url = '/students/create/';
             var studentsNames = $("#student_names").val();
 
 
             if (multipleStudentEnabled) {
-                console.log(studentsNames);
-
                 $.ajax({
                     url: "/students/create",
                     type: 'POST',
