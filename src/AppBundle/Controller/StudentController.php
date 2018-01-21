@@ -154,7 +154,8 @@ class StudentController extends Controller
     public function createMultipleAction(Request $request) {
         //todo padaryt normaliai
         $studentsNames = $request->get('studentsNames');
-        $classInfo = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')->findOneBy(array('name' => $request->get('classInfo')));
+        $classInfo = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')
+            ->findClassesByTeacherAndClassId($this->getCurrentUser(), $request->get('classInfo'));
 
         $re = '/(?<=[0-9].)[[:upper:]].+?(?=\t\t)/u';
         preg_match_all($re, $studentsNames, $studentsNames, PREG_SET_ORDER, 0);
