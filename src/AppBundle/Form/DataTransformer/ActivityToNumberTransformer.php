@@ -16,8 +16,7 @@ class ActivityToNumberTransformer implements DataTransformerInterface
 {
     private $em;
 
-    public function __construct(EntityManager $em)
-    {
+    public function __construct(EntityManager $em) {
         $this->em = $em;
     }
 
@@ -27,8 +26,7 @@ class ActivityToNumberTransformer implements DataTransformerInterface
      * @param  Activity|null $activity
      * @return int
      */
-    public function transform($activity)
-    {
+    public function transform($activity) {
         return $activity ? $activity->getId() : null;
     }
 
@@ -38,8 +36,7 @@ class ActivityToNumberTransformer implements DataTransformerInterface
      * @param  int $activityId
      * @return Activity|null
      */
-    public function reverseTransform($activityId)
-    {
+    public function reverseTransform($activityId) {
         $activity = $this->em
             ->getRepository(Activity::class)
             ->findOneById($activityId);

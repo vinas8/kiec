@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Security\Core\User;
 
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
@@ -11,8 +12,7 @@ class FOSUBUserProvider extends BaseClass
     /**
      * {@inheritDoc}
      */
-    public function connect(UserInterface $user, UserResponseInterface $response)
-    {
+    public function connect(UserInterface $user, UserResponseInterface $response) {
         $property = $this->getProperty($response);
         $username = $response->getUsername();
         //on connect - get the access token and the user ID
@@ -35,8 +35,7 @@ class FOSUBUserProvider extends BaseClass
     /**
      * {@inheritdoc}
      */
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
-    {
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response) {
         $username = $response->getUsername();
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
         //when the user is registrating

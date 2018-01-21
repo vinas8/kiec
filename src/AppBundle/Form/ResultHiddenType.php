@@ -22,13 +22,11 @@ class ResultHiddenType extends AbstractType
 {
     private $em;
 
-    public function __construct(EntityManager $em)
-    {
+    public function __construct(EntityManager $em) {
         $this->em = $em;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('value', NumberType::class, array('required' => false))
             ->add('activity', HiddenType::class)
             ->add('studentInfo', HiddenType::class);
@@ -39,11 +37,10 @@ class ResultHiddenType extends AbstractType
             ->addModelTransformer(new StudentInfoToNumberTransformer($this->em));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
-            'data_class' => Result::class
+                'data_class' => Result::class
             )
         );
     }

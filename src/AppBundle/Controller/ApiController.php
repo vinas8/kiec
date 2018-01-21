@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ClassInfo;
@@ -23,8 +24,7 @@ class ApiController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function scheduleAction(Request $request)
-    {
+    public function scheduleAction(Request $request) {
         $offset = $request->query->get('offset', self::DEFAULT_SCHEDULE_OFFSET);
         $limit = $request->query->get('limit', self::DEFAULT_SCHEDULE_LIMIT);
 
@@ -62,8 +62,7 @@ class ApiController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function scheduleAddAction(Request $request)
-    {
+    public function scheduleAddAction(Request $request) {
         if (!$request->isMethod('POST')) {
             return $this->scheduleAddErrorResponse('Netinkama užklausa!');
         }
@@ -93,8 +92,7 @@ class ApiController extends Controller
      * @param  Request $request
      * @return JsonResponse
      */
-    private function handleSingleSchedule(User $user, ClassInfo $classinfo, Request $request)
-    {
+    private function handleSingleSchedule(User $user, ClassInfo $classinfo, Request $request) {
         $date = $request->get('single_date');
         $start = $request->get('single_start_time');
         $end = $request->get('single_end_time');
@@ -138,8 +136,7 @@ class ApiController extends Controller
      * @param  Request $request
      * @return JsonResponse
      */
-    private function handleMultipleSchedule(User $user, ClassInfo $classinfo, Request $request)
-    {
+    private function handleMultipleSchedule(User $user, ClassInfo $classinfo, Request $request) {
         $start_date = $request->get('multiple_start_date');
         $end_date = $request->get('multiple_end_date');
         $weekdays = $request->get('weekdays');
@@ -225,8 +222,7 @@ class ApiController extends Controller
      * @param  \DateTime $end_time
      * @return Lesson
      */
-    private function createLesson(User $user, ClassInfo $class, \DateTime $start_time, \DateTime $end_time)
-    {
+    private function createLesson(User $user, ClassInfo $class, \DateTime $start_time, \DateTime $end_time) {
         $lesson = new Lesson();
         $lesson->setUser($user);
         $lesson->setStartTime($start_time);
@@ -242,8 +238,7 @@ class ApiController extends Controller
      * @param  string $message
      * @return JsonResponse
      */
-    private function scheduleAddErrorResponse($message)
-    {
+    private function scheduleAddErrorResponse($message) {
         $this->addFlash('danger', $message);
 
         return $this->redirectToRoute('schedule');
@@ -255,8 +250,7 @@ class ApiController extends Controller
      * @param  string $message
      * @return JsonResponse
      */
-    private function scheduleAddSuccessResponse($message)
-    {
+    private function scheduleAddSuccessResponse($message) {
         $this->addFlash('success', $message);
 
         return $this->redirectToRoute('schedule');
@@ -265,24 +259,21 @@ class ApiController extends Controller
     /**
      * @return LessonService
      */
-    private function lessonService()
-    {
+    private function lessonService() {
         return $this->get('app.lesson_service');
     }
 
     /**
      * @return ClassInfoService
      */
-    private function classInfoService()
-    {
+    private function classInfoService() {
         return $this->get('app.class_info_service');
     }
 
     /**
      * @return User
      */
-    private function getCurrentUser()
-    {
+    private function getCurrentUser() {
         return $this->get('app.current_user_data_service')->getUser();
     }
 }

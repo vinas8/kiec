@@ -30,26 +30,24 @@ class TopResultType extends AbstractType
 
     private $currentUser;
 
-    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
-    {
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService) {
         $this->em = $em;
         $this->currentUser = $currentUserDataService->getUser();
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('activity', EntityType::class, array(
-                'class' => Activity::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('a')
-                        ->where('a.user = :user')
-                        ->orWhere('a.origin = :origin')
-                        ->setParameter('user', $this->currentUser)
-                        ->setParameter('origin', OriginType::NATIVE)
-                        ->orderBy('a.name');
-                },
-                'choice_label' => 'name',
-            ))
+            'class' => Activity::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('a')
+                    ->where('a.user = :user')
+                    ->orWhere('a.origin = :origin')
+                    ->setParameter('user', $this->currentUser)
+                    ->setParameter('origin', OriginType::NATIVE)
+                    ->orderBy('a.name');
+            },
+            'choice_label' => 'name',
+        ))
             ->add('classInfo', EntityType::class, array(
                 'class' => ClassInfo::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -62,11 +60,10 @@ class TopResultType extends AbstractType
                 'expanded' => true,
                 'multiple' => true
             ))
-        ->add('maxResults', NumberType::class);
+            ->add('maxResults', NumberType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
                 'data_class' => TopResultSet::class,

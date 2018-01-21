@@ -20,13 +20,11 @@ $(document).ready(
     }
 );
 
-function showList(showId)
-{
+function showList(showId) {
     $(".result-activityId").val(showId);
     $(".activity-change").addClass('hidden');
     $(".activity-change[data-activityId='" + showId + "']").removeClass('hidden');
 }
-
 
 
 $(function () {
@@ -46,9 +44,9 @@ $(function () {
 });
 
 enquire
-    .register("screen and (min-width:95em)", function() {
-        $( "body" ).addClass( "layout-boxed" );
+    .register("screen and (min-width:95em)", function () {
+        $("body").addClass("layout-boxed");
     })
-    .register("screen and (max-width:95em)", function() {
-        $( "body" ).removeClass( "layout-boxed" );
-});
+    .register("screen and (max-width:95em)", function () {
+        $("body").removeClass("layout-boxed");
+    });

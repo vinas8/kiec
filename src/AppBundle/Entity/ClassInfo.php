@@ -44,24 +44,21 @@ class ClassInfo
      * Result constructor.
      * @param mixed $user
      */
-    public function __construct(array $user)
-    {
+    public function __construct(array $user) {
         $this->setUser($user);
     }
 
     /**
      * @return mixed
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
     /**
      * @param mixed $user
      */
-    public function setUser($user)
-    {
+    public function setUser($user) {
         $this->user = $user;
     }
 
@@ -70,8 +67,7 @@ class ClassInfo
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -82,8 +78,7 @@ class ClassInfo
      *
      * @return ClassInfo
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -94,22 +89,19 @@ class ClassInfo
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
 
-    public function getStudents()
-    {
+    public function getStudents() {
         return $this->students;
     }
 
     /**
      * @return ClassInfo
      */
-    public function setStudents($students)
-    {
+    public function setStudents($students) {
         $this->students = $students;
         return $this;
     }

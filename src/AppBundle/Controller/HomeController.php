@@ -14,8 +14,7 @@ class HomeController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         if ($this->isGranted('ROLE_TEACHER')) {
             try {
                 $response = $this->forward('AppBundle:Lesson:current');

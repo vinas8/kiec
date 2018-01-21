@@ -17,24 +17,21 @@ class ActivityResultSet
     /**
      * ActivityResultSet constructor.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->activities = new ArrayCollection();
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getActivities()
-    {
+    public function getActivities() {
         return $this->activities;
     }
 
     /**
      * @param ArrayCollection $activities
      */
-    public function setActivities($activities)
-    {
+    public function setActivities($activities) {
         $this->activities = $activities;
     }
 }

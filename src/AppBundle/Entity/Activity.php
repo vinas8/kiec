@@ -71,8 +71,7 @@ class Activity
      * Activity constructor.
      * @param object $user
      */
-    public function __construct(User $user, $origin)
-    {
+    public function __construct(User $user, $origin) {
         $this->setUser($user);
         $this->setOrigin($origin);
     }
@@ -83,8 +82,7 @@ class Activity
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -95,8 +93,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -107,16 +104,14 @@ class Activity
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
     /**
      * @return Collection | Result[]
      */
-    public function getResults()
-    {
+    public function getResults() {
         return $this->results;
     }
 
@@ -124,8 +119,7 @@ class Activity
      * @param Collection $results
      * @return Activity
      */
-    public function setResults($results)
-    {
+    public function setResults($results) {
         $this->results = $results;
         return $this;
     }
@@ -133,64 +127,56 @@ class Activity
     /**
      * @return string
      */
-    public function getBestResultDetermination()
-    {
+    public function getBestResultDetermination() {
         return $this->bestResultDetermination;
     }
 
     /**
      * @param string $bestResultDetermination
      */
-    public function setBestResultDetermination($bestResultDetermination)
-    {
+    public function setBestResultDetermination($bestResultDetermination) {
         $this->bestResultDetermination = $bestResultDetermination;
     }
 
     /**
      * @return string
      */
-    public function getUnits()
-    {
+    public function getUnits() {
         return $this->units;
     }
 
     /**
      * @param string $units
      */
-    public function setUnits($units)
-    {
+    public function setUnits($units) {
         $this->units = $units;
     }
 
     /**
      * @return object
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
     /**
      * @param object $user
      */
-    public function setUser($user)
-    {
+    public function setUser($user) {
         $this->user = $user;
     }
 
     /**
      * @return string
      */
-    public function getOrigin()
-    {
+    public function getOrigin() {
         return $this->origin;
     }
 
     /**
      * @param string $origin
      */
-    public function setOrigin($origin)
-    {
+    public function setOrigin($origin) {
         $this->origin = $origin;
     }
 }

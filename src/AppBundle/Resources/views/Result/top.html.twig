@@ -3,24 +3,26 @@
 {% form_theme form _self %}
 
 {% block choice_widget %}
-	{% spaceless %}
-		{% if expanded %}
-			<div {{ block('widget_container_attributes') }}>
-				{% for child in form %}
-					{{ form_widget(child) }}
-					{#  {{ form_label(child) }} <--------------------- remove this line #}
-				{% endfor %}
-			</div>
-		{% else %}
-			{{- block('choice_widget_collapsed') -}}
-		{% endif %}
-	{% endspaceless %}
+    {% spaceless %}
+        {% if expanded %}
+            <div {{ block('widget_container_attributes') }}>
+                {% for child in form %}
+                    {{ form_widget(child) }}
+                    {#  {{ form_label(child) }} <--------------------- remove this line #}
+                {% endfor %}
+            </div>
+        {% else %}
+            {{- block('choice_widget_collapsed') -}}
+        {% endif %}
+    {% endspaceless %}
 {% endblock choice_widget %}
 
 {% block checkbox_widget %}
-	{% spaceless %}
-		<label  for="{{ id }}" class="checkbox-inline"><input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />{{ label|trans }}</label>
-	{% endspaceless %}
+    {% spaceless %}
+        <label for="{{ id }}" class="checkbox-inline"><input
+                    type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />{{ label|trans }}
+        </label>
+    {% endspaceless %}
 {% endblock checkbox_widget %}
 
 {% block title %}KKnyga{% endblock %}
@@ -29,65 +31,65 @@
 {% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
-	<div class="row">
-		<div class="col-lg-4">
-			<div class="box">
-				<div class="box-header with-border">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="box">
+                <div class="box-header with-border">
                     <i class="fa fa-search"></i>
-					<h3 class="box-title">Ieškoti</h3>
-				</div>
+                    <h3 class="box-title">Ieškoti</h3>
+                </div>
                 <div class="box-body">
                     {{ form_start(form) }}
-					<div class="form-group">
-						<label>Rungtis</label>
-						{{ form_widget(form.activity, {attr: {'class': 'form-control'}}) }}
-					</div>
-					<div class="form-group">
-						<label>Rezultatų skaičius</label>
-						{{ form_widget(form.maxResults, {attr: {'class': 'form-control'}}) }}
-					</div>
+                    <div class="form-group">
+                        <label>Rungtis</label>
+                        {{ form_widget(form.activity, {attr: {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        <label>Rezultatų skaičius</label>
+                        {{ form_widget(form.maxResults, {attr: {'class': 'form-control'}}) }}
+                    </div>
                     <div class="form-group">
                         <label>Klasės</label>
                         {{ form_widget(form.classInfo) }}
                     </div>
-					<input type="submit" class="btn btn-primary btn-block" value="Ieškoti"/>
-					{{ form_end(form) }}
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-8">
-			<div class="box">
-				<div class="box-header with-border">
+                    <input type="submit" class="btn btn-primary btn-block" value="Ieškoti"/>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="box">
+                <div class="box-header with-border">
                     <i class="fa fa-trophy"></i>
-					<h3 class="box-title">Geriausi mokiniai</h3>
-				</div>
-				<div class="box-body text-center">
-					{% if results is not empty %}
-						<table class="table table-striped">
-							<tr>
-								<th class="text-center">Mokinys</th>
-								<th class="text-center">Rezultatas</th>
-							</tr>
-							{% for result in results %}
-								<tr>
-									<td>
-										<a href="{{ path('student_view', {'studentInfo': result.result.studentInfo.id}) }}">
-											{{ result.result.studentInfo.name }}
-										</a>
-									</td>
-									<td>
-										{{ result.top_value }}
-										{{ result.result.activity.units }}
-									</td>
-								</tr>
-							{% endfor %}
-						</table>
+                    <h3 class="box-title">Geriausi mokiniai</h3>
+                </div>
+                <div class="box-body text-center">
+                    {% if results is not empty %}
+                        <table class="table table-striped">
+                            <tr>
+                                <th class="text-center">Mokinys</th>
+                                <th class="text-center">Rezultatas</th>
+                            </tr>
+                            {% for result in results %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('student_view', {'studentInfo': result.result.studentInfo.id}) }}">
+                                            {{ result.result.studentInfo.name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ result.top_value }}
+                                        {{ result.result.activity.units }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                     {% else %}
                         <div class="alert alert-danger no-margin" role="alert">Rezultatų nėra</div>
                     {% endif %}
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

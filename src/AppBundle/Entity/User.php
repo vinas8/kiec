@@ -21,13 +21,13 @@ class User extends FOSUser
     protected $id;
 
     /**
- * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
-*/
+     * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
+     */
     private $google_id;
 
     /**
- * @ORM\Column(name="google_access_token", type="string", length=255, nullable=true)
-*/
+     * @ORM\Column(name="google_access_token", type="string", length=255, nullable=true)
+     */
     private $google_access_token;
 
     /**
@@ -89,48 +89,42 @@ class User extends FOSUser
     /**
      * @return string
      */
-    public function getProfilePicture()
-    {
+    public function getProfilePicture() {
         return $this->profilePicture;
     }
 
     /**
      * @param string $profilePicture
      */
-    public function setProfilePicture($profilePicture)
-    {
+    public function setProfilePicture($profilePicture) {
         $this->profilePicture = $profilePicture;
     }
 
     /**
      * @return mixed
      */
-    public function getGoogleId()
-    {
+    public function getGoogleId() {
         return $this->google_id;
     }
 
     /**
      * @param mixed $google_id
      */
-    public function setGoogleId($google_id)
-    {
+    public function setGoogleId($google_id) {
         $this->google_id = $google_id;
     }
 
     /**
      * @return mixed
      */
-    public function getGoogleAccessToken()
-    {
+    public function getGoogleAccessToken() {
         return $this->google_access_token;
     }
 
     /**
      * @param mixed $google_access_token
      */
-    public function setGoogleAccessToken($google_access_token)
-    {
+    public function setGoogleAccessToken($google_access_token) {
         $this->google_access_token = $google_access_token;
     }
 
@@ -140,8 +134,7 @@ class User extends FOSUser
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -152,8 +145,7 @@ class User extends FOSUser
      *
      * @return User
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -164,13 +156,11 @@ class User extends FOSUser
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $email = is_null($email) ? '' : $email;
         parent::setEmail($email);
         $this->setUsername($email);
@@ -179,36 +169,30 @@ class User extends FOSUser
     /**
      * @return StudentInfo
      */
-    public function getMainStudentInfo()
-    {
+    public function getMainStudentInfo() {
         return $this->mainStudentInfo;
     }
 
     /**
      * @param StudentInfo $mainStudentInfo
      */
-    public function setMainStudentInfo($mainStudentInfo)
-    {
+    public function setMainStudentInfo($mainStudentInfo) {
         $this->mainStudentInfo = $mainStudentInfo;
     }
 
     /**
      * @return Collection
      */
-    public function getStudents()
-    {
+    public function getStudents() {
         return $this->students;
     }
 
     /**
      * @param Collection $students
      */
-    public function setStudents($students)
-    {
+    public function setStudents($students) {
         $this->students = $students;
     }
-
-
 
 
 }

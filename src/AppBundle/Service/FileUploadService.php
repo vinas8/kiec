@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -7,14 +8,12 @@ class FileUploadService
 {
     private $targetDir;
 
-    public function __construct($targetDir)
-    {
+    public function __construct($targetDir) {
         $this->targetDir = $targetDir;
     }
 
-    public function upload(UploadedFile $file)
-    {
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+    public function upload(UploadedFile $file) {
+        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
         $file->move($this->targetDir, $fileName);
 

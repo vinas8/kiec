@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use AppBundle\Service\ClassInfoService;
@@ -10,8 +11,7 @@ class ScheduleController extends Controller
     /**
      * @Route("/schedule", name="schedule")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $user = $this->get('app.current_user_data_service')->getUser();
 
         $has_classes = $this->classInfoService()->hasUserClasses($user);
@@ -25,8 +25,7 @@ class ScheduleController extends Controller
     /**
      * @return ClassInfoService
      */
-    public function classInfoService()
-    {
-        return  $this->get('app.class_info_service');
+    public function classInfoService() {
+        return $this->get('app.class_info_service');
     }
 }

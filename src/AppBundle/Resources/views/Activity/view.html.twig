@@ -4,14 +4,15 @@
 {% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
-	<div class="row">
+    <div class="row">
         <div class="col-lg-4">
             <div class="box">
                 <div class="box-header with-border">
                     <i class="fa fa-plus-square"></i>
                     <h3 class="box-title">Rungties pridėjimas</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
                         </button>
                     </div>
                 </div>
@@ -62,12 +63,14 @@
                                     </td>
                                     <td>
                                         {% if activity.origin != 'NATIVE'|enum_constant('OriginType') %}
-                                        <a href="{{ path('activities_edit', {'activity': activity.id}) }}" class="btn btn-danger btn-xs modal-button">
-                                            <span class="fa fa-edit"></span>
-                                        </a>
-                                        <a href="{{ path('activities_delete', {'activity': activity.id}) }}" class="btn btn-danger btn-xs">
-                                            <span class="fa fa-close"></span>
-                                        </a>
+                                            <a href="{{ path('activities_edit', {'activity': activity.id}) }}"
+                                               class="btn btn-danger btn-xs modal-button">
+                                                <span class="fa fa-edit"></span>
+                                            </a>
+                                            <a href="{{ path('activities_delete', {'activity': activity.id}) }}"
+                                               class="btn btn-danger btn-xs">
+                                                <span class="fa fa-close"></span>
+                                            </a>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -79,6 +82,6 @@
                 </div>
             </div>
         </div>
-	</div>
+    </div>
 
 {% endblock %}

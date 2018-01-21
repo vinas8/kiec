@@ -16,8 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActivityResultSetType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add(
             'activities',
             CollectionType::class,
@@ -27,8 +26,7 @@ class ActivityResultSetType extends AbstractType
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
                 'data_class' => ActivityResultSet::class,

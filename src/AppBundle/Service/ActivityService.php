@@ -25,14 +25,12 @@ class ActivityService
      */
     private $currentUser;
 
-    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
-    {
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService) {
         $this->em = $em;
         $this->currentUser = $currentUserDataService->getUser();
     }
 
-    public function getActivityList()
-    {
+    public function getActivityList() {
         $repository = $this->em->getRepository('AppBundle:Activity');
         $users = new ArrayCollection();
         $users->add($this->currentUser);

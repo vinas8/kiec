@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\ClassInfo;
@@ -18,8 +19,7 @@ class ClassInfoService
      *
      * @param  ClassInfoRepository $classInfoRepository
      */
-    public function __construct(ClassInfoRepository $classInfoRepository)
-    {
+    public function __construct(ClassInfoRepository $classInfoRepository) {
         $this->classInfoRepository = $classInfoRepository;
     }
 
@@ -30,8 +30,7 @@ class ClassInfoService
      * @param  int $id
      * @return ClassInfo|null
      */
-    public function getUserClassById(User $user, $id)
-    {
+    public function getUserClassById(User $user, $id) {
         try {
             $class = $this->classInfoRepository->findClassesByTeacherAndClassId($user, $id);
         } catch (NoResultException $e) {
@@ -47,8 +46,7 @@ class ClassInfoService
      * @param  User $user
      * @return ClassInfo[]|null
      */
-    public function getUserClasses(User $user)
-    {
+    public function getUserClasses(User $user) {
         try {
             $classes = $this->classInfoRepository->findClassesByTeacher($user);
         } catch (NoResultException $e) {
@@ -64,8 +62,7 @@ class ClassInfoService
      * @param  User $user
      * @return bool
      */
-    public function hasUserClasses(User $user)
-    {
+    public function hasUserClasses(User $user) {
         return $this->classInfoRepository->countUserClasses($user) > 0;
     }
 }

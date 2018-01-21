@@ -64,8 +64,7 @@ class StudentInfo
      */
     private $joinCode;
 
-    function __construct()
-    {
+    function __construct() {
         $this->joinCode = bin2hex(openssl_random_pseudo_bytes(3));
     }
 
@@ -75,8 +74,7 @@ class StudentInfo
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -87,8 +85,7 @@ class StudentInfo
      *
      * @return StudentInfo
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -99,8 +96,7 @@ class StudentInfo
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -111,8 +107,7 @@ class StudentInfo
      *
      * @return StudentInfo
      */
-    public function setClassInfo($classInfo)
-    {
+    public function setClassInfo($classInfo) {
         $this->classInfo = $classInfo;
 
         return $this;
@@ -123,8 +118,7 @@ class StudentInfo
      *
      * @return int
      */
-    public function getClassInfo()
-    {
+    public function getClassInfo() {
         return $this->classInfo;
     }
 
@@ -135,8 +129,7 @@ class StudentInfo
      *
      * @return StudentInfo
      */
-    public function setBirthDate($birthDate)
-    {
+    public function setBirthDate($birthDate) {
         $this->birthDate = $birthDate;
 
         return $this;
@@ -147,16 +140,14 @@ class StudentInfo
      *
      * @return string
      */
-    public function getBirthDate()
-    {
+    public function getBirthDate() {
         return $this->birthDate;
     }
 
     /**
      * @return Collection | Result[]
      */
-    public function getResults()
-    {
+    public function getResults() {
         return $this->results;
     }
 
@@ -164,8 +155,7 @@ class StudentInfo
      * @param Collection $results
      * @return StudentInfo
      */
-    public function setResults($results)
-    {
+    public function setResults($results) {
         $this->results = $results;
         return $this;
     }
@@ -173,35 +163,30 @@ class StudentInfo
     /**
      * @return User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
     /**
      * @param User $user
      */
-    public function setUser($user)
-    {
+    public function setUser($user) {
         $this->user = $user;
     }
 
     /**
      * @return mixed
      */
-    public function getJoinCode()
-    {
+    public function getJoinCode() {
         return $this->joinCode;
     }
 
     /**
      * @param mixed $joinCode
      */
-    public function setJoinCode($joinCode)
-    {
+    public function setJoinCode($joinCode) {
         $this->joinCode = $joinCode;
     }
-
 
 
 }

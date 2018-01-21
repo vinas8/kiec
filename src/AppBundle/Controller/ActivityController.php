@@ -18,8 +18,7 @@ class ActivityController extends Controller
     /**
      * @Route("/activities/list", name="activities_list")
      */
-    public function listAction()
-    {
+    public function listAction() {
         $activity = new Activity($this->getCurrentUser(), OriginType::CREATED);
         $form = $this->createForm(
             ActivityType::class,
@@ -41,8 +40,7 @@ class ActivityController extends Controller
     /**
      * @Route("/activities/edit/{activity}", name="activities_edit")
      */
-    public function editAction(Request $request, Activity $activity = null)
-    {
+    public function editAction(Request $request, Activity $activity = null) {
         if (!$activity) {
             throw new NotFoundHttpException("Rungtis nerasta.");
         }
@@ -77,8 +75,7 @@ class ActivityController extends Controller
     /**
      * @Route("/activities/delete/{activity}", name="activities_delete")
      */
-    public function deleteAction(Activity $activity)
-    {
+    public function deleteAction(Activity $activity) {
         if (!$activity) {
             throw new NotFoundHttpException("Rungtis nerasta.");
         }
@@ -99,8 +96,7 @@ class ActivityController extends Controller
     /**
      * @Route("/activities/create", name="activities_create")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $activity = new Activity($this->getCurrentUser(), OriginType::CREATED);
         $form = $this->createForm(
             ActivityType::class,
@@ -125,8 +121,7 @@ class ActivityController extends Controller
     /**
      * @return User
      */
-    private function getCurrentUser()
-    {
+    private function getCurrentUser() {
         return $this->get('app.current_user_data_service')->getUser();
     }
 }

@@ -14,8 +14,7 @@ class ActivityType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('name')
             ->add(
                 'bestResultDetermination',
@@ -26,15 +25,14 @@ class ActivityType extends AbstractType
             )
             ->add('units');
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
-            'data_class' => Activity::class
+                'data_class' => Activity::class
             )
         );
     }

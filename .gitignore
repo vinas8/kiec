@@ -22,3 +22,4 @@
 /*.swp
 !/node_modules/admin-lte/dist/css/*
 composer.lock
+/.vscode/*

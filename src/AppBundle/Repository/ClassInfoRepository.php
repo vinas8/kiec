@@ -12,15 +12,13 @@ use AppBundle\Entity\User;
  */
 class ClassInfoRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findClassesByTeacher(User $teacher)
-    {
+    public function findClassesByTeacher(User $teacher) {
         $qb = $this->createQueryBuilder('ci');
         $this->addTeacherJoin($qb, $teacher);
         return $qb->getQuery()->getResult();
     }
 
-    public function findClassesByTeacherAndClassId(User $teacher, $id)
-    {
+    public function findClassesByTeacherAndClassId(User $teacher, $id) {
         $qb = $this->createQueryBuilder('ci')
             ->where('ci.id = :id');
         $this->addTeacherJoin($qb, $teacher);
@@ -36,8 +34,7 @@ class ClassInfoRepository extends \Doctrine\ORM\EntityRepository
      * @param  User $user
      * @return int
      */
-    public function countUserClasses(User $user)
-    {
+    public function countUserClasses(User $user) {
         $query = $this->createQueryBuilder('ci')->select('COUNT(ci.id)');
 
         $this->addTeacherJoin($query, $user);
@@ -45,8 +42,7 @@ class ClassInfoRepository extends \Doctrine\ORM\EntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
-    private function addTeacherJoin($qb, User $teacher)
-    {
+    private function addTeacherJoin($qb, User $teacher) {
         return $qb->innerJoin('ci.user', 't')
             ->andWhere('t = :teacher')
             ->setParameter('teacher', $teacher);

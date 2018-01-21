@@ -25,14 +25,12 @@ class StudentInfoService
      */
     private $currentUser;
 
-    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
-    {
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService) {
         $this->em = $em;
         $this->currentUser = $currentUserDataService->getUser();
     }
 
-    public function getStudentListByClass($classInfo)
-    {
+    public function getStudentListByClass($classInfo) {
         $repository = $this->em->getRepository('AppBundle:StudentInfo');
         $query = $repository->createQueryBuilder('r')
             ->where("r.classInfo = :class")
@@ -55,14 +53,13 @@ class StudentInfoService
 
     public function joinStudentWithUser($joinCode) {
         $studentInfo = $this->em->getRepository('AppBundle:StudentInfo')->findOneByJoinCode($joinCode);
-//        dump($studentInfo);
+        //        dump($studentInfo);
         if ($studentInfo === null) {
             return false;
         }
         if ($studentInfo->getUser() !== null) {
             return false;
-        }
-        else {
+        } else {
             $this->currentUser->setMainStudentInfo($studentInfo);
 
             $studentInfo->setUser($this->currentUser);

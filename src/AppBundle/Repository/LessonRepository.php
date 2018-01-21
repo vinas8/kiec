@@ -13,8 +13,7 @@ use AppBundle\Entity\User;
  */
 class LessonRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findUserLessonByTime(User $user, $now)
-    {
+    public function findUserLessonByTime(User $user, $now) {
         return $this->createQueryBuilder('l')
             ->where(':currentTime BETWEEN l.startTime AND l.endTime')
             ->setParameter('currentTime', $now)
@@ -31,8 +30,7 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
      * @param  int $id
      * @return mixed
      */
-    public function findNextUserLessonById(User $user, $id)
-    {
+    public function findNextUserLessonById(User $user, $id) {
         return $this->createQueryBuilder('a')
             ->setParameter('id', $id)
             ->leftJoin(Lesson::class, 'b', 'WITH', 'b.id = :id')
@@ -52,8 +50,7 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
      * @param  int $id
      * @return mixed
      */
-    public function findPrevUserLessonById(User $user, $id)
-    {
+    public function findPrevUserLessonById(User $user, $id) {
         return $this->createQueryBuilder('a')
             ->setParameter('id', $id)
             ->leftJoin(Lesson::class, 'b', 'WITH', 'b.id = :id')
@@ -75,8 +72,7 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
      * @param  int $limit
      * @return array
      */
-    public function findUserLessonsFromDate(User $user, $date, $offset, $limit)
-    {
+    public function findUserLessonsFromDate(User $user, $date, $offset, $limit) {
         return $this->createQueryBuilder('a')
             ->where('a.startTime > :date')
             ->setParameter('date', $date)
@@ -97,8 +93,7 @@ class LessonRepository extends \Doctrine\ORM\EntityRepository
      * @param  \DateTime $end_time
      * @return int
      */
-    public function countUserLessonsAt(User $user, $start_time, $end_time)
-    {
+    public function countUserLessonsAt(User $user, $start_time, $end_time) {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a.id)')
             ->where('a.user = :user')

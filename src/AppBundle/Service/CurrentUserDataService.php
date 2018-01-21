@@ -23,32 +23,30 @@ class CurrentUserDataService
      */
     protected $userManager;
 
-    public function __construct(TokenStorage $tokenStorage, UserManager $userManager)
-    {
+    public function __construct(TokenStorage $tokenStorage, UserManager $userManager) {
         $this->tokenStorage = $tokenStorage;
         $this->userManager = $userManager;
     }
 
-    public function getUser()
-    {
+    public function getUser() {
         return $this->tokenStorage->getToken()->getUser();
     }
 
     public function assignRole($role) {
         //Todo: validacija
-//        $studentInfo = $this->em->getRepository('AppBundle:StudentInfo')->findOneByJoinCode($joinCode);
-////        dump($studentInfo);
-//        if ($studentInfo === null) {
-//            return false;
-//        }
-//        if ($studentInfo->getUser() !== null) {
-//            return false;
-//        }
-//        else {
-            $user = $this->getUser();
-            $user->setRoles(array($role));
-            $this->userManager->updateUser($user);
+        //        $studentInfo = $this->em->getRepository('AppBundle:StudentInfo')->findOneByJoinCode($joinCode);
+        ////        dump($studentInfo);
+        //        if ($studentInfo === null) {
+        //            return false;
+        //        }
+        //        if ($studentInfo->getUser() !== null) {
+        //            return false;
+        //        }
+        //        else {
+        $user = $this->getUser();
+        $user->setRoles(array($role));
+        $this->userManager->updateUser($user);
         return true;
-//        }
+        //        }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Twig;
 
 use AppBundle\GlobalConstants;
@@ -18,13 +19,11 @@ class TwigExtensions extends \Twig_Extension
      */
     protected $currentUserDataService;
 
-    public function __construct(CurrentUserDataService $currentUserDataService)
-    {
+    public function __construct(CurrentUserDataService $currentUserDataService) {
         $this->currentUserDataService = $currentUserDataService;
     }
 
-    public function getFunctions()
-    {
+    public function getFunctions() {
         return array(
             new \Twig_SimpleFunction('profile_picture', array($this, 'getProfilePicture')),
             new \Twig_SimpleFunction('profile_email', array($this, 'getProfileEmail')),
@@ -33,18 +32,15 @@ class TwigExtensions extends \Twig_Extension
         );
     }
 
-    private function getUser()
-    {
+    private function getUser() {
         return $this->currentUserDataService->getUser();
     }
 
-    public function getProfileEmail()
-    {
+    public function getProfileEmail() {
         return $this->getUser()->getEmail();
     }
 
-    public function getProfilePicture()
-    {
+    public function getProfilePicture() {
         $profilePic = $this->getUser()->getProfilePicture();
 
         if (substr($profilePic, 0, 4) === 'http') {
@@ -58,18 +54,15 @@ class TwigExtensions extends \Twig_Extension
         return $profilePic;
     }
 
-    public function getProfileName()
-    {
+    public function getProfileName() {
         return $this->getUser()->getName();
     }
 
-    public function getProfileId()
-    {
+    public function getProfileId() {
         return $this->getUser()->getId();
     }
 
-    public function getName()
-    {
+    public function getName() {
         return 'TwigExtensions';
     }
 }

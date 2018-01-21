@@ -20,8 +20,7 @@ class ResultController extends Controller
     /**
      * @Route("/result/edit/{result}", name="result_edit")
      */
-    public function editAction(Request $request, Result $result = null)
-    {
+    public function editAction(Request $request, Result $result = null) {
         if (!$result) {
             throw new NotFoundHttpException("Rezultatas nerastas.");
         }
@@ -58,8 +57,7 @@ class ResultController extends Controller
     /**
      * @Route("/result/delete/{result}", name="result_delete")
      */
-    public function deleteAction(Result $result, Request $request)
-    {
+    public function deleteAction(Result $result, Request $request) {
         if (!$result) {
             throw new NotFoundHttpException("Rezultatas nerastas.");
         }
@@ -76,12 +74,10 @@ class ResultController extends Controller
     /**
      * @Route("/result/create/{studentInfo}/{activity}", name="result_create")
      */
-    public function createAction(Request $request, StudentInfo $studentInfo = null, Activity $activity = null)
-    {
+    public function createAction(Request $request, StudentInfo $studentInfo = null, Activity $activity = null) {
         if ($this->isGranted("ROLE_STUDENT")) {
             $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
-        }
-        else if ($studentInfo) {
+        } else if ($studentInfo) {
             if (!$studentInfo->getClassInfo()->getUser()->contains($this->getCurrentUser())) {
                 throw new AccessDeniedException("Mokinys nepasiekiamas.");
             }
@@ -111,8 +107,7 @@ class ResultController extends Controller
     /**
      * @Route("/result/top", name="result_top")
      */
-    public function resultTopAction(Request $request)
-    {
+    public function resultTopAction(Request $request) {
         $form = $this->createForm(TopResultType::class);
         $form->handleRequest($request);
         $results = null;
@@ -135,8 +130,7 @@ class ResultController extends Controller
     /**
      * @return User
      */
-    private function getCurrentUser()
-    {
+    private function getCurrentUser() {
         return $this->get('app.current_user_data_service')->getUser();
     }
 }

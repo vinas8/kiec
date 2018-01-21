@@ -2,71 +2,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>{% block title %}{{ 'Kiec' }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico')}}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
     {% block stylesheets %}
-	<link href="https://fonts.googleapis.com/css?family=Bangers|Freckle+Face" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Bangers|Freckle+Face" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
-	<link rel="stylesheet" href="{{ asset('css/adminlte.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}"/>
     {% endblock %}
     {% block canonical_meta %}{% endblock %}
 </head>
 <body style="background: url(../images/bg.png)" class="skin-red ">
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
-            </div>
         </div>
     </div>
-    <div class="wrapper">
-        {% block container %}
+</div>
+<div class="wrapper">
+    {% block container %}
 
-            {% block header %}
-                <header class="main-header">
-                    {% include "::inc/header.html.twig" %}
-                </header>
-            {% endblock %}
-
-            {% block sidebar %}
-                <aside class="main-sidebar sidebar-offcanvas">
-                    {% if is_granted('ROLE_TEACHER') %}
-                        {% include "::inc/sidebar-teacher.html.twig" %}
-                    {% elseif is_granted('ROLE_STUDENT') %}
-                        {% include "::inc/sidebar-student.html.twig" %}
-                    {% endif %}
-                </aside>
-            {% endblock %}
-
-            <div class="content-wrapper">
-                <section class="content-header">
-                    {{ flash.flashBag() }}
-                    <h1>
-                        {% block page_title %}Blank page{% endblock %}
-                        <small>
-                            {% block page_subtitle %}
-                           {% endblock %}
-                        </small>
-                    </h1>
-                </section>
-                <section class="content">
-                    {% block page_content %}{% endblock %}
-                </section>
-            </div>
-
+        {% block header %}
+            <header class="main-header">
+                {% include "::inc/header.html.twig" %}
+            </header>
         {% endblock %}
-    </div>
 
-    {% block footer %}
-        {% include "::inc/footer.html.twig" %}
+        {% block sidebar %}
+            <aside class="main-sidebar sidebar-offcanvas">
+                {% if is_granted('ROLE_TEACHER') %}
+                    {% include "::inc/sidebar-teacher.html.twig" %}
+                {% elseif is_granted('ROLE_STUDENT') %}
+                    {% include "::inc/sidebar-student.html.twig" %}
+                {% endif %}
+            </aside>
+        {% endblock %}
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                {{ flash.flashBag() }}
+                <h1>
+                    {% block page_title %}Blank page{% endblock %}
+                    <small>
+                        {% block page_subtitle %}
+                        {% endblock %}
+                    </small>
+                </h1>
+            </section>
+            <section class="content">
+                {% block page_content %}{% endblock %}
+            </section>
+        </div>
+
     {% endblock %}
+</div>
 
-    {% block javascripts %}
-        <script src="{{ asset('js/script.js') }}"></script>
+{% block footer %}
+    {% include "::inc/footer.html.twig" %}
+{% endblock %}
 
-    {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/script.js') }}"></script>
+
+{% endblock %}
 
 </body>
 </html>

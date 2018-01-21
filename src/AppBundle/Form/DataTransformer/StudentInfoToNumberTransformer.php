@@ -16,8 +16,7 @@ class StudentInfoToNumberTransformer implements DataTransformerInterface
 {
     private $em;
 
-    public function __construct(EntityManager $em)
-    {
+    public function __construct(EntityManager $em) {
         $this->em = $em;
     }
 
@@ -27,8 +26,7 @@ class StudentInfoToNumberTransformer implements DataTransformerInterface
      * @param  StudentInfo|null $studentInfo
      * @return int
      */
-    public function transform($studentInfo)
-    {
+    public function transform($studentInfo) {
         return $studentInfo ? $studentInfo->getId() : null;
     }
 
@@ -38,8 +36,7 @@ class StudentInfoToNumberTransformer implements DataTransformerInterface
      * @param  int $studentInfoId
      * @return StudentInfo|null
      */
-    public function reverseTransform($studentInfoId)
-    {
+    public function reverseTransform($studentInfoId) {
         $studentInfo = $this->em
             ->getRepository(StudentInfo::class)
             ->findOneById($studentInfoId);

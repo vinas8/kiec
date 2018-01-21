@@ -19,48 +19,42 @@ class TopResultSet
     /**
      * @return mixed
      */
-    public function getActivity()
-    {
+    public function getActivity() {
         return $this->activity;
     }
 
     /**
      * @param mixed $activity
      */
-    public function setActivity($activity)
-    {
+    public function setActivity($activity) {
         $this->activity = $activity;
     }
 
     /**
      * @return mixed
      */
-    public function getClassInfo()
-    {
+    public function getClassInfo() {
         return $this->classInfo;
     }
 
     /**
      * @param mixed $classInfo
      */
-    public function setClassInfo($classInfo)
-    {
+    public function setClassInfo($classInfo) {
         $this->classInfo = $classInfo;
     }
 
     /**
      * @return mixed
      */
-    public function getMaxResults()
-    {
+    public function getMaxResults() {
         return $this->maxResults;
     }
 
     /**
      * @param mixed $maxResults
      */
-    public function setMaxResults($maxResults)
-    {
+    public function setMaxResults($maxResults) {
         $this->maxResults = $maxResults;
     }
 }

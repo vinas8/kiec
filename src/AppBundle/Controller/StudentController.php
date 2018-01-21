@@ -20,8 +20,7 @@ class StudentController extends Controller
     /**
      * @Route("/student/view/{studentInfo}", name="student_view")
      */
-    public function profileAction(StudentInfo $studentInfo = null)
-    {
+    public function profileAction(StudentInfo $studentInfo = null) {
         if ($this->isGranted("ROLE_STUDENT")) {
             $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
             if ($studentInfo === null) {
@@ -61,8 +60,7 @@ class StudentController extends Controller
     /**
      * @Route("/student/edit/{studentInfo}", name="student_edit")
      */
-    public function editAction(Request $request, StudentInfo $studentInfo = null)
-    {
+    public function editAction(Request $request, StudentInfo $studentInfo = null) {
         if (!$studentInfo) {
             throw new NotFoundHttpException("Mokinys nerastas.");
         }
@@ -97,8 +95,7 @@ class StudentController extends Controller
     /**
      * @Route("/student/delete/{studentInfo}", name="student_delete")
      */
-    public function deleteAction(Request $request, StudentInfo $studentInfo)
-    {
+    public function deleteAction(Request $request, StudentInfo $studentInfo) {
         if (!$studentInfo) {
             throw new NotFoundHttpException("Mokinys nerastas.");
         }
@@ -119,8 +116,7 @@ class StudentController extends Controller
     /**
      * @Route("/student/create/{classInfo}", name="student_create")
      */
-    public function createAction(Request $request, ClassInfo $classInfo = null)
-    {
+    public function createAction(Request $request, ClassInfo $classInfo = null) {
         $studentInfo = new StudentInfo();
         $studentInfo->setClassInfo($classInfo);
         $form = $this->createForm(
@@ -152,8 +148,7 @@ class StudentController extends Controller
     /**
      * @Route("/student/join", name="student_join")
      */
-    public function joinAction(Request $request)
-    {
+    public function joinAction(Request $request) {
         $form = $this->createFormBuilder(null, array('action' => $this->generateUrl("student_join")))
             ->add('joinCode', TextType::class)
             ->getForm();
@@ -181,8 +176,7 @@ class StudentController extends Controller
     /**
      * @return User
      */
-    private function getCurrentUser()
-    {
+    private function getCurrentUser() {
         return $this->get('app.current_user_data_service')->getUser();
     }
 }

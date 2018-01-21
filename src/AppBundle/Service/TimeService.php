@@ -10,15 +10,14 @@ namespace AppBundle\Service;
 
 class TimeService
 {
-    public function getCurrentTime()
-    {
+    public function getCurrentTime() {
         $now = new \DateTime();
         $now->format("l H:m");
         $now->setTimezone(new \DateTimeZone('Europe/Vilnius'));
         return $now;
     }
-    public function getCurrentDate()
-    {
+
+    public function getCurrentDate() {
         $now = new \DateTime('today');
         $now->format("Y-m-d");
         $now->setTimezone(new \DateTimeZone('Europe/Vilnius'));

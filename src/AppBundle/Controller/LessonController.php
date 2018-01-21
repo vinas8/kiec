@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Lesson;
@@ -21,8 +22,7 @@ class LessonController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function currentAction(Request $request)
-    {
+    public function currentAction(Request $request) {
         try {
             $currentLesson = $this->lessonService()->getCurrentLesson($this->getCurrentUser());
             return $this->display($currentLesson, 'Dabartinė pamoka', $request);
@@ -39,8 +39,7 @@ class LessonController extends Controller
      * @param  Lesson|null $lesson
      * @return Response
      */
-    public function lessonAction(Request $request, Lesson $lesson = null)
-    {
+    public function lessonAction(Request $request, Lesson $lesson = null) {
         if (!$lesson) {
             $this->addFlash('danger', 'Tokia pamoka neegzistuoja!');
             return $this->redirectToRoute('homepage');
@@ -55,8 +54,7 @@ class LessonController extends Controller
      * @param  Lesson|null $lesson
      * @return Response
      */
-    public function removeAction(Lesson $lesson = null)
-    {
+    public function removeAction(Lesson $lesson = null) {
         if (!$lesson && $lesson->getUser() !== $this->getUser()) {
             $this->addFlash('danger', 'Tokia pamoka neegzistuoja!');
         } else {
@@ -71,13 +69,12 @@ class LessonController extends Controller
     }
 
     /**
-     * @param  Lesson  $lesson
-     * @param  string  $title
+     * @param  Lesson $lesson
+     * @param  string $title
      * @param  Request $request
      * @return Response
      */
-    private function display(Lesson $lesson, $title, $request)
-    {
+    private function display(Lesson $lesson, $title, $request) {
         $classInfo = $lesson->getClassInfo();
 
         $user = $this->getCurrentUser();
@@ -120,14 +117,14 @@ class LessonController extends Controller
         return $this->render(
             'AppBundle:Lesson:lesson.html.twig',
             [
-            'title' => $title,
-            'lesson' => $lesson,
-            'nextLesson' => $nextLesson,
-            'prevLesson' => $prevLesson,
-            'students' => $students,
-            'activities' => $activities,
-            'results' => $results,
-            'form' => $form->createView()
+                'title' => $title,
+                'lesson' => $lesson,
+                'nextLesson' => $nextLesson,
+                'prevLesson' => $prevLesson,
+                'students' => $students,
+                'activities' => $activities,
+                'results' => $results,
+                'form' => $form->createView()
             ]
         );
     }
@@ -135,16 +132,14 @@ class LessonController extends Controller
     /**
      * @return mixed
      */
-    private function getCurrentUser()
-    {
+    private function getCurrentUser() {
         return $this->get('app.current_user_data_service')->getUser();
     }
 
     /**
      * @return LessonService
      */
-    private function lessonService()
-    {
+    private function lessonService() {
         return $this->get('app.lesson_service');
     }
 }

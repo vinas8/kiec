@@ -28,14 +28,12 @@ class ResultService
      */
     private $currentUser;
 
-    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService)
-    {
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService) {
         $this->em = $em;
         $this->currentUser = $currentUserDataService->getUser();
     }
 
-    public function getLastResultsByClass($classInfo)
-    {
+    public function getLastResultsByClass($classInfo) {
         $query = $this->em->createQueryBuilder()
             ->select('ro')
             ->from(Result::class, 'ro')
@@ -61,9 +59,8 @@ class ResultService
         return $lastResults;
     }
 
-    public function getBestResultsByStudent($studentInfo)
-    {
-//        dump($this->currentUser->getMainStudentInfo());
+    public function getBestResultsByStudent($studentInfo) {
+        //        dump($this->currentUser->getMainStudentInfo());
         if ($studentInfo->getUser() === null) {
             $query = $this->em->createQueryBuilder()
                 ->select('r AS result')
@@ -76,8 +73,7 @@ class ResultService
                 ->orderBy("s.name")
                 ->getQuery();
             $results = $query->getResult();
-        }
-        else {
+        } else {
             $query = $this->em->createQueryBuilder()
                 ->select('r AS result')
                 ->addSelect('MAX(r.value) AS max_value, MIN(r.value) AS min_value')
@@ -95,8 +91,7 @@ class ResultService
         return $results;
     }
 
-    public function getResultListByStudent($studentInfo)
-    {
+    public function getResultListByStudent($studentInfo) {
         if ($studentInfo->getUser() === null) {
             $repository = $this->em->getRepository('AppBundle:Result');
             $query = $repository->createQueryBuilder('r')
@@ -105,8 +100,7 @@ class ResultService
                 ->orderBy('r.timestamp', 'DESC')
                 ->getQuery();
             $results = $query->getResult();
-        }
-        else {
+        } else {
             $repository = $this->em->getRepository('AppBundle:Result');
             $query = $repository->createQueryBuilder('r')
                 ->innerJoin("r.studentInfo", "s")
@@ -126,8 +120,7 @@ class ResultService
         return $allResults;
     }
 
-    public function addNewResults($results)
-    {
+    public function addNewResults($results) {
         foreach ($results->getActivities() as $activityResults) {
             foreach ($activityResults->getResults() as $result) {
                 if ($result->getValue() !== null) {
@@ -138,8 +131,7 @@ class ResultService
         $this->em->flush();
     }
 
-    public function getTopResults($form)
-    {
+    public function getTopResults($form) {
         $query = $this->em->createQueryBuilder()
             ->select('r AS result')
             ->from(Result::class, 'r')
@@ -149,13 +141,13 @@ class ResultService
             ->setParameter("classInfo", $form->getData()->getClassInfo())
             ->setMaxResults($form->getData()->getMaxResults())
             ->groupBy("r.studentInfo");
-             if ($form->getData()->getActivity()->getBestResultDetermination() === BestResultDeterminationType::MAX) {
-                 $query->addSelect('MAX(r.value) AS top_value');
-                 $query->orderBy('top_value', 'DESC');
-             } else {
-                 $query->addSelect('MIN(r.value) AS top_value');
-                 $query->orderBy('top_value');
-             }
+        if ($form->getData()->getActivity()->getBestResultDetermination() === BestResultDeterminationType::MAX) {
+            $query->addSelect('MAX(r.value) AS top_value');
+            $query->orderBy('top_value', 'DESC');
+        } else {
+            $query->addSelect('MIN(r.value) AS top_value');
+            $query->orderBy('top_value');
+        }
         return $query->getQuery()->getResult();
     }
 }

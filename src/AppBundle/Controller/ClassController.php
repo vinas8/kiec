@@ -17,8 +17,7 @@ class ClassController extends Controller
     /**
      * @Route("/class/view/{classInfo}", name="class_view")
      */
-    public function viewAction(ClassInfo $classInfo = null)
-    {
+    public function viewAction(ClassInfo $classInfo = null) {
         if ($classInfo) {
             if (!$classInfo->getUser()->contains($this->get('app.current_user_data_service')->getUser())) {
                 throw new AccessDeniedException("Klasė nepasiekiama.");
@@ -38,8 +37,7 @@ class ClassController extends Controller
     /**
      * @Route("/class/edit/{classInfo}", name="class_edit")
      */
-    public function editAction(Request $request, ClassInfo $classInfo = null)
-    {
+    public function editAction(Request $request, ClassInfo $classInfo = null) {
         if (!$classInfo) {
             throw new NotFoundHttpException("Klasė nerasta.");
         }
@@ -74,8 +72,7 @@ class ClassController extends Controller
     /**
      * @Route("/class/delete/{classInfo}", name="class_delete")
      */
-    public function deleteAction(Request $request, ClassInfo $classInfo)
-    {
+    public function deleteAction(Request $request, ClassInfo $classInfo) {
         if (!$classInfo) {
             throw new NotFoundHttpException("Klasė nerasta.");
         }
@@ -96,8 +93,7 @@ class ClassController extends Controller
     /**
      * @Route("/class/create", name="class_create")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $classInfo = new ClassInfo(array($this->get('app.current_user_data_service')->getUser()));
         $form = $this->createForm(
             ClassInfoType::class,

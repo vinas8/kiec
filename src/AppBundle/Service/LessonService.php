@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Lesson;
@@ -26,14 +27,12 @@ class LessonService
      * @param LessonRepository $lessonRepository
      * @param TimeService $timeService
      */
-    public function __construct(LessonRepository $lessonRepository, TimeService $timeService)
-    {
+    public function __construct(LessonRepository $lessonRepository, TimeService $timeService) {
         $this->lessonRepository = $lessonRepository;
         $this->timeService = $timeService;
     }
 
-    public function getCurrentLesson(User $user)
-    {
+    public function getCurrentLesson(User $user) {
         try {
             return $this->lessonRepository->findUserLessonByTime($user, $this->timeService->getCurrentTime());
         } catch (NonUniqueResultException $e) {
@@ -50,8 +49,7 @@ class LessonService
      * @param  Lesson $lesson
      * @return Lesson|null
      */
-    public function getNext(User $user, Lesson $lesson)
-    {
+    public function getNext(User $user, Lesson $lesson) {
         return $this->lessonRepository->findNextUserLessonById($user, $lesson->getId());
     }
 
@@ -62,8 +60,7 @@ class LessonService
      * @param  Lesson $lesson
      * @return Lesson|null
      */
-    public function getPrev(User $user, Lesson $lesson)
-    {
+    public function getPrev(User $user, Lesson $lesson) {
         return $this->lessonRepository->findPrevUserLessonById($user, $lesson->getId());
     }
 
@@ -75,8 +72,7 @@ class LessonService
      * @param  int $limit
      * @return array
      */
-    public function getUserLessonsFromNow(User $user, $offset, $limit)
-    {
+    public function getUserLessonsFromNow(User $user, $offset, $limit) {
         return $this->lessonRepository->findUserLessonsFromDate(
             $user,
             $this->timeService->getCurrentDate(),
@@ -93,8 +89,7 @@ class LessonService
      * @param  int $limit
      * @return bool
      */
-    public function hasUserLessonsFromNow(User $user, $offset, $limit)
-    {
+    public function hasUserLessonsFromNow(User $user, $offset, $limit) {
         return count($this->getUserLessonsFromNow($user, $offset, $limit)) > 0;
     }
 
@@ -106,8 +101,7 @@ class LessonService
      * @param  \DateTime $end_time
      * @return bool
      */
-    public function hasUserLessonAt(User $user, $start_time, $end_time)
-    {
+    public function hasUserLessonAt(User $user, $start_time, $end_time) {
         return $this->lessonRepository->countUserLessonsAt($user, $start_time, $end_time) > 0;
     }
 }

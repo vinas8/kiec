@@ -48,8 +48,7 @@ class Lesson
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,8 +59,7 @@ class Lesson
      *
      * @return Lesson
      */
-    public function setClassInfo(\AppBundle\Entity\ClassInfo $classInfo = null)
-    {
+    public function setClassInfo(\AppBundle\Entity\ClassInfo $classInfo = null) {
         $this->class_info = $classInfo;
 
         return $this;
@@ -72,8 +70,7 @@ class Lesson
      *
      * @return \AppBundle\Entity\ClassInfo
      */
-    public function getClassInfo()
-    {
+    public function getClassInfo() {
         return $this->class_info;
     }
 
@@ -84,8 +81,7 @@ class Lesson
      *
      * @return Lesson
      */
-    public function setStartTime($startTime)
-    {
+    public function setStartTime($startTime) {
         $this->startTime = $startTime;
 
         return $this;
@@ -96,8 +92,7 @@ class Lesson
      *
      * @return \DateTime
      */
-    public function getStartTime()
-    {
+    public function getStartTime() {
         return $this->startTime;
     }
 
@@ -108,8 +103,7 @@ class Lesson
      *
      * @return Lesson
      */
-    public function setEndTime($endTime)
-    {
+    public function setEndTime($endTime) {
         $this->endTime = $endTime;
 
         return $this;
@@ -120,8 +114,7 @@ class Lesson
      *
      * @return \DateTime
      */
-    public function getEndTime()
-    {
+    public function getEndTime() {
         return $this->endTime;
     }
 
@@ -130,8 +123,7 @@ class Lesson
      *
      * @return User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
@@ -141,8 +133,7 @@ class Lesson
      * @param  User $user
      * @return Lesson
      */
-    public function setUser($user)
-    {
+    public function setUser($user) {
         $this->user = $user;
 
         return $this;

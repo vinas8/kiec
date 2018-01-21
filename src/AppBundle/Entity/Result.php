@@ -67,8 +67,7 @@ class Result
      * @param StudentInfo $studentInfo
      * @param User $user
      */
-    public function __construct(Activity $activity = null, StudentInfo $studentInfo = null, User $user)
-    {
+    public function __construct(Activity $activity = null, StudentInfo $studentInfo = null, User $user) {
         $this->setActivity($activity);
         $this->setStudentInfo($studentInfo);
         $this->setUser($user);
@@ -81,8 +80,7 @@ class Result
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -93,8 +91,7 @@ class Result
      *
      * @return Result
      */
-    public function setValue($value)
-    {
+    public function setValue($value) {
         $this->value = $value;
 
         return $this;
@@ -105,8 +102,7 @@ class Result
      *
      * @return float
      */
-    public function getValue()
-    {
+    public function getValue() {
         return $this->value;
     }
 
@@ -117,8 +113,7 @@ class Result
      *
      * @return Result
      */
-    public function setTimestamp($timestamp)
-    {
+    public function setTimestamp($timestamp) {
         $this->timestamp = $timestamp;
 
         return $this;
@@ -129,8 +124,7 @@ class Result
      *
      * @return \DateTime
      */
-    public function getTimestamp()
-    {
+    public function getTimestamp() {
         return $this->timestamp;
     }
 
@@ -141,8 +135,7 @@ class Result
      *
      * @return Result
      */
-    public function setActivity($activity)
-    {
+    public function setActivity($activity) {
         $this->activity = $activity;
 
         return $this;
@@ -153,8 +146,7 @@ class Result
      *
      * @return int
      */
-    public function getActivity()
-    {
+    public function getActivity() {
         return $this->activity;
     }
 
@@ -165,8 +157,7 @@ class Result
      *
      * @return Result
      */
-    public function setStudentInfo($studentInfo)
-    {
+    public function setStudentInfo($studentInfo) {
         $this->studentInfo = $studentInfo;
 
         return $this;
@@ -177,24 +168,21 @@ class Result
      *
      * @return int
      */
-    public function getStudentInfo()
-    {
+    public function getStudentInfo() {
         return $this->studentInfo;
     }
 
     /**
      * @return object
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
     /**
      * @param object $user
      */
-    public function setUser($user)
-    {
+    public function setUser($user) {
         $this->user = $user;
     }
 }

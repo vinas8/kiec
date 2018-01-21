@@ -35,17 +35,15 @@ class ResultType extends AbstractType
     private $currentUser;
     private $activityList;
 
-    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService, ActivityService $activityService)
-    {
+    public function __construct(EntityManager $em, CurrentUserDataService $currentUserDataService, ActivityService $activityService) {
         $this->em = $em;
         $this->currentUser = $currentUserDataService->getUser();
         $this->activityList = $activityService->getActivityList();
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-//        $user = $this->currentUser->getMainStudentInfo()->getClassInfo()->getUser();
-//        dump($user);
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        //        $user = $this->currentUser->getMainStudentInfo()->getClassInfo()->getUser();
+        //        dump($user);
         $users = new ArrayCollection();
         $users->add($this->currentUser);
         foreach ($this->currentUser->getStudents() as $student) {
@@ -53,7 +51,6 @@ class ResultType extends AbstractType
                 $users->add($teacher);
             }
         }
-
 
 
         $builder->add('value', NumberType::class)
@@ -80,8 +77,7 @@ class ResultType extends AbstractType
             'view_timezone' => 'Europe/Vilnius'));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
                 'data_class' => Result::class,

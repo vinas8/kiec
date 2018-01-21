@@ -17,24 +17,21 @@ class ResultSet
     /**
      * ResultSet constructor.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->results = new ArrayCollection();
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getResults()
-    {
+    public function getResults() {
         return $this->results;
     }
 
     /**
      * @param ArrayCollection $results
      */
-    public function setResults($results)
-    {
+    public function setResults($results) {
         $this->results = $results;
     }
 }

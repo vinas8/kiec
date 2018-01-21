@@ -19,16 +19,14 @@ class StudentType extends AbstractType
 {
     private $currentUser;
 
-    public function __construct(CurrentUserDataService $currentUserDataService)
-    {
+    public function __construct(CurrentUserDataService $currentUserDataService) {
         $this->currentUser = $currentUserDataService->getUser();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('name')
             ->add('birthDate', DateType::class, array('widget' => 'single_text'))
             ->add('classInfo', EntityType::class, array(
@@ -41,15 +39,14 @@ class StudentType extends AbstractType
                 },
                 'choice_label' => 'name'));
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
-            'data_class' => StudentInfo::class
+                'data_class' => StudentInfo::class
             )
         );
     }

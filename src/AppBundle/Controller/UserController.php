@@ -11,8 +11,7 @@ class UserController extends Controller
     /**
      * @Route("/user/profile", name="user_profile")
      */
-    public function profileAction()
-    {
+    public function profileAction() {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         return $this->render('@App/User/profile.html.twig', array('user' => $user));
     }
