@@ -12,20 +12,14 @@ class ScheduleController extends Controller
      * @Route("/schedule", name="schedule")
      */
     public function indexAction() {
+        $classInfoService = $this->get('app.class_info_service');
         $user = $this->get('app.current_user_data_service')->getUser();
 
-        $has_classes = $this->classInfoService()->hasUserClasses($user);
+        $has_classes = $classInfoService->hasUserClasses($user);
 
         return $this->render('AppBundle:Schedule:index.html.twig', [
             'has_classes' => $has_classes,
-            'classes' => $has_classes ? $this->classInfoService()->getUserClasses($user) : null
+            'classes' => $has_classes ? $classInfoService->getUserClasses($user) : null
         ]);
-    }
-
-    /**
-     * @return ClassInfoService
-     */
-    public function classInfoService() {
-        return $this->get('app.class_info_service');
     }
 }

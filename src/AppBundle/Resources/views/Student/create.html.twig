@@ -6,64 +6,83 @@
     <h4 class="modal-title">Mokinio pridėjimas</h4>
 </div>
 <div class="modal-body">
-
-    <div class="nav-tabs-custom no-margin">
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="#tab_1" data-toggle="tab" aria-expanded="true">Vienas</a>
-            </li>
-            <li class="">
-                <a href="#tab_2" data-toggle="tab" aria-expanded="false">Keli iš karto</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div id="tab_1" class="tab-pane active">
-
-                <div class="form-group">
-                    <label>Vardas Pavardė</label>
-                    {{ form_widget(form.name, {attr: {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                    <label>Gimimo data</label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        {{ form_widget(form.birthDate, {attr: {'class': 'form-control pull-right datepicker'}}) }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Klasė</label>
-                    {{ form_widget(form.classInfo, {attr: {'class': 'form-control'}}) }}
-                </div>
-
+    <div class="form-group single-student">
+        <label>Vardas Pavardė</label>
+        {{ form_widget(form.name, {attr: {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group single-student">
+        <label>Gimimo data</label>
+        <div class="input-group date">
+            <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
             </div>
-            <div id="tab_2" class="tab-pane">
-
-            </div>
+            {{ form_widget(form.birthDate, {attr: {'class': 'form-control pull-right datepicker'}}) }}
         </div>
     </div>
-
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
-        <button type="submit" class="btn btn-success">Pridėti</button>
+    <div class="form-group">
+        <label>Klasė</label>
+        {{ form_widget(form.classInfo, {attr: {'class': 'form-control'}}) }}
     </div>
-    {{ form_end(form) }}
 
-    <script type="text/javascript">
-        $(function () {
-            $('.datepicker').datepicker({
-                autoclose: true,
-                format: 'yyyy-mm-dd',
-                language: 'lt'
-            });
+    <div class="form-group multiple-students" style="display: none">
+        <div class="form-group">
+            <label>Įklijuokite mokinių vardus</label>
+            <input type="text" id="student_names" maxlength="1000" class="form-control">
+        </div>
+    </div>
+</div>
 
-            $('.timepicker').timepicker({
-                showInputs: false,
-                minuteStep: 5,
-                showSeconds: false,
-                showMeridian: false,
-                defaultTime: '08:00'
-            });
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
+    <button type="submit" class="btn btn-success">Pridėti</button>
+    <button style="float: left" class="btn btn-warning">Keisti rėžimą</button>
+</div>
+{{ form_end(form) }}
+
+
+<script type="text/javascript">
+    $(function () {
+        var multipleStudentEnabled = false;
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            language: 'lt'
+        }).datepicker("setDate", "0");
+
+        $('.btn-warning').click(function (event) {
+            event.preventDefault();
+
+            multipleStudentEnabled = !multipleStudentEnabled;
+            $('.single-student').toggle();
+            $('.multiple-students').toggle();
+
         });
-    </script>
+
+        $('.btn-success').click(function (event) {
+            event.preventDefault();
+            var classInfo = $('#student_classInfo option:selected').text();
+            var url = '/students/create/';
+            var studentsNames = $("#student_names").val();
+
+
+            if (multipleStudentEnabled) {
+                console.log(studentsNames);
+
+                $.ajax({
+                    url: "/students/create",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        "studentsNames": studentsNames,
+                        "classInfo": classInfo
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+
+    });
+</script>

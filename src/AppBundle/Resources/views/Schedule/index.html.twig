@@ -24,12 +24,12 @@
     </div>
     <div class="row">
         <div class="col-md-5">
-            <div class="box box-default collapsed-box">
+            <div class="box box-default">
                 <div class="box-header with-border">
                     <i class="fa fa-calendar-plus-o"></i>
                     <h3 class="box-title">Pamokų planavimas</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
                     </div>
                 </div>
@@ -44,14 +44,14 @@
                         <div class="nav-tabs-custom no-margin">
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a href="#tab_1" data-toggle="tab" aria-expanded="true">Viena</a>
+                                    <a href="#tab_2" data-toggle="tab" aria-expanded="false">Pasikartojanti</a>
                                 </li>
                                 <li class="">
-                                    <a href="#tab_2" data-toggle="tab" aria-expanded="false">Pasikartojanti</a>
+                                    <a href="#tab_1" data-toggle="tab" aria-expanded="true">Viena</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div id="tab_1" class="tab-pane active">
+                                <div id="tab_1" class="tab-pane">
                                     <form action="{{ path('api_schedule_add') }}" role="form" method="post"
                                           class="schedule-from">
                                         <input type="hidden" name="type" value="single"/>
@@ -114,7 +114,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div id="tab_2" class="tab-pane">
+                                <div id="tab_2" class="tab-pane active">
                                     <form action="{{ path('api_schedule_add') }}" role="form" method="post"
                                           class="schedule-from">
                                         <input type="hidden" name="type" value="multiple"/>
@@ -123,7 +123,7 @@
                                             <select name="class" id="classinfo" class="form-control">
                                                 <option value="">Pasirinkite:</option>
                                                 {% for class in classes %}
-                                                    <option value="{{ class.id }}">{{ class.name }}</option>
+                                                    <option selected value="{{ class.id }}">{{ class.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>

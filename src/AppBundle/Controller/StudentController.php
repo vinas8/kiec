@@ -7,9 +7,11 @@ use AppBundle\Entity\StudentInfo;
 use AppBundle\Form\StudentType;
 use AppBundle\Entity\User;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -143,6 +145,32 @@ class StudentController extends Controller
                 "form" => $form->createView(),
             )
         );
+    }
+
+    /**
+     * @Route("/students/create", name="students_create")
+     * @Method("POST")
+     */
+    public function createMultipleAction(Request $request) {
+        //todo padaryt normaliai
+        $studentsNames = $request->get('studentsNames');
+        $classInfo = $this->getDoctrine()->getRepository('AppBundle:ClassInfo')->findOneBy(array('name' => $request->get('classInfo')));
+
+        $re = '/(?<=[0-9].)[[:upper:]].+?(?=\t\t)/u';
+        preg_match_all($re, $studentsNames, $studentsNames, PREG_SET_ORDER, 0);
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($studentsNames as $name) {
+            $studentInfo = new StudentInfo();
+
+            $studentInfo->setClassInfo($classInfo);
+            $studentInfo->setName($name[0]);
+            $em->persist($studentInfo);
+        }
+
+        $em->flush();
+        $this->addFlash('success', 'Mokiniai pridėti.');
+        return new JsonResponse(['success' => 'true']);
     }
 
     /**

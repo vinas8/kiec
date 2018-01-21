@@ -28,7 +28,7 @@ class StudentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('name')
-            ->add('birthDate', DateType::class, array('widget' => 'single_text'))
+            ->add('birthDate', DateType::class, array('widget' => 'single_text', 'required' => false, 'format' => 'yyyy-MM-dd', 'html5' => false    ))
             ->add('classInfo', EntityType::class, array(
                 'class' => ClassInfo::class,
                 'query_builder' => function (EntityRepository $er) {

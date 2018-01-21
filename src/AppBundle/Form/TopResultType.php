@@ -58,9 +58,11 @@ class TopResultType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'expanded' => true,
-                'multiple' => true
+                'multiple' => true,
             ))
-            ->add('maxResults', NumberType::class);
+            ->add('maxResults', NumberType::class, array(
+                'data' => 10
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver) {
