@@ -6,7 +6,6 @@ use AppBundle\Exception\LessonException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,20 +32,11 @@ class HomeController extends Controller
                         'Mokinys' => "ROLE_STUDENT",
                         'Mokytojas' => "ROLE_TEACHER",
                     )))
-                ->add('joinCode', TextType::class, array('required' => false))
                 ->getForm();
             $form->handleRequest($request);
             if ($form->isSubmitted()) {
                 if ($form->isValid()) {
-                    $role = $form['role']->getData();
-                    if ($this->get('app.current_user_data_service')->assignRole($role)) {
-                        if ($role == 'ROLE_STUDENT') {
-                            try {
-                                $this->get('app.student_info')->joinStudentWithUser($form['joinCode']->getData());
-                            } catch (\Exception $e) {
-                                var_dump($e);
-                            }
-                        }
+                    if ($this->get('app.current_user_data_service')->assignRole($form['role']->getData())) {
                         $this->addFlash('success', 'Rolė pakeista sėkmingai.');
                     } else {
                         $this->addFlash('danger', 'Neteisingai parinkta rolė');
