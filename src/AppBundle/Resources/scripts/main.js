@@ -28,6 +28,7 @@ function showList(showId) {
 
 
 $(function () {
+    $('input[type="date"]').attr('type','text');
     $('.datepicker').datepicker({
         autoclose: true,
         format: 'yyyy-mm-dd',
