@@ -7,13 +7,25 @@
     {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    <div class="form-group">
+    <div class="form-group role">
         <label>Pasirinkite rolę</label>
         {{ form_widget(form.role, {attr: {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group code">
+        <label>Įveskite mokytojo duotą prisijungimo kodą</label>
+        {{ form_widget(form.joinCode, {attr: {'class': 'form-control'}}) }}
     </div>
 
     <button type="submit" class="btn btn-success">Patvirtinti</button>
     {{ form_end(form) }}
 
 {% endblock %}
-
+{% block javascripts %}
+{{ parent() }}
+<script>
+    $( ".role" ).change(function() {
+        $('.code').toggle();
+    });
+</script>
+{% endblock %}
