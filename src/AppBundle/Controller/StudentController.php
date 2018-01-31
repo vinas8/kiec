@@ -23,6 +23,7 @@ class StudentController extends Controller
      * @Route("/student/view/{studentInfo}", name="student_view")
      */
     public function profileAction(StudentInfo $studentInfo = null) {
+        $showModal = false;
         if ($this->isGranted("ROLE_STUDENT")) {
             $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
             if ($studentInfo === null) {
@@ -31,6 +32,7 @@ class StudentController extends Controller
                 $user->setMainStudentInfo($this->get('app.student_info')->createStudentFromUser($user));
                 $userManager->updateUser($user);
                 $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
+                $showModal = true;
             }
         } else {
             if (!$studentInfo) {
@@ -54,7 +56,8 @@ class StudentController extends Controller
                 "student" => $studentInfo,
                 "activities" => $activities,
                 "bestResults" => $bestResults,
-                "allResults" => $allResults
+                "allResults" => $allResults,
+                "showModal" => $showModal
             ]
         );
     }

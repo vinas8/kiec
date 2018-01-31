@@ -31,7 +31,7 @@
                     </div>
                     {% if is_granted("ROLE_STUDENT") %}
                         <div class="box-footer">
-                            <a href="{{ path('student_join') }}" class="btn btn-danger btn-xs modal-button">
+                            <a href="{{ path('student_join') }}" class="btn btn-danger btn-xs modal-button student-join">
                                 <span class="fa fa-refresh" style="margin-right: 5px"></span>Prisijungti prie mokytojo
                             </a>
                         </div>
@@ -173,7 +173,9 @@
     <script type="text/javascript">
         $(function () {
             let lineChart = null;
-
+            if ({{ showModal }}) {
+                $('.student-join')[0].click();
+            }
             function drawChart(objChart, data, deter) {
                 if (lineChart != null) {
                     lineChart.destroy();
