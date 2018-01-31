@@ -173,7 +173,7 @@
     <script type="text/javascript">
         $(function () {
             let lineChart = null;
-            if ({{ showModal }}) {
+            if ({{ showModal|default('false') }}) {
                 $('.student-join')[0].click();
             }
             function drawChart(objChart, data, deter) {
