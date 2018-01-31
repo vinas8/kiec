@@ -52,6 +52,8 @@ class RegistrationController extends FOSController
 
                 if ($role[0] === 'ROLE_STUDENT') {
                     $user->setMainStudentInfo($this->get('app.student_info')->createStudentFromUser($user));
+                    $session = $this->get('session');
+                    $session->set('showModal', true);
                 }
                 $userManager->updateUser($user);
 

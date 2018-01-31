@@ -23,7 +23,7 @@ class StudentController extends Controller
      * @Route("/student/view/{studentInfo}", name="student_view")
      */
     public function profileAction(StudentInfo $studentInfo = null) {
-        $showModal = false;
+        $session = $this->get('session');
         if ($this->isGranted("ROLE_STUDENT")) {
             $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
             if ($studentInfo === null) {
@@ -32,7 +32,7 @@ class StudentController extends Controller
                 $user->setMainStudentInfo($this->get('app.student_info')->createStudentFromUser($user));
                 $userManager->updateUser($user);
                 $studentInfo = $this->getCurrentUser()->getMainStudentInfo();
-                $showModal = true;
+                $session->set('showModal', true);
             }
         } else {
             if (!$studentInfo) {
@@ -57,7 +57,7 @@ class StudentController extends Controller
                 "activities" => $activities,
                 "bestResults" => $bestResults,
                 "allResults" => $allResults,
-                "showModal" => $showModal
+                "showModal" => $session->get('showModal')
             ]
         );
     }
@@ -188,6 +188,8 @@ class StudentController extends Controller
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 if ($this->get('app.student_info')->joinStudentWithUser($form['joinCode']->getData())) {
+                    $session = $this->get('session');
+                    $session->set('showModal', false);
                     $this->addFlash('success', 'Prisijungta sėkmingai.');
                 } else {
                     $this->addFlash('danger', 'Neteisingas kodas arba mokinys jau yra prijungtas.');
